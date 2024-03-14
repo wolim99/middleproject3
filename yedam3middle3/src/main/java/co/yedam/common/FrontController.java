@@ -23,6 +23,17 @@ public class FrontController extends HttpServlet{
 			// TODO Auto-generated method stub
 			controls.put("/main.do", new MainControl());
 			controls.put("/test.do", new TestControl());
+			
+			//메인페이지 컨트롤
+			
+			//제품 컨트롤
+			
+			//회원 컨트롤
+			
+			//주문 컨트롤
+			
+			//마이페이지 컨트롤
+			
 		}
 	
 	@Override
