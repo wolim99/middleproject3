@@ -12,6 +12,7 @@
 
 	<typeAliases>
 		<!-- <typeAlias alias="search" type="co.yedam.common.SearchVO"/> 타입 별칭지정 -->
+		<typeAlias alias="qna" type="co.yedam.my.Qna"/>		
 	</typeAliases>
 
 	<environments default="development">
@@ -28,6 +29,7 @@
 	
 	<mappers>
 	  <!-- <mapper resource="co/yedam/board/mapper/BoardMapper.xml"/> Mapper경로지정 -->
+	  <mapper resource="co/yedam/my/MyMapper.xml"/>
 	</mappers>
   
 </configuration>
