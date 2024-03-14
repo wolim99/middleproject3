@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.yedam.main.EventControl;
+import co.yedam.main.EventListControl;
+
 public class FrontController extends HttpServlet{
 //	Map타입으로 url과 실행할 클래스.
 	Map<String, Control> controls;
@@ -25,7 +28,8 @@ public class FrontController extends HttpServlet{
 			controls.put("/test.do", new TestControl());
 			
 			//메인페이지 컨트롤
-			
+			controls.put("/eventList.do", new EventListControl());
+			controls.put("/event.do", new EventControl());
 			//제품 컨트롤
 			
 			//회원 컨트롤
