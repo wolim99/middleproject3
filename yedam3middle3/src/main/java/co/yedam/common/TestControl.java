@@ -13,7 +13,7 @@ public class TestControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		String path = "board/test.tiles";
+		String path = "dak/test.tiles";
 		RequestDispatcher dispatch = req.getRequestDispatcher(path);//
 		dispatch.forward(req, resp);
 	}

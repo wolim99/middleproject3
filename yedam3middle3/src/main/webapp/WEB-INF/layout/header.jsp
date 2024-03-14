@@ -114,3 +114,5 @@
             </div>
         </div>
         <!-- Modal Search End -->
+        
+        <div class="container-fluid page-header"></div>

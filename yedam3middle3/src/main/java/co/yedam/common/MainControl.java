@@ -13,7 +13,7 @@ public class MainControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String path = "board/main.tiles";
+		String path = "dak/main.tiles";
 		RequestDispatcher dispatch = req.getRequestDispatcher(path);//
 		dispatch.forward(req, resp);
 	}
