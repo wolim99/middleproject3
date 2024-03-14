@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.yedam.order.DetailPageControl;
+
+
+
 public class FrontController extends HttpServlet{
 //	Map타입으로 url과 실행할 클래스.
 	Map<String, Control> controls;
@@ -31,7 +35,7 @@ public class FrontController extends HttpServlet{
 			//회원 컨트롤
 			
 			//주문 컨트롤
-			
+			controls.put("/detailPage.do", new DetailPageControl());
 			//마이페이지 컨트롤
 			
 		}

@@ -28,6 +28,7 @@
 	
 	<mappers>
 	  <!-- <mapper resource="co/yedam/board/mapper/BoardMapper.xml"/> Mapper경로지정 -->
+	  <mapper resource="co/yedam/order/OrderMapper.xml"/>
 	</mappers>
   
 </configuration>
