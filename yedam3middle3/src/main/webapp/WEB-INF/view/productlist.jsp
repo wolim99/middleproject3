@@ -193,11 +193,11 @@
                                	.then((resolve) => resolve.json())
 								.then((result) => {
 									result.forEach((item,idx) => {
-										console.log(item);
+										console.log('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">');
 										$('.product-item').append(	
 										$('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
 												$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">').append(
-														$('<img src="static/img/'+item.pimg+'" class="img-fluid w-100 rounded-top" alt="">'))
+														$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
 														, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.ptype)
 														,$('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
 																$('<h4 />').text(item.prodBrand),$('<p />').text(item.prodName),$('<div class="d-flex justify-content-between flex-lg-wrap">').append(
