@@ -22,6 +22,8 @@ import co.yedam.order.DetailPageControl;
 import co.yedam.my.QnaControl;
 import co.yedam.my.QnaMainControl;
 
+import co.yedam.product.control.PListControl;
+import co.yedam.product.control.ProductListControl;
 
 public class FrontController extends HttpServlet{
 //	Map타입으로 url과 실행할 클래스.
@@ -41,7 +43,8 @@ public class FrontController extends HttpServlet{
 			controls.put("/eventList.do", new EventListControl());
 			controls.put("/event.do", new EventControl());
 			//제품 컨트롤
-			
+			controls.put("/plist.do", new PListControl());
+			controls.put("/productList.do", new ProductListControl());
 			//회원 컨트롤
 			
 			   // 회원관련.
