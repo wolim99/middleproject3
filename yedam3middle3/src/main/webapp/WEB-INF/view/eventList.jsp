@@ -20,7 +20,7 @@
 							<div class="rounded position-relative fruite-item">
 								<div class="fruite-img">
 									<a href="event.do?event=1"> 
-									<img src="static/img/main/eventIcon1-1.jpg" class="img-fluid w-100 rounded-top" alt="">
+									<img src="static/img/main/eventIcon1.jpg" class="img-fluid w-100 rounded-top" alt="">
 									</a>
 								</div>
 							</div>
