@@ -10,27 +10,27 @@
 	</div>
 	<div class="owl-carousel eventBanner-carousel">
 		<div>
-			<a href=""> <img src="static/img/main/eventBanner1.jpg"
+			<a href="event.do?event=1"> <img src="static/img/main/eventBanner1-2.jpg"
 				style="width: 100%; height: auto;" alt="">
 			</a>
 		</div>
 		<div>
-			<a href=""> <img src="static/img/main/eventBanner2.jpg"
+			<a href="event.do?event=2"> <img src="static/img/main/eventBanner2.jpg"
 				style="width: 100%; height: auto;" alt="">
 			</a>
 		</div>
 		<div>
-			<a href=""> <img src="static/img/main/eventBanner3.jpg"
+			<a href="event.do?event=3"> <img src="static/img/main/eventBanner3.jpg"
 				style="width: 100%; height: auto;" alt="">
 			</a>
 		</div>
 		<div>
-			<a href=""> <img src="static/img/main/eventBanner4.jpg"
+			<a href="event.do?event=4"> <img src="static/img/main/eventBanner4.jpg"
 				style="width: 100%; height: auto;" alt="">
 			</a>
 		</div>
 		<div>
-			<a href=""> <img src="static/img/main/eventBanner5.jpg"
+			<a href="event.do?event=5"> <img src="static/img/main/eventBanner5.jpg"
 				style="width: 100%; height: auto;" alt="">
 			</a>
 		</div>
