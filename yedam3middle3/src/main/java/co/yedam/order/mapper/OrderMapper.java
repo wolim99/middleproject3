@@ -1,5 +1,7 @@
 package co.yedam.order.mapper;
 
-public interface OrderMapper {
+import co.yedam.order.Product;
 
+public interface OrderMapper {
+	Product selectProd(Product product);
 }

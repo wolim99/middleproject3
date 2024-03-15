@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.order.DetailPageControl;
+import co.yedam.order.OrderPageControl;
 
 
 
@@ -36,6 +37,7 @@ public class FrontController extends HttpServlet{
 			
 			//주문 컨트롤
 			controls.put("/detailPage.do", new DetailPageControl());
+			controls.put("/orderPage.do", new OrderPageControl());
 			//마이페이지 컨트롤
 			
 		}

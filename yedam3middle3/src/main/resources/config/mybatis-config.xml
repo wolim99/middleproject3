@@ -12,6 +12,7 @@
 
 	<typeAliases>
 		<!-- <typeAlias alias="search" type="co.yedam.common.SearchVO"/> 타입 별칭지정 -->
+		<typeAlias alias="product" type="co.yedam.order.Product"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -28,7 +29,7 @@
 	
 	<mappers>
 	  <!-- <mapper resource="co/yedam/board/mapper/BoardMapper.xml"/> Mapper경로지정 -->
-	  <mapper resource="co/yedam/order/OrderMapper.xml"/>
+	  <mapper resource="co/yedam/order/mapper/OrderMapper.xml"/>
 	</mappers>
   
 </configuration>

@@ -1,5 +1,7 @@
 package co.yedam.order.service;
 
-public interface OrderService {
+import co.yedam.order.Product;
 
+public interface OrderService {
+	Product searchProd(Product product);
 }
