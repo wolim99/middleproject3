@@ -7,7 +7,7 @@
                 <div class="p-5 bg-light rounded">
                     <div class="row g-4">
                         <div style="text-align: left;">
-                            <button type="button"  class="btn border border-secondary rounded-pill px-3 text-primary">
+                            <button type="button" onClick="history.go(-1)" class="btn border border-secondary rounded-pill px-3 text-primary">
                                 <span>←</span>
                             </button>
                         </div>
