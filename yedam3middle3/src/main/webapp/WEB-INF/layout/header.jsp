@@ -60,7 +60,6 @@
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
                     <a href="main.do" class="navbar-brand"><h1 class="text-primary display-6">닭가슴살</h1></a>
-                    <a href="main.do" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
@@ -84,8 +83,8 @@
                                     <a href="404.html" class="dropdown-item">404 Page</a>
                                 </div>
                             </div> -->
-                            </div>
                             <a href="eventList.do" class="nav-item nav-link">이벤트</a>
+                            </div>
                         </div>
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
