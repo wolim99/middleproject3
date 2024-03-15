@@ -5,5 +5,7 @@ import java.util.List;
 import co.yedam.member.Member;
 
 public interface MemberService {
-	boolean loginCheck(Member member);
+	Member loginCheck(Member member);
+	
+	boolean insertMember(Member member);
 }

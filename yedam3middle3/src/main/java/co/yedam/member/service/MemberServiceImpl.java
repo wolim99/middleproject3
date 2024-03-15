@@ -14,8 +14,12 @@ public class MemberServiceImpl implements MemberService {
 	MemberMapper mapper = session.getMapper(MemberMapper.class);
 
 	@Override
-	public boolean loginCheck(Member member) {
+	public Member loginCheck(Member member) {
 		return mapper.selectMember(member);
 	}
 
+	@Override
+	public boolean insertMember(Member member) {
+		return mapper.insertMember(member) == 1;
+	}
 }

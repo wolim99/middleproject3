@@ -16,7 +16,7 @@ public class LogoutControl implements Control {
 		HttpSession session = req.getSession();
 		session.invalidate(); // 세션값을 초기화
 		
-		String path = "WEB-INF/view/loginForm.jsp";
+		String path = "dak/loginForm.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 	}
 }
