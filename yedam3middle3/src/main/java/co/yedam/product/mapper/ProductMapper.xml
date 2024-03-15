@@ -10,4 +10,12 @@
   		FROM products
   	</select>
   	
+  	<select id="searchProduct" parameterType="String" resultType="product">
+  		SELECT *
+  		FROM products
+  		WHERE ${cond} = #{param}
+  	</select>
+  	
+  	
+  	
   </mapper>

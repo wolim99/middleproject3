@@ -5,11 +5,11 @@
         <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">전체 상품 조회</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
+            <!-- <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Pages</a></li>
                 <li class="breadcrumb-item active text-white">Shop</li>
-            </ol>
+            </ol> -->
         </div>
         <!-- Single Page Header End -->
 
@@ -88,27 +88,27 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4>Additional</h4>
+                                        <div class="mb-3 brandCk">
+                                            <h4>브랜드</h4>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                                <label for="Categories-1"> Organic</label>
+                                                <label for="Categories-1">허닭</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                                <label for="Categories-2"> Fresh</label>
+                                                <label for="Categories-2">프레시지</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                                <label for="Categories-3"> Sales</label>
+                                                <label for="Categories-3">발재반점</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                                <label for="Categories-4"> Discount</label>
+                                                <label for="Categories-4">Discount</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                                <label for="Categories-5"> Expired</label>
+                                                <label for="Categories-5">Expired</label>
                                             </div>
                                         </div>
                                     </div>
@@ -189,24 +189,66 @@
                                 <div class="row g-4 justify-content-center product-item">
                                 
                                <script>
-                               	fetch('plist.do')
-                               	.then((resolve) => resolve.json())
-								.then((result) => {
-									result.forEach((item,idx) => {
-										console.log('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">');
-										$('.product-item').append(	
-										$('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
-												$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">').append(
-														$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
-														, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.ptype)
-														,$('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
-																$('<h4 />').text(item.prodBrand),$('<p />').text(item.prodName),$('<div class="d-flex justify-content-between flex-lg-wrap">').append(
-																		$('<p />').text(item.prodPrice + '원'),$('<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>카트에 담기</a>')))
-														)
-													)
-												)										
-									})
+                                let param = "허닭";
+                                let cond = "prod_brand"; //=>prod_brand='프레시지'
+                                $('.brandCk').on('change', 'input', function (e) {
+									console.log($(this).next().text());
+									param = $(this).next().text();
+									showlist();
 								})
+                               
+                                /* fetch('conlist.do',{ */
+                                console.log(param);
+                                function showlist() {
+                                	$('.product-item').html('');
+                                
+                                $.ajax({
+						            url: 'conlist.do',
+						            method: 'post',
+						            data: { cond: cond, param: param}, 
+						            dataType: 'json',
+						            success: function (result) { 
+						            	console.log(result);
+						            	result.forEach((item,idx) => {
+											console.log('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">');
+											let realPrice = 0;
+											let salePer = '';
+											console.log(item.prodSale);
+											if(item.prodSale != 0){
+												realPrice = item.prodPrice - (Math.round(item.prodPrice*item.prodSale/100)*100);
+												salePer = Math.ceil(item.prodSale*100) + '%';
+												console.log(item.prodSale*100);
+												console.log(salePer);
+											}else{
+												realPrice = item.prodPrice
+											}
+											$('.product-item').append(	
+											$('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
+													$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
+															.append(
+															$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
+															,$('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+															,$('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
+																	/* $('<h4 />').text(item.prodBrand) */$('<p />').text('['+item.prodBrand+']'+item.prodName).css({'height':'48px'})
+																	,$('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+																			$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+																					$('<dt />').append($('<h3 />').text(salePer).css({'color': 'red'}).css({'margin': '8px 0px'}))
+																					,$('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({'margin': '0px'})
+																							,$('<span />').append($('<h5 />').text(realPrice + '원').css({'margin': '0px'}))).css({'margin-left': '8px'})
+																					).css({'margin': '0px'})
+																			,$('<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
+															)
+														)
+													)										
+										})
+						            },
+						            error: function (err) { 
+						                console.log('error=> ' + err);
+						            }
+						        });
+                                }
+                                showlist();
+                               	
                                </script>
                                 <!-- 
                                     <div class="col-md-6 col-lg-6 col-xl-4">

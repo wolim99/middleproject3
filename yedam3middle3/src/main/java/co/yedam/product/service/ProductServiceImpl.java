@@ -19,4 +19,11 @@ public class ProductServiceImpl implements ProductService{
 		return mapper.selectProduct();
 	}
 
+	@Override
+	public List<Product> conList(String cond, String param) {
+		// TODO Auto-generated method stub
+		return mapper.searchProduct(cond, param);
+	}
+
+
 }

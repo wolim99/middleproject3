@@ -6,4 +6,6 @@ import co.yedam.product.Product;
 
 public interface ProductService {
 	List<Product> productList();
+	
+	List<Product> conList(String cond, String param);
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.yedam.product.control.ConListControl;
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductListControl;
 
@@ -32,6 +33,7 @@ public class FrontController extends HttpServlet{
 			//제품 컨트롤
 			controls.put("/plist.do", new PListControl());
 			controls.put("/productList.do", new ProductListControl());
+			controls.put("/conlist.do", new ConListControl());
 			//회원 컨트롤
 			
 			//주문 컨트롤
