@@ -18,8 +18,8 @@ public class LoginControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String id = req.getParameter("id");
-		String pw = req.getParameter("pw");
+		String id = req.getParameter("memId");
+		String pw = req.getParameter("memPw");
 		System.out.println(req.getParameter("id"));
 		System.out.println(id);
 		
