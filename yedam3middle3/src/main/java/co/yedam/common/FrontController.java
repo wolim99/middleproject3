@@ -17,6 +17,9 @@ import co.yedam.member.control.LoginForm;
 import co.yedam.member.control.LogoutControl;
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
+import co.yedam.order.DetailPageControl;
+
+
 
 public class FrontController extends HttpServlet{
 //	Map타입으로 url과 실행할 클래스.
@@ -49,6 +52,8 @@ public class FrontController extends HttpServlet{
 			   controls.put("/addMemberForm.do", new AddMemberForm());
             //주문 컨트롤
 			
+			//주문 컨트롤
+			controls.put("/detailPage.do", new DetailPageControl());
 			//마이페이지 컨트롤
 			
 		}
