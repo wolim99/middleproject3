@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.yedam.member.control.AddMemberControl;
+import co.yedam.member.control.AddMemberForm;
+import co.yedam.member.control.LoginControl;
+import co.yedam.member.control.LoginForm;
+import co.yedam.member.control.LogoutControl;
+
 public class FrontController extends HttpServlet{
 //	Map타입으로 url과 실행할 클래스.
 	Map<String, Control> controls;
@@ -30,7 +36,15 @@ public class FrontController extends HttpServlet{
 			
 			//회원 컨트롤
 			
-			//주문 컨트롤
+			   // 회원관련.
+			   controls.put("/loginForm.do", new LoginForm());
+			   controls.put("/login.do", new LoginControl());
+			   controls.put("/logout.do", new LogoutControl());
+			
+			   // 회원등록
+			   controls.put("/addMember.do", new AddMemberControl());
+			   controls.put("/addMemberForm.do", new AddMemberForm());
+            //주문 컨트롤
 			
 			//마이페이지 컨트롤
 			
