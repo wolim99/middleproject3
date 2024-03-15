@@ -1,0 +1,16 @@
+DROP TABLE reviews;
+DROP TABLE orderlists;
+DROP TABLE orders;
+DROP TABLE carts;
+DROP TABLE inquiries;
+DROP TABLE products;
+DROP TABLE members;
+DROP SEQUENCE car_seq;
+DROP SEQUENCE inq_seq;
+DROP SEQUENCE list_seq;
+DROP SEQUENCE mem_seq;
+DROP SEQUENCE ord_seq;
+DROP SEQUENCE pro_seq;
+DROP SEQUENCE rev_seq;
+
+commit;
