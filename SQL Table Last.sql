@@ -24,7 +24,7 @@ CREATE SEQUENCE car_seq
     
 CREATE SEQUENCE inq_seq
     INCREMENT BY 1
-    START WITH 1;   
+    START WITH 1;    
 
 CREATE TABLE products (
 	prod_no	number(10) DEFAULT pro_seq.nextval,
