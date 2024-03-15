@@ -12,6 +12,10 @@
 
 	<typeAliases>
 		<!-- <typeAlias alias="search" type="co.yedam.common.SearchVO"/> 타입 별칭지정 -->
+		<typeAlias alias="qna" type="co.yedam.my.Qna"/>		
+		<typeAlias alias="member" type="co.yedam.my.Member"/>		
+		<typeAlias alias="reply" type="co.yedam.my.Reply"/>		
+		<typeAlias alias="product" type="co.yedam.order.Product"/>
 	<typeAlias alias="member" type="co.yedam.member.Member"/>
 	<typeAlias alias="qna" type="co.yedam.my.Qna"/>		
 	<typeAlias alias="product" type="co.yedam.product.Product"/>
@@ -31,6 +35,7 @@
 	
 	<mappers>
 	  <!-- <mapper resource="co/yedam/board/mapper/BoardMapper.xml"/> Mapper경로지정 -->
+	  <mapper resource="co/yedam/order/mapper/OrderMapper.xml"/>
 	  <mapper resource="co/yedam/member/mapper/MemberMapper.xml"/>
 	  <mapper resource="co/yedam/order/OrderMapper.xml"/>
 	  <mapper resource="co/yedam/my/MyMapper.xml"/>

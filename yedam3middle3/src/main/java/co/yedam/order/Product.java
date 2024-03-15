@@ -18,4 +18,5 @@ public class Product {
 	private int prodStock;
 	private int prodOrdnt;	
 	
+	
 }

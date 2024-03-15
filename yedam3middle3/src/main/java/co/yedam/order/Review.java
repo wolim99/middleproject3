@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 public class Review {
-	private int rNo;
-	private int rStar;
-	private String rContent;
-	private Date rDate;
-	private int mNo;
-	private int pNo;
-	private int lNo;
+	private int revNo;
+	private int revStar;
+	private String revContent;
+	private Date revDate;
+	private int memNo;
+	private int prodNo;
+	private int listNo;
 }

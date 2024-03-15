@@ -10,18 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.yedam.my.LoginControl;
+import co.yedam.my.LoginForm;
+import co.yedam.my.LogoutControl;
+import co.yedam.my.MemberUpdateControl;
+import co.yedam.my.MyPageControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.CartProduct;
-import co.yedam.member.control.LoginControl;
-import co.yedam.member.control.LoginForm;
-import co.yedam.member.control.LogoutControl;
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
 import co.yedam.order.DetailPageControl;
+import co.yedam.order.OrderPageControl;
 
 import co.yedam.my.QnaControl;
+import co.yedam.my.QnaDetailControl;
 import co.yedam.my.QnaMainControl;
+import co.yedam.my.orderListControl;
 
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductListControl;
@@ -64,9 +69,20 @@ public class FrontController extends HttpServlet{
 			
 			//주문 컨트롤
 			controls.put("/detailPage.do", new DetailPageControl());
+			controls.put("/orderPage.do", new OrderPageControl());
 			//마이페이지 컨트롤
 			controls.put("/qna.do", new QnaControl());
-			controls.put("/qnaMain.do", new QnaMainControl());
+			controls.put("/qnaMain.do", new QnaMainControl()); // qna목록 페이지.
+			controls.put("/qnaDetail.do", new QnaDetailControl()); // qna 상세 페이지.
+			
+			controls.put("/myPage.do", new MyPageControl()); // mypage 목록 페이지.
+			controls.put("/memberUpdate.do", new MemberUpdateControl()); // 회원정보 수정 페이지.
+			controls.put("/orderList.do", new orderListControl()); // 주문 목록 페이지.
+			
+			controls.put("/login.do", new LoginControl()); // 로그인처리
+			controls.put("/loginForm.do", new LoginForm()); // 로그인창 테스트용
+			controls.put("/logout.do", new LogoutControl()); // 로그아웃 테스트용
+			
 		}
 	
 	@Override

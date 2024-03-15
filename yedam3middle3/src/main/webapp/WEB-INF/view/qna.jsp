@@ -37,17 +37,18 @@
 	background-color: #ddd;
 }
 </style>
-
-<h3>1:1 문의</h3>
+<div class="container-fluid page-header py-5">
+	<h1 class="text-center text-white display-6">1:1 문의 게시판</h1>
+</div>
 <div id="show">
 	<table class="table" id="tableList">
 		<thead>
 			<tr>
 				<th>글번호</th>
 				<th>카테고리</th>
-				<th>내용</th>
+				<th>제목</th>
 				<th>답변</th>
-				<th>회원번호</th>
+				<th>작성일자</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -70,15 +71,11 @@ fetch('qna.do')
 		$('<tr />').append(
 			$('<td />').text(item.inqNo),
 			$('<td />').text(item.inqType),
-			$('<td />').text(item.inqContent),
+			$('<td />').append($('<a href="qnaDetail.do?inqNo='+item.inqNo+'" />').text(item.inqTitle)),
 			$('<td />').text(item.inqResp),
-			$('<td />').text(item.memNo)
+			$('<td />').text(item.inqDate)
 		).appendTo($('tbody'));
 	})
-	
-	// 데이터.
-	
-
 })
 .catch(err => console.log(err,"errrrrrrrrrr"));
 	
