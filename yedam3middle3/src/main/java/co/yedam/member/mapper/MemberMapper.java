@@ -9,5 +9,5 @@ public interface MemberMapper {
 	
 	int insertMember(Member member);
 
-	boolean selectMember(Member member);
+	Member selectMember(Member member);
 }

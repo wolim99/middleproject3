@@ -28,8 +28,9 @@ public class LoginControl implements Control {
 		member.setMemPw(pw);
 		
 		MemberService bvc = new MemberServiceImpl();
+		member = bvc.loginCheck(member);
 		
-		if(!bvc.loginCheck(member)) { // 아이디, 비번 => 로그인 정상
+		if(member != null) { // 아이디, 비번 => 로그인 정상
 			HttpSession session = req.getSession(); // 사용자별로 다른 세션값
 			session.setAttribute("logid", id); // 세션의 attribute를 활용
 			session.setAttribute("logName", member.getMemName());
