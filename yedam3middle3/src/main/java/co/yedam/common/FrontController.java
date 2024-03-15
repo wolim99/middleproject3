@@ -19,6 +19,8 @@ import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
 import co.yedam.order.DetailPageControl;
 
+import co.yedam.my.QnaControl;
+import co.yedam.my.QnaMainControl;
 
 
 public class FrontController extends HttpServlet{
@@ -55,7 +57,8 @@ public class FrontController extends HttpServlet{
 			//주문 컨트롤
 			controls.put("/detailPage.do", new DetailPageControl());
 			//마이페이지 컨트롤
-			
+			controls.put("/qna.do", new QnaControl());
+			controls.put("/qnaMain.do", new QnaMainControl());
 		}
 	
 	@Override
