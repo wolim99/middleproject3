@@ -13,7 +13,7 @@
   	<select id="searchProduct" parameterType="String" resultType="product">
   		SELECT *
   		FROM products
-  		WHERE ${cond} = #{param}
+  		WHERE ${cond} = ${param}
   	</select>
   	
   	

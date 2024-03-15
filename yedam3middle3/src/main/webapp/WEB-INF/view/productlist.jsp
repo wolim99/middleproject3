@@ -92,19 +92,19 @@
                                             <h4>브랜드</h4>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                                <label for="Categories-1">허닭</label>
+                                                <label for="Categories-1">전체</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                                <label for="Categories-2">프레시지</label>
+                                                <label for="Categories-2">허닭</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                                <label for="Categories-3">발재반점</label>
+                                                <label for="Categories-3">프레시지</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                                <label for="Categories-4">Discount</label>
+                                                <label for="Categories-4">발재반점</label>
                                             </div>
                                             <div class="mb-2">
                                                 <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
@@ -189,11 +189,15 @@
                                 <div class="row g-4 justify-content-center product-item">
                                 
                                <script>
-                                let param = "허닭";
+                                let param = "'허닭'";
                                 let cond = "prod_brand"; //=>prod_brand='프레시지'
                                 $('.brandCk').on('change', 'input', function (e) {
 									console.log($(this).next().text());
-									param = $(this).next().text();
+									param = "'"+$(this).next().text()+"'"
+									console.log(param == "'전체'");
+									if(param == "'전체'"){
+										param = "prod_brand"
+									}
 									showlist();
 								})
                                
@@ -210,15 +214,11 @@
 						            success: function (result) { 
 						            	console.log(result);
 						            	result.forEach((item,idx) => {
-											console.log('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">');
 											let realPrice = 0;
 											let salePer = '';
-											console.log(item.prodSale);
 											if(item.prodSale != 0){
 												realPrice = item.prodPrice - (Math.round(item.prodPrice*item.prodSale/100)*100);
 												salePer = Math.ceil(item.prodSale*100) + '%';
-												console.log(item.prodSale*100);
-												console.log(salePer);
 											}else{
 												realPrice = item.prodPrice
 											}
