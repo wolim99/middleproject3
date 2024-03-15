@@ -12,6 +12,8 @@ public class AddMemberForm implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
+		String path = "dak/addMemberForm.tiles";
+		req.getRequestDispatcher(path).forward(req, resp);
 	}
 }
