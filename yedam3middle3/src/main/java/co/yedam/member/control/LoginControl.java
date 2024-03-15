@@ -37,8 +37,8 @@ public class LoginControl implements Control {
 			
 			resp.sendRedirect("main.do");
 		} else {
-			req.setAttribute("message", "아이디와 비번을 확인 하세요");
-			String path ="WEB-INF/view/loginForm.jsp";
+			req.setAttribute("message", "아이디와 비번을 다시한번 확인 해주세요");
+			String path ="dak/loginForm.tiles";
 			req.getRequestDispatcher(path).forward(req, resp);
 		}
 	}

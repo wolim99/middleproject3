@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
+import co.yedam.member.control.CartProduct;
 import co.yedam.member.control.LoginControl;
 import co.yedam.member.control.LoginForm;
 import co.yedam.member.control.LogoutControl;
@@ -43,10 +44,16 @@ public class FrontController extends HttpServlet{
 			
 			   // 회원등록
 			   controls.put("/addMember.do", new AddMemberControl());
-			   controls.put("/addMemberForm.do", new AddMemberForm());
+			   controls.put("/addMemberForm.do", new AddMemberForm()); 
+			   
+			   // 장바구니
+			   controls.put("/cartProduct.do", new CartProduct());
+			   
             //주문 컨트롤
 			
 			//마이페이지 컨트롤
+			  
+			   
 			
 		}
 	

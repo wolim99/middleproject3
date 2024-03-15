@@ -20,6 +20,7 @@
     <tr>
       <td colspan="2" align="center">
         <button type="submit" class="btn btn-primary">로그인</button>
+        <button class="btn btn-primary">신규회원가입</button>
       </td>
     </tr>
   </table>
