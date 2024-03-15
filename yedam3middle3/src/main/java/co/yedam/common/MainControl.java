@@ -11,7 +11,6 @@ public class MainControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		String path = "dak/main.tiles";
 		RequestDispatcher dispatch = req.getRequestDispatcher(path);//
