@@ -81,10 +81,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4 class="mb-2">Price</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                            <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                        <div class="mb-3 priceCk">
+                                            <h4 class="mb-2">가격</h4>
+                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="1000" max="10000" step="1000" value="0" oninput="amount.value=rangeInput.value">
+                                            <output id="amount" name="amount" min-value="1000" max-value="10000" for="rangeInput">1000</output>원 이하
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -193,27 +193,44 @@
                                 let cond = "prod_brand"; //=>prod_brand='프레시지'
                                 $('.brandCk').on('change', 'input', function (e) {
 									console.log($(this).next().text());
-									param = "'"+$(this).next().text()+"'"
-									console.log(param == "'전체'");
-									if(param == "'전체'"){
-										param = "prod_brand"
+									//param = "'"+$(this).next().text()+"'"
+									param = $(this).next().text();
+									//console.log(param == "전체");
+									//console.log(param);
+									if(param == "전체"){
+										//param = "prod_brand"
+										showlist();
+									}else{
+										showlist('prodBrand', param);
 									}
-									showlist();
+								})
+								$('.priceCk').on('change', 'input', function (e) {
+									console.log($(this).next().text());
+									//param = "'"+$(this).next().text()+"'"
+									param = $(this).next().text();
+									//console.log(param == "전체");
+									console.log(param);
+									
+									showlist('prodPrice', param);
+									
 								})
                                
                                 /* fetch('conlist.do',{ */
                                 console.log(param);
-                                function showlist() {
+                                function showlist(cond, val) {
                                 	$('.product-item').html('');
                                 
                                 $.ajax({
-						            url: 'conlist.do',
+						            //url: 'conlist.do',
+						            url: 'plist.do',
 						            method: 'post',
 						            data: { cond: cond, param: param}, 
 						            dataType: 'json',
 						            success: function (result) { 
 						            	console.log(result);
 						            	result.forEach((item,idx) => {
+						            	
+						            		if(item[cond] === val || item[cond] < val){
 											let realPrice = 0;
 											let salePer = '';
 											if(item.prodSale != 0){
@@ -239,7 +256,8 @@
 																			,$('<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
 															)
 														)
-													)										
+													)
+						            		}
 										})
 						            },
 						            error: function (err) { 
