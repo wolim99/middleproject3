@@ -12,5 +12,6 @@ public interface ProductMapper {
 	//조건조회
 	List<Product> searchProduct(@Param("brand") String brand
 			, @Param("type") String type
-			, @Param("price") int price);
+			, @Param("price") int price
+			, @Param("keyword") String keyword);
 }

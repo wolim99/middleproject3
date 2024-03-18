@@ -23,6 +23,9 @@
   		<if test="price != null and price != 0">
     		AND prod_price <![CDATA[<=]]> ${price}
   		</if>
+  		<if test="keyword != null and !keyword.equals('')">
+    		AND prod_name like #{keyword}
+  		</if>
   	</select>
   	
   	

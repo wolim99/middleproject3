@@ -23,8 +23,8 @@
                         <div class="row g-4">
                             <div class="col-xl-3">
                                 <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                                    <input type="search" class="form-control p-3 searchCk" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <span id="search-icon-1" class="input-group-text p-3 searchBtn"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
                             <div class="col-6 listhead"></div>
@@ -125,6 +125,12 @@
                                 let brand = null;
                                 let type = null;
                                 let price = 10000;
+                                let keyword = '';
+                                $('.searchBtn').on('click', function (e) {
+                                	keyword = "%"+$('.searchCk').val()+"%";
+                                	console.log(keyword);
+                                	showlist(brand, type, price, keyword);
+								})
                                 $('.brandCk').on('change', 'input', function (e) {
 									console.log($(this).next().text());
 									//param = "'"+$(this).next().text()+"'"
@@ -136,7 +142,7 @@
 										brand = 'prod_brand';
 									}
 										console.log(brand);
-									showlist(brand, type, price);
+									showlist(brand, type, price, keyword);
 								})
 								
 								$('.typeCk').on('change', 'input', function (e) {
@@ -147,7 +153,7 @@
 										type = 'prod_type';
 									}
 										console.log(type);
-									showlist(brand, type, price);
+									showlist(brand, type, price, keyword);
 								})
 								
 								$('.priceCk').on('change', 'input', function (e) {
@@ -155,7 +161,7 @@
 									price = $(this).next().text();
 									console.log(price);
 									
-									showlist(brand, type, price);
+									showlist(brand, type, price, keyword);
 									
 								})
                                
@@ -167,7 +173,7 @@
 						            url: 'conlist.do',
 						            //url: 'plist.do',
 						            method: 'post',
-						            data: {brand: brand, type: type, price: price}, 
+						            data: {brand: brand, type: type, price: price, keyword: keyword}, 
 						            dataType: 'json',
 						            success: function (result) { 
 						            	console.log(result);
@@ -212,7 +218,7 @@
 						            }
 						        });
                                 }
-                                showlist(null, null, price);
+                                showlist(null, null, price, keyword);
                                	
                                </script>
                                 <!-- 

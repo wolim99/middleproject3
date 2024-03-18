@@ -23,10 +23,11 @@ public class ConListControl implements Control {
 		String brand = req.getParameter("brand");
 		String type = req.getParameter("type");
 		String price = req.getParameter("price");
-		
+		String keyword = req.getParameter("keyword");
+		System.out.println("1: "+keyword);
 		resp.setContentType("text/json;charset=utf-8");
 		ProductService svc = new ProductServiceImpl();
-		List<Product> list = svc.conList(brand, type, Integer.parseInt(price));
+		List<Product> list = svc.conList(brand, type, Integer.parseInt(price), keyword);
 		
 		Gson gson = new GsonBuilder().create();
 		
