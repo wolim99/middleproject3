@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.yedam.my.mapper.MyMapper">
+
+	<select id="qnaList" resultType="qna">	<!-- qna 리스트 -->
+		select inq_no,
+		       inq_type,
+		       inq_title,
+		       inq_content,
+		       inq_date,
+		       inq_resp,
+		       mem_no
+		from inquiries
+	</select>
+	
+	<select id="selectQna" resultType="qna" parameterType="int"> <!-- qna 세부내용 -->
+		select inq_no,
+		       inq_title,
+		       inq_content,
+		       inq_date,
+		       mem_no
+		from inquiries
+		where inq_no = #{inqNo}
+	</select>
+	
+	<select id="orderList" resultType="co.yedam.my.OrderList">	<!-- 구매내역 리스트 -->
+		<!-- select list_no,
+		       list_quant,
+		       prod_no,
+		       ord_no
+		from orderlists -->
+		select p.prod_name,
+       p.prod_price,
+       o.list_quant
+from orderlists o JOIN products p on (o.prod_no = p.prod_no)
+	</select>
+	
+	<select id="selectMember" parameterType="member">
+		select mem_no,
+		       mem_id,
+		       mem_pw,
+		       mem_name,
+		       mem_phone,
+		       mem_mail,
+		       mem_addr,
+		       mem_point
+		from members
+		where mem_id = #{memId}
+		and   mem_pw = #{memPw}
+	</select>
+	
+	<update id="updateMember" parameterType="member">
+		update members
+	    set mem_pw = #{memPw},
+        mem_phone = #{memPhone},
+        mem_mail = #{memMail},
+        mem_addr = #{memAddr}
+        where mem_no = #{memNo}
+	</update>
+	
+	<delete id="deleteMember" parameterType="int">
+		delete members
+		where mem_no = #{mno}
+	</delete>
+
+</mapper>

@@ -1,13 +1,10 @@
 package co.yedam;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import co.yedam.common.DataSource;
-import co.yedam.my.MyMapper;
 import co.yedam.my.Qna;
+import co.yedam.my.mapper.MyMapper;
 
 public class MapperTest {
 	public static void main(String[] args) {

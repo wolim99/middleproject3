@@ -10,4 +10,24 @@
   		FROM products
   	</select>
   	
+  	<select id="searchProduct" parameterType="String" resultType="product">
+  		SELECT *
+  		FROM products
+  		WHERE prod_no = prod_no
+  		<if test="brand != null and !brand.equals('')">
+    		AND prod_brand = ${brand}
+  		</if>
+  		<if test="type != null and !type.equals('')">
+    		AND prod_type like ${type}
+  		</if>
+  		<if test="price != null and price != 0">
+    		AND prod_price <![CDATA[<=]]> ${price}
+  		</if>
+  		<if test="keyword != null and !keyword.equals('')">
+    		AND prod_name like #{keyword}
+  		</if>
+  	</select>
+  	
+  	
+  	
   </mapper>

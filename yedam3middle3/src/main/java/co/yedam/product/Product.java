@@ -11,7 +11,7 @@ public class Product {
 	private String prodBrand;
 	private int prodPrice;
 	private String prodType;
-	private int prodSale;
+	private double prodSale;
 	private String prodFrom;
 	private Date prodDate;
 	private int prodStock;

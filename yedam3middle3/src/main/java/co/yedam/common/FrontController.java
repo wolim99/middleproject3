@@ -10,28 +10,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
-import co.yedam.order.control.DetailPageControl;
-import co.yedam.order.control.OrderPageControl;
-=======
+import co.yedam.main.EventControl;
+import co.yedam.main.EventListControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.CartProduct;
 import co.yedam.member.control.LoginControl;
 import co.yedam.member.control.LoginForm;
 import co.yedam.member.control.LogoutControl;
-import co.yedam.main.EventControl;
-import co.yedam.main.EventListControl;
-import co.yedam.order.DetailPageControl;
-import co.yedam.order.OrderPageControl;
->>>>>>> refs/heads/master
-
-<<<<<<< HEAD
-public class FrontController extends HttpServlet {
-=======
-import co.yedam.my.QnaControl;
-import co.yedam.my.QnaMainControl;
-
+import co.yedam.my.control.QnaControl;
+import co.yedam.my.control.QnaMainControl;
+import co.yedam.order.control.DetailPageControl;
+import co.yedam.order.control.OrderPageControl;
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductListControl;
 
@@ -41,25 +31,6 @@ public class FrontController extends HttpServlet{
 
 	public FrontController() {
 		controls = new HashMap<>();
-	}
-
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		controls.put("/main.do", new MainControl());
-		controls.put("/test.do", new TestControl());
-
-		// 메인페이지 컨트롤
-
-		// 제품 컨트롤
-
-		// 회원 컨트롤
-
-		// 주문 컨트롤
-		controls.put("/detailPage.do", new DetailPageControl());
-		controls.put("/orderPage.do", new OrderPageControl());
-		// 마이페이지 컨트롤
-
 	}
 
 		public void init(ServletConfig config) throws ServletException {

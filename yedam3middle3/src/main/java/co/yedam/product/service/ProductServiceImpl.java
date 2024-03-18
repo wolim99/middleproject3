@@ -19,4 +19,12 @@ public class ProductServiceImpl implements ProductService{
 		return mapper.selectProduct();
 	}
 
+	@Override
+	public List<Product> conList(String brand, String type, int price, String keyword) {
+		// TODO Auto-generated method stub
+		System.out.println("2: "+keyword);
+		return mapper.searchProduct(brand, type, price, keyword);
+	}
+
+
 }
