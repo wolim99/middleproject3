@@ -1,4 +1,4 @@
-package co.yedam.my;
+package co.yedam.my.control;
 
 import java.io.IOException;
 
@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import co.yedam.common.Control;
+import co.yedam.my.Member;
+import co.yedam.my.service.MyService;
+import co.yedam.my.service.MyServiceImpl;
 
 public class LoginControl implements Control {
 

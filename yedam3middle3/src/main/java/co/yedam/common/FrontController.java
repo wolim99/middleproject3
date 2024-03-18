@@ -11,11 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.product.control.ConListControl;
-import co.yedam.my.LoginControl;
-import co.yedam.my.LoginForm;
-import co.yedam.my.LogoutControl;
-import co.yedam.my.MemberUpdateControl;
-import co.yedam.my.MyPageControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.CartProduct;
@@ -23,12 +18,15 @@ import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
 import co.yedam.order.DetailPageControl;
 import co.yedam.order.OrderPageControl;
-
-import co.yedam.my.QnaControl;
-import co.yedam.my.QnaDetailControl;
-import co.yedam.my.QnaMainControl;
-import co.yedam.my.orderListControl;
-
+import co.yedam.my.control.LoginControl;
+import co.yedam.my.control.LoginForm;
+import co.yedam.my.control.LogoutControl;
+import co.yedam.my.control.MemberUpdateControl;
+import co.yedam.my.control.MyPageControl;
+import co.yedam.my.control.QnaControl;
+import co.yedam.my.control.QnaDetailControl;
+import co.yedam.my.control.QnaMainControl;
+import co.yedam.my.control.orderListControl;
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductListControl;
 

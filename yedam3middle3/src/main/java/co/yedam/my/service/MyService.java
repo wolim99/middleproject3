@@ -1,6 +1,9 @@
-package co.yedam.my;
+package co.yedam.my.service;
 
 import java.util.List;
+
+import co.yedam.my.Member;
+import co.yedam.my.Qna;
 
 public interface MyService {
 	// 1:1문의글 리스트 .

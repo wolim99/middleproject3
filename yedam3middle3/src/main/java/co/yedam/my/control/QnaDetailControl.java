@@ -1,4 +1,4 @@
-package co.yedam.my;
+package co.yedam.my.control;
 
 import java.io.IOException;
 
@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.common.Control;
+import co.yedam.my.Qna;
+import co.yedam.my.service.MyService;
+import co.yedam.my.service.MyServiceImpl;
 
 
 public class QnaDetailControl implements Control {

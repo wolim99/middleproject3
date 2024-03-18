@@ -1,4 +1,4 @@
-package co.yedam.my;
+package co.yedam.my.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.common.DataSource;
+import co.yedam.my.Member;
+import co.yedam.my.Qna;
+import co.yedam.my.mapper.MyMapper;
 
 // 업무로직을 담고 있는 프로세스.
 // 데이터처리는 mapper 기능.

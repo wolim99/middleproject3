@@ -1,6 +1,9 @@
-package co.yedam.my;
+package co.yedam.my.mapper;
 
 import java.util.List;
+
+import co.yedam.my.Member;
+import co.yedam.my.Qna;
 
 public interface MyMapper {
 	
