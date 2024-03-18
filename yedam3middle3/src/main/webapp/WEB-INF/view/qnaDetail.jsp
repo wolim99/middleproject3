@@ -27,7 +27,7 @@
 		</tr>
 		<tr>
 			<td colspan="4" align="center"><c:choose>
-					<c:when test="${board.writer eq logid }">
+					<c:when test="${qna.memNo eq logMemNo }">
 						<button type="submit" class="btn btn-primary">수정</button>
 						<button type="button" class="btn btn-warning"
 							onclick="removeFunc()">삭제</button>

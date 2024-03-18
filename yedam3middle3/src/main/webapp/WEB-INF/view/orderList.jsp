@@ -1,3 +1,4 @@
+<%@page import="co.yedam.product.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
                                     </div>
                                 </th>
                                 <td>
-                                    <p class="mb-0 mt-4">Big Banana</p>
+                                    <p class="mb-0 mt-4">${product.prodName }</p>
                                 </td>
                                 <td>
                                     <p class="mb-0 mt-4">2.99 $</p>
@@ -164,3 +165,26 @@
             </div>
         </div>
         <!-- Cart Page End -->	
+<script>
+fetch('orderL.do')
+.then(resolve => resolve.json())
+.then(result => {
+	console.log(result);
+	result.forEach(item => {
+		console.log(item);
+	})
+	
+	$(result).each((idx, item, ary) => {
+		console.log(item.listNo)
+		$('<tr />').append(
+			$('<td />').text(item.listNo),
+			$('<td />').text(item.listQuant),
+			$('<td />').text(item.prodNo),
+			$('<td />').text(item.ordNo)
+		).appendTo($('tbody'));
+	})		
+})
+.catch(err => console.log(err,"errrrrrrrrrr"));
+
+
+</script>

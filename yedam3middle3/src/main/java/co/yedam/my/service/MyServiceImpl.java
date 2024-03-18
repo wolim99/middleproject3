@@ -6,7 +6,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.common.DataSource;
-import co.yedam.my.Member;
+import co.yedam.member.Member;
+import co.yedam.my.OrderList;
 import co.yedam.my.Qna;
 import co.yedam.my.mapper.MyMapper;
 
@@ -23,13 +24,30 @@ public class MyServiceImpl implements MyService {
 		return mapper.qnaList();
 	}
 	
+	
 	@Override
 	public Qna getQna(int inqNo) {
 		return mapper.selectQna(inqNo);
 	}
 	
 	@Override
+	public List<OrderList> orderList() {
+		return mapper.orderList();
+	}
+	
+	@Override
 	public Member loginCheck(Member member) {
 		return mapper.selectMember(member);
 	}
+	
+	@Override
+	public Member modifyMember(Member member) {
+		return mapper.updateMember(member);
+	}
+	
+	@Override
+	public boolean removeMember(int mno) {
+		return mapper.deleteMember(mno) == 1;
+	}
+
 }

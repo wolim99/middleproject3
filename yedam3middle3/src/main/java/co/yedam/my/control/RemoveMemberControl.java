@@ -7,14 +7,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.common.Control;
+import co.yedam.my.service.MyService;
+import co.yedam.my.service.MyServiceImpl;
 
-public class LoginForm implements Control {
+public class RemoveMemberControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String path = "dak/loginForm.tiles";
-		req.getRequestDispatcher(path).forward(req, resp);
+		String mno = req.getParameter("mno");
+		
+		MyService svc = new MyServiceImpl();
+		
+		if (svc.removeMember(Integer.parseInt(mno))) {
+			resp.sendRedirect("main.do");
+		} else {
+			System.out.println("오류발생");
+		}
 	}
 
 }

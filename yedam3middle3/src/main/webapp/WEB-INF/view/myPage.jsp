@@ -46,7 +46,7 @@
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="#"><i class="fas fa-apple-alt me-2"></i>회원 탈퇴</a>
+												<a href="removeForm.do"><i class="fas fa-apple-alt me-2"></i>회원 탈퇴</a>
 											</div>
 										</li>
 									</ul>
@@ -59,8 +59,8 @@
 						<div class="row g-4 justify-content-center">
 							<div class="p-4 border border-secondary">
 								<c:choose>
-									<c:when test="${!empty logId }">
-										<h4>${logName }님</h4>
+									<c:when test="${!empty logid }">
+										<h4>${logName }님 (회원번호 ${logMemNo })</h4>
 										<a href="memberUpdate.do"
 									class="btn border rounded-pill px-2 text-primary"> 정보 수정</a>
 									</c:when>
@@ -134,12 +134,29 @@ fetch('qna.do')
 			$('<td />').text(item.inqTitle),
 			$('<td />').text(item.inqType)
 		).appendTo($('#tableList2 tbody'));
-	})
-	
-	// 데이터.
-	
-
+	})		
 })
 .catch(err => console.log(err,"errrrrrrrrrr"));
+
+fetch('orderL.do')
+.then(resolve => resolve.json())
+.then(result => {
+	console.log(result);
+	result.forEach(item => {
+		console.log(item);
+	})
 	
+	$(result).each((idx, item, ary) => {
+		console.log(item.listNo)
+		$('<tr />').append(
+			$('<td />').text(item.listNo),
+			$('<td />').text(item.listQuant),
+			$('<td />').text(item.prodNo),
+			$('<td />').text(item.ordNo)
+		).appendTo($('#tableList tbody'));
+	})		
+})
+.catch(err => console.log(err,"errrrrrrrrrr"));
 </script>
+
+

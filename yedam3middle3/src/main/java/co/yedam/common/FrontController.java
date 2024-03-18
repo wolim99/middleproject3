@@ -14,18 +14,22 @@ import co.yedam.product.control.ConListControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.CartProduct;
+import co.yedam.member.control.LoginControl;
+import co.yedam.member.control.LoginForm;
+import co.yedam.member.control.LogoutControl;
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
 import co.yedam.order.DetailPageControl;
 import co.yedam.order.OrderPageControl;
-import co.yedam.my.control.LoginControl;
-import co.yedam.my.control.LoginForm;
-import co.yedam.my.control.LogoutControl;
 import co.yedam.my.control.MemberUpdateControl;
+import co.yedam.my.control.ModifyMemberControl;
 import co.yedam.my.control.MyPageControl;
 import co.yedam.my.control.QnaControl;
 import co.yedam.my.control.QnaDetailControl;
 import co.yedam.my.control.QnaMainControl;
+import co.yedam.my.control.RemoveForm;
+import co.yedam.my.control.RemoveMemberControl;
+import co.yedam.my.control.orderLControl;
 import co.yedam.my.control.orderListControl;
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductListControl;
@@ -71,16 +75,20 @@ public class FrontController extends HttpServlet{
 			controls.put("/detailPage.do", new DetailPageControl());
 			controls.put("/orderPage.do", new OrderPageControl());
 			//마이페이지 컨트롤
+			controls.put("/myPage.do", new MyPageControl()); // mypage 목록 페이지.
+			
 			controls.put("/qna.do", new QnaControl());
 			controls.put("/qnaMain.do", new QnaMainControl()); // qna목록 페이지.
 			controls.put("/qnaDetail.do", new QnaDetailControl()); // qna 상세 페이지.
 			
-			controls.put("/myPage.do", new MyPageControl()); // mypage 목록 페이지.
 			controls.put("/memberUpdate.do", new MemberUpdateControl()); // 회원정보 수정 페이지.
-			controls.put("/orderList.do", new orderListControl()); // 주문 목록 페이지.
+			controls.put("/modifyMember.do", new ModifyMemberControl()); // 회원정보 수정.
+			controls.put("/removeForm.do", new RemoveForm()); // 회원정보 삭제 페이지.
+			controls.put("/removeMember.do", new RemoveMemberControl()); // 회원정보 삭제.
 			
-			controls.put("/login.do", new LoginControl()); // 로그인처리
-			controls.put("/loginForm.do", new LoginForm()); // 로그인창 테스트용
+			controls.put("/orderList.do", new orderListControl()); // 주문 목록 페이지.
+			controls.put("/orderL.do", new orderLControl()); //
+			
 			controls.put("/logout.do", new LogoutControl()); // 로그아웃 테스트용
 			
 		}
