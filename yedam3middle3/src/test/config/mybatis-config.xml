@@ -39,7 +39,6 @@
 	  <!-- <mapper resource="co/yedam/order/OrderMapper.xml"/> -->
 	  <mapper resource="co/yedam/my/MyMapper.xml"/>
 	  <mapper resource="co/yedam/product/mapper/ProductMapper.xml"/>
-	  <mapper resource="co/yedam/main/mapper/MainProductsMapper.xml"/>
 	</mappers>
   
 </configuration>

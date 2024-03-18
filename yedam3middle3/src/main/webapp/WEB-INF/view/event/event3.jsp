@@ -12,7 +12,7 @@
                             </button>
                         </div>
                         <div class="text-center mx-auto" style="max-width: 700px;">
-                            <p class="mb-4"> [이벤트][네네치킨] 네네치킨 오트밀 스테이크 얼리버드 특가!!!</p>
+                            <p class="mb-4"> [이벤트][포르미푸드] 포르미 도시락과 든든하게 관리해봄!</p>
                         </div>
                         <div class="col-12">
                             <img src="static/img/main/eventContent3.jpg" width="100%" height="auto">
@@ -23,58 +23,56 @@
                 </div>
             </div>
         </div>
-        <div class="container py-5 fruite p-5 bg-light rounded">
+        <div id="event" class="container py-5 fruite p-5 bg-light rounded">
             <div class="col-lg-12" style="text-align: right;">
-                <div class="row g-5 justify-content-center">
-                    <div class="col-md-6 col-lg-6 col-xl-4">
-                        <div class="rounded position-relative fruite-item">
-                            <div class="fruite-img">
-                                <img src="static/img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                <h4>Grapes</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-4">
-                        <div class="rounded position-relative fruite-item">
-                            <div class="fruite-img">
-                                <img src="static/img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                <h4>Grapes</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-4">
-                        <div class="rounded position-relative fruite-item">
-                            <div class="fruite-img">
-                                <img src="static/img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                <h4>Raspberries</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="list" class="row g-5 justify-content-center">
+
                 </div>
             </div>
         </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            function showlist(order, pos) {
+                console.log(order)
+                $.ajax({
+                    url: 'mainProducts.do',
+                    method: 'post',
+                    data: { order: order },
+                    dataType: 'json'
+                }).done(function (result) {
+                    console.log(result);
+                    result.forEach((item, idx) => {
+                        let realPrice = 0;
+                        let salePer = '';
+                        if (item.prodSale != 0) {
+                            realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
+                            salePer = Math.ceil(item.prodSale * 100) + '%';
+                        } else {
+                            realPrice = item.prodPrice
+                        }
+                        $('#' + pos + ' #list').append(
+                            $('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
+                                $('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
+                                    .append(
+                                        $('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
+                                    , $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+                                    , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
+                                        $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px' })
+                                        , $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+                                            $('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+                                                $('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
+                                                , $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px' })
+                                                    , $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
+                                            ).css({ 'margin': '0px' })
+                                            , $('<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+                                )
+                            )
+                        )
+                    })
+                }).fail(function (err) {
+                    console.log(err);
+                });
+            }
+            showlist('prod_ordcnt', 'event');
+        </script>
         <!-- Content End -->

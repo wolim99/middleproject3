@@ -52,15 +52,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6 col-lg-6 col-xl-4">
-							<div class="rounded position-relative fruite-item">
-								<div class="fruite-img">
-									<a href="event.do?event=5"> 
-									<img src="static/img/main/eventIcon5.jpg"class="img-fluid w-100 rounded-top" alt="">
-									</a>
-								</div>
-							</div>
-						</div>
 						<div class="col-12">
 							<div class="pagination d-flex justify-content-center mt-5">
 								<a href="#" class="rounded">&laquo;</a> <a href="#"

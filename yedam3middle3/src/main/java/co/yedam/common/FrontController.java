@@ -21,6 +21,7 @@ import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.CartProduct;
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
+import co.yedam.main.MainProductsControl;
 import co.yedam.order.DetailPageControl;
 import co.yedam.order.OrderPageControl;
 
@@ -49,6 +50,7 @@ public class FrontController extends HttpServlet{
 			//메인페이지 컨트롤
 			controls.put("/eventList.do", new EventListControl());
 			controls.put("/event.do", new EventControl());
+			controls.put("/mainProducts.do", new MainProductsControl());
 			//제품 컨트롤
 			controls.put("/plist.do", new PListControl());
 			controls.put("/productList.do", new ProductListControl());
