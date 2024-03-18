@@ -12,7 +12,8 @@
 
 	<typeAliases>
 		<!-- <typeAlias alias="search" type="co.yedam.common.SearchVO"/> 타입 별칭지정 -->
-		<typeAlias alias="product" type="co.yedam.order.Product"/>
+		<typeAlias alias="product1" type="co.yedam.order.Product"/>
+		<typeAlias alias="review1" type="co.yedam.order.Review"/>
 	</typeAliases>
 
 	<environments default="development">
