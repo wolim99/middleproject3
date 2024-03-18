@@ -13,7 +13,16 @@
   	<select id="searchProduct" parameterType="String" resultType="product">
   		SELECT *
   		FROM products
-  		WHERE ${cond} = ${param}
+  		WHERE prod_no = prod_no
+  		<if test="brand != null and !brand.equals('')">
+    		AND prod_brand = ${brand}
+  		</if>
+  		<if test="type != null and !type.equals('')">
+    		AND prod_type like ${type}
+  		</if>
+  		<if test="price != null and price != 0">
+    		AND prod_price <![CDATA[<=]]> ${price}
+  		</if>
   	</select>
   	
   	

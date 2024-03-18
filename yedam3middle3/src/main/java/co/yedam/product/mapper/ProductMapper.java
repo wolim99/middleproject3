@@ -10,5 +10,7 @@ public interface ProductMapper {
 	//전체조회
 	List<Product> selectProduct();
 	//조건조회
-	List<Product> searchProduct(@Param("cond") String cond, @Param("param") String param);
+	List<Product> searchProduct(@Param("brand") String brand
+			, @Param("type") String type
+			, @Param("price") int price);
 }
