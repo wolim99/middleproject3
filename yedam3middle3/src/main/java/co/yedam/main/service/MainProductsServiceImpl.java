@@ -15,5 +15,9 @@ public class MainProductsServiceImpl implements MainProductsService{
 	public List<Product> list(String order) {
 		return mapper.prodList(order);
 	}
+	@Override
+	public List<Product> Rlsit() {
+		return mapper.randomList();
+	}
 
 }

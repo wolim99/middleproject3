@@ -31,12 +31,10 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function showlist(order, pos) {
-            console.log(order)
+        function showlist(pos) {
+            console.log(pos)
             $.ajax({
-                url: 'mainProducts.do',
-                method: 'post',
-                data: { order: order },
+                url: 'randProd.do',
                 dataType: 'json'
             }).done(function (result) {
                 console.log(result);
@@ -72,6 +70,6 @@
                 console.log(err);
             });
         }
-        showlist('prod_ordcnt', 'event');
+        showlist('event');
     </script>
     <!-- Content End -->

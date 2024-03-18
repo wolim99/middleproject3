@@ -11,5 +11,11 @@
         	order by #{order} desc)
  		where 4 >= rn 
 	</select>
-
+	<select id="randomList"  resultType="product">
+select * from (
+    select * from products order by DBMS_RANDOM.RANDOM
+)
+where   4>=rownum
+ 		
+	</select>
 </mapper>

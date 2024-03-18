@@ -6,4 +6,5 @@ import co.yedam.product.Product;
 
 public interface MainProductsService {
 	List<Product> list(String order);
+	List<Product> Rlsit();
 }
