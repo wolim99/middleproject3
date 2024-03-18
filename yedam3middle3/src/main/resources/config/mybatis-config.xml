@@ -13,10 +13,13 @@
 
 	<typeAliases>
 		<!-- <typeAlias alias="search" type="co.yedam.common.SearchVO"/> 타입 별칭지정 -->
-		<typeAlias alias="qna" type="co.yedam.my.Qna"/>		
+		<typeAlias alias="product1" type="co.yedam.order.Product"/>
+		<typeAlias alias="review1" type="co.yedam.order.Review"/>
+		<typeAlias alias="product" type="co.yedam.order.Product"/>
+	    <typeAlias alias="member" type="co.yedam.member.Member"/>
+	    <typeAlias alias="qna" type="co.yedam.my.Qna"/>		
+	    <typeAlias alias="product" type="co.yedam.product.Product"/>
 		<typeAlias alias="reply" type="co.yedam.my.Reply"/>		
-		<typeAlias alias="member" type="co.yedam.member.Member"/>
-		<typeAlias alias="product" type="co.yedam.product.Product"/>
 		<!-- <typeAlias alias="member" type="co.yedam.my.Member"/>-->		
 		<!-- <typeAlias alias="product" type="co.yedam.order.Product"/> -->
 	</typeAliases>

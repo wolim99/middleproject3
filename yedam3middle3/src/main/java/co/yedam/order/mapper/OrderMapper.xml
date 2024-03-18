@@ -4,15 +4,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.order.mapper.OrderMapper">
 
-	<select id="selectProd" resultType="product">
+	<select id="selectProd" resultType="product1">
 		select prod_name, prod_price, prod_brand, prod_from, prod_img
 		from   products
 		where  prod_no = #{prodNo}
 	</select>
-	<select id="selectRev">
-		select rev_star, rev_content, 
+	<select id="selectRev1" resultType="_float">
+		select round(AVG(rev_star),1) 
 		from   reviews
-		where  mem_no = #{memNo}
+		where  prod_no = #{prodNo}
+	</select>
+	<select id="selectRev2" resultType="int">
+		select count(rev_no) 
+		from   reviews
+		where  prod_no = #{prodNo}
+	</select>
+	<select id="reviewList" resultType="review1" parameterType="int">
+		select rev_star, rev_content, rev_date, mem_no
+		from   reviews
+		where  prod_no = #{prodNo}
 	</select>
 
 </mapper>
