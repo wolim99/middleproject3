@@ -1,4 +1,4 @@
-package co.yedam.my;
+package co.yedam.my.control;
 
 import java.io.IOException;
 
@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.common.Control;
 
-public class MyPageControl implements Control {
+public class QnaMainControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
 
-		String path = "dak/myPage.tiles";
+		String path = "dak/qna.tiles";
 		RequestDispatcher dispatch = req.getRequestDispatcher(path);
 		dispatch.forward(req, resp);
-	}
 
+	}
 }

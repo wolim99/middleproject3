@@ -52,7 +52,7 @@
                         <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
                     </div>
                     <div class="top-link pe-2">
-                        <a href="#" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
+                        <a href="loginForm.do" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
                         <a href="#" class="text-white"><small class="text-white mx-2">회원가입</small></a>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
+                            <a href="myPage.do" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
                         </div>
