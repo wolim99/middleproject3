@@ -25,6 +25,9 @@ public class AddCart implements Control {
 	
 	// 장바구니에 기존 상품이 있는지 확인
 	//int count = MemberService.countCart(cart.getProdNo(), id);
+
+	// 없으면 추가
 	
+	// 있으면 update
 	}
 }
