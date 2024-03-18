@@ -22,6 +22,7 @@ public class AddMemberControl implements Control {
 		String Phone = req.getParameter("memPhone");
 		String Mail = req.getParameter("memMail");
 		String Addr = req.getParameter("memAddr");
+		
 		System.out.println(id);
 		System.out.println(pw);
 		System.out.println(name);
@@ -38,6 +39,7 @@ public class AddMemberControl implements Control {
 		member.setMemAddr(Addr);
 		
 		MemberService mvc = new MemberServiceImpl();
+		
 		if(mvc.insertMember(member)) {
 			// 등록 성공시
 			resp.sendRedirect("main.do");
