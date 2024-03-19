@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.common.DataSource;
-import co.yedam.order.Product;
+import co.yedam.member.Member;
+import co.yedam.order.Review;
 import co.yedam.order.mapper.OrderMapper;
+import co.yedam.product.Product;
 
 public class OrderServiceImpl implements OrderService{
 	
@@ -14,8 +16,43 @@ public class OrderServiceImpl implements OrderService{
 	//마이바티스
 	OrderMapper mapper = session.getMapper(OrderMapper.class);
 	
+	//상세페이지 서비스
+	
+	//제품 데이터
 	@Override
 	public Product searchProd(Product product) {
 		return mapper.selectProd(product);
 	}
+	//리뷰 평점
+	@Override
+	public float searchRev1(int prodNo) {
+		return mapper.selectRev1(prodNo);
+	}
+	//리뷰 개수
+	@Override
+	public int searchRev2(int prodNo) {
+		return mapper.selectRev2(prodNo);
+	}
+	//리뷰 리스트
+	@Override
+	public List<Review> reviewList(Review review) {
+		return mapper.reviewList(review);
+	}
+	
+	//주문페이지 서비스
+	
+	//사용자 주소
+	@Override
+	public String selectBasicAddr(String memName) {
+		return mapper.selectBasicAddr(memName);
+	}
+	//배송지 저장
+	@Override
+	public Boolean updateAddr(Member member) {
+		if(mapper.updateAddr(member)) {
+			return true;
+		}
+		return false;
+	}
+	
 }

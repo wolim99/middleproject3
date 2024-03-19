@@ -3,16 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.order.mapper.OrderMapper">
-
+	<!-- 제품 데이터 -->
 	<select id="selectProd" resultType="product">
 		select prod_name, prod_price, prod_brand, prod_from, prod_img
 		from   products
 		where  prod_no = #{prodNo}
 	</select>
-	<select id="selectRev">
-		select rev_star, rev_content, 
+	<!-- 리뷰 평점 -->
+	<select id="selectRev1" resultType="_float">
+		select round(AVG(rev_star),1) 
 		from   reviews
-		where  mem_no = #{memNo}
+		where  prod_no = #{prodNo}
 	</select>
+	<!-- 리뷰 개수 -->
+	<select id="selectRev2" resultType="int">
+		select count(rev_no) 
+		from   reviews
+		where  prod_no = #{prodNo}
+	</select>
+	<!-- 리뷰 리스트 -->
+	<select id="reviewList" resultType="review" parameterType="int">
+		select rev_star, rev_content, rev_date, mem_no
+		from   reviews
+		where  prod_no = #{prodNo}
+	</select>
+	<!-- 기본배송지 -->
+	<select id="selectBasicAddr" resultType="String" parameterType="String">
+		select mem_addr
+		from members
+		where mem_name = #{memName}
+	</select>
+	<!-- 배송지추가 -->
+	<update id="updateAddr" parameterType="member">
+		update members
+		set mem_addr = #{memAddr}
+		where mem_name = #{memName}
+	</update>
+	
 
 </mapper>
