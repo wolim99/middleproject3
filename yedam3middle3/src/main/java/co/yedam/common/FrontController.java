@@ -34,6 +34,7 @@ import co.yedam.order.DetailPageControl;
 import co.yedam.order.OrderPageControl;
 import co.yedam.product.control.ConListControl;
 import co.yedam.product.control.PListControl;
+import co.yedam.product.control.ProductCountControl;
 import co.yedam.product.control.ProductListControl;
 
 public class FrontController extends HttpServlet {
@@ -59,6 +60,7 @@ public class FrontController extends HttpServlet {
 		controls.put("/plist.do", new PListControl());
 		controls.put("/productList.do", new ProductListControl());
 		controls.put("/conlist.do", new ConListControl());
+		controls.put("/productcount.do", new ProductCountControl());
 		// 회원 컨트롤
 
 		// 회원관련.

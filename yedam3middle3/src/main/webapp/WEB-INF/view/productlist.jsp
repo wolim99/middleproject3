@@ -4,7 +4,7 @@
     
         <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">전체 상품 조회</h1>
+            <h1 class="text-center text-white display-6">전체 상품</h1>
             <!-- <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Pages</a></li>
@@ -23,8 +23,8 @@
                         <div class="row g-4">
                             <div class="col-xl-3">
                                 <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="search" class="form-control p-3 searchCk" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <span id="search-icon-1" class="input-group-text p-3 searchBtn"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="form-control p-3 searchCk" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <button id="search-icon-1" class="input-group-text p-3 searchBtn"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                             <div class="col-6 listhead"></div>
@@ -45,7 +45,7 @@
                                 <div class="row g-4">
                                     
                                     <div class="col-lg-12">
-                                        <div class="mb-3 priceCk">
+                                        <div class="mb-3 priceCk" style="padding-top: 15px">
                                             <h4 class="mb-2">가격</h4>
                                             <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="1000" max="10000" step="1000" value="10000" oninput="amount.value=rangeInput.value">
                                             <output id="amount" name="amount" min-value="1000" max-value="10000" for="rangeInput">10000</output>원 이하
@@ -55,20 +55,20 @@
                                         <div class="mb-3 brandCk">
                                             <h4>브랜드</h4>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages" checked = "checked">
-                                                <label for="Categories-1">전체</label>
+                                                <input type="checkbox" class="me-2 brandall" id="brand-1" name="prodBrandall" value="all">
+                                                <label for="brand-1">전체</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                                <label for="Categories-2">허닭</label>
+                                                <input type="checkbox" class="me-2 brandbox" id="brand-2" name="prodBrand" value="heodak">
+                                                <label for="brand-2">허닭</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                                <label for="Categories-3">프레시지</label>
+                                                <input type="checkbox" class="me-2 brandbox" id="brand-2" name="prodBrand" value="fresheasy">
+                                                <label for="brand-3">프레시지</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                                <label for="Categories-4">발재반점</label>
+                                                <input type="checkbox" class="me-2 brandbox" id="brand-2" name="prodBrand" value="baljae">
+                                                <label for="brand-4">발재반점</label>
                                             </div>
                                         </div>
                                     </div>
@@ -76,28 +76,28 @@
                                         <div class="mb-3 typeCk">
                                             <h4>종류</h4>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-1" name="Categories-2" value="Beverages" checked = "checked">
-                                                <label for="Categories-1">전체</label>
+                                                <input type="checkbox" class="me-2 typeall" id="type-1" name="prodTypeall" value="Beverages">
+                                                <label for="type-1">전체</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-2" name="Categories-2" value="Beverages">
-                                                <label for="Categories-2">닭가슴살</label>
+                                                <input type="checkbox" class="me-2 typebox" id="type-2" name="prodType" value="Beverages">
+                                                <label for="type-2">닭가슴살</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-3" name="Categories-2" value="Beverages">
-                                                <label for="Categories-3">스테이크/큐브</label>
+                                                <input type="checkbox" class="me-2 typebox" id="type-3" name="prodType" value="Beverages">
+                                                <label for="type-3">스테이크/큐브</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-4" name="Categories-2" value="Beverages">
-                                                <label for="Categories-3">소시지</label>
+                                                <input type="checkbox" class="me-2 typebox" id="type-4" name="prodType" value="Beverages">
+                                                <label for="type-4">소시지</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-5" name="Categories-2" value="Beverages">
-                                                <label for="Categories-4">라이스</label>
+                                                <input type="checkbox" class="me-2 typebox" id="type-5" name="prodType" value="Beverages">
+                                                <label for="type-5">라이스</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-6" name="Categories-2" value="Beverages">
-                                                <label for="Categories-4">만두/간식</label>
+                                                <input type="checkbox" class="me-2 typebox" id="type-6" name="prodType" value="Beverages">
+                                                <label for="type-6">만두/간식</label>
                                             </div>
                                         </div>
                                     </div>
@@ -116,56 +116,133 @@
                                 <div class="row g-4 justify-content-center product-item">
                                 
                                <script>
-                                let rndEvnt = Math.floor(Math.random() * (5)) + 1; //1~5
+                                let rndEvnt = Math.floor(Math.random() * (4)) + 1; //1~4
                                 //const val = encodeURI('[발재반점]중화식 구운 주먹밥 게살맛')
                                 $('.eventPg').append($('<a href="event.do?event='+rndEvnt+'">').append($('<img src="static/img/main/eventIcon'+rndEvnt+'.jpg" class="img-fluid w-100 rounded" alt="">')))
                                
                                 let cond = "prod_brand"; //=>prod_brand='프레시지'
                                 let param = "'허닭'";
-                                let brand = null;
-                                let type = null;
+                                let brand = [];
+                                let type = [];
                                 let price = 10000;
                                 let keyword = '';
+                                let ppage = 1;
+                                let totalCnt = 0;
+                                //페이징 버튼
+                                
+                                /* function pagingFunc() {
+									document.querySelectorAll('.pagination>a') // NodeList
+										.forEach(item => {
+											item.addEventListener('click', function(e) {
+												e.preventDefault(); //a태그의 링크기능 차단.
+												page = item.dataset.page;
+								
+												showlist(brand, type, price, keyword, ppage);
+			                    				pageList(brand, type, price, keyword);
+											})
+										});
+								} */
+                                
+                                function pagingFunc() {
+	                                $('div .pagination a').on('click', function (e) {
+	                                	e.preventDefault(); //a태그의 링크기능 차단.
+	                    				ppage = $(this).data("page");
+	                                	
+	                    				showlist(brand, type, price, keyword, ppage);
+	                    				pageList(brand, type, price, keyword);
+			                    		console.log("paging");
+									})
+								}
+                                //검색창 버튼
                                 $('.searchBtn').on('click', function (e) {
                                 	keyword = "%"+$('.searchCk').val()+"%";
-                                	console.log(keyword);
-                                	showlist(brand, type, price, keyword);
+                                	showlist(brand, type, price, keyword, ppage);
 								})
-                                $('.brandCk').on('change', 'input', function (e) {
-									console.log($(this).next().text());
-									//param = "'"+$(this).next().text()+"'"
-									param = $(this).next().text();
-									brand = "'"+$(this).next().text()+"'";
-									//console.log(param == "전체");
-									//console.log(param);
-									if(param == "전체"){
-										brand = 'prod_brand';
-									}
+								//검색창
+								$('.searchCk').on('change', function (e) {
+                                	keyword = "%"+$('.searchCk').val()+"%";
+                                	showlist(brand, type, price, keyword, ppage);
+								})
+								//브랜드 전체체크박스
+								$('.brandall').on('click', function (e) {
+									if($(".brandall").is(":checked")){
+										$("input[name=prodBrand]").prop("checked", true);
+										brand = [];
+										brand.push('허닭','프레시지','발재반점');
 										console.log(brand);
-									showlist(brand, type, price, keyword);
-								})
-								
-								$('.typeCk').on('change', 'input', function (e) {
-									console.log($(this).next().text());
-									param = $(this).next().text();
-									type = "'"+$(this).next().text()+"'";
-									if(param == "전체"){
-										type = 'prod_type';
+										showlist(brand, type, price, keyword, ppage);
+									}else {
+										$("input[name=prodBrand]").prop("checked", false);
+										brand = [];
+										showlist(brand, type, price, keyword, ppage);
 									}
-										console.log(type);
-									showlist(brand, type, price, keyword);
+								})
+								//브랜드 개별체크박스
+                                $('.brandCk').on('change', '.brandbox', function (e) {
+    	                            if($(".brandbox:checked").length == 3){
+    	                            	console.log("full");
+    	                            	$(".brandall").prop("checked", true);
+    	                            }else {
+    	                                console.log("empty");
+    	                                $(".brandall").prop("checked", false);
+    	                            }
+    	                            param = $(this).next().text();
+                                	if($(this).is(":checked")){
+										brand.push(param);
+										console.log(brand);
+										showlist(brand, type, price, keyword, ppage);
+                                	}else {
+                                		for(let i = 0; i < brand.length; i++) {
+                                		    if (brand[i] === param) {
+                                		        brand.splice(i, 1);
+                                		    }
+                                		}
+                                		console.log(brand);
+                                		showlist(brand, type, price, keyword, ppage);
+                                	}
+								})
+								//종류 전체체크박스
+								$('.typeall').on('click', function (e) {
+									if($(".typeall").is(":checked")){
+										$("input[name=prodType]").prop("checked", true);
+										type = [];
+										type.push('닭가슴살','스테이크/큐브','소시지','라이스','만두/간식');
+										showlist(brand, type, price, keyword);
+									}else {
+										$("input[name=prodType]").prop("checked", false);
+										type = [];
+										showlist(brand, type, price, keyword, ppage);
+									}
+								})
+								//종류 개별체크박스
+								$('.typeCk').on('change', '.typebox', function (e) {
+    	                            if($(".typebox:checked").length == 5){
+    	                            	$(".typeall").prop("checked", true);
+    	                            }else {
+    	                                $(".typeall").prop("checked", false);
+    	                            }
+    	                            param = $(this).next().text();
+                                	if($(this).is(":checked")){
+										type.push(param);
+										showlist(brand, type, price, keyword, ppage);
+                                	}else {
+                                		for(let i = 0; i < type.length; i++) {
+                                		    if (type[i] === param) {
+                                		        type.splice(i, 1);
+                                		    }
+                                		}
+                                		showlist(brand, type, price, keyword, ppage);
+                                	}
 								})
 								
+								//가격슬라이더
 								$('.priceCk').on('change', 'input', function (e) {
 									console.log($(this).next().text());
 									price = $(this).next().text();
-									console.log(price);
-									
 									showlist(brand, type, price, keyword);
-									
 								})
                                
-                                function showlist(brand, type, price) {
+                                function showlist(brand, type, price, keyword, ppage) {
                                 	
                                 	$('.product-item').html('');
                                 let sql = 'AND prod_type = "a"'
@@ -173,14 +250,15 @@
 						            url: 'conlist.do',
 						            //url: 'plist.do',
 						            method: 'post',
-						            data: {brand: brand, type: type, price: price, keyword: keyword}, 
+						            traditional : true,
+						            data: {brand: brand, type: type, price: price, keyword: keyword, ppage: ppage},
 						            dataType: 'json',
 						            success: function (result) { 
 						            	console.log(result);
 						            	if(result.length == 0){
 						            		$('.listhead').text("조회된 상품이 없습니다.");
 						            	}else{
-							            	$('.listhead').text("상품: "+result.length+"개");
+							            	$('.listhead').text("상품: "+totalCnt+"개");
 						            	}
 						            	result.forEach((item,idx) => {
 						            		
@@ -199,7 +277,7 @@
 															$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
 															,$('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
 															,$('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
-																	/* $('<h4 />').text(item.prodBrand) */$('<p />').text('['+item.prodBrand+']'+item.prodName).css({'height':'48px'})
+																	$('<p />').text('['+item.prodBrand+']'+item.prodName).css({'height':'48px'})
 																	,$('<div class="d-flex justify-content-between flex-lg-wrap">').append(
 																			$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
 																					$('<dt />').append($('<h3 />').text(salePer).css({'color': 'red'}).css({'margin': '8px 0px'}))
@@ -218,7 +296,63 @@
 						            }
 						        });
                                 }
-                                showlist(null, null, price, keyword);
+                                
+                                function pageList(brand, type, price, keyword) {
+                                	$.ajax({
+    						            url: 'productcount.do',
+    						            method: 'post',
+    						            traditional : true,
+    						            data: {brand: brand, type: type, price: price, keyword: keyword},
+    						            dataType: 'json',
+    						            success: function (result) {
+    						            	console.log(result);
+    						            	$('div .pagination').html('');
+    						            	totalCnt = result.totalCount;
+    						        		let startPage, endPage; // 1~5, 6~10,...
+    						        		let next, prev;
+    						        		let realEnd = Math.ceil(totalCnt / 5);
+    						        		endPage = Math.ceil(ppage / 5) * 5;
+    						        		startPage = endPage - 4;
+    						        		endPage = endPage > realEnd ? realEnd : endPage;
+    						        		next = endPage < realEnd ? true : false;
+    						        		prev = startPage > 1;
+    						        		console.log("totalCnt:"+totalCnt+",start/end:"+startPage+"/"+endPage+"next/prev:"+next+"/"+prev);
+    						        		if (prev) {
+    						        			let aTag = document.createElement('a');
+    						        			//aTag.innerText = startPage - 1;
+    						        			aTag.innerHTML = '&laquo;';
+    						        			aTag.setAttribute('data-page', startPage - 1);
+    						        			aTag.href = '#';
+    						        			document.querySelector('div.pagination').appendChild(aTag);
+    						        		}
+    						        		for (let p = startPage; p <= endPage; p++) {
+    						        			let aTag = document.createElement('a');
+    						        			aTag.innerText = p;
+    						        			aTag.setAttribute('data-page', p);
+    						        			aTag.href = '#';
+    						        			if (p == ppage) {
+    						        				aTag.className = 'active';
+    						        			}
+    						        			document.querySelector('div.pagination').appendChild(aTag);
+    						        		}
+    						        		if (next) {
+    						        			let aTag = document.createElement('a');
+    						        			//aTag.innerText = endPage + 1;
+    						        			aTag.innerHTML = '&raquo;';
+    						        			aTag.setAttribute('data-page', endPage + 1);
+    						        			aTag.href = '#';
+    						        			document.querySelector('div.pagination').appendChild(aTag);
+    						        		}
+    						        		pagingFunc();
+    						            },
+    						            error: function (err) { 
+    						                console.log('error=> ' + err);
+    						            }
+								});
+                                }
+                                
+                                showlist(brand, type, price, keyword, ppage);
+                                pageList(brand, type, price, keyword);
                                	
                                </script>
                                 <!-- 
