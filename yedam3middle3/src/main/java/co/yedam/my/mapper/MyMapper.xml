@@ -26,16 +26,40 @@
 		where inq_no = #{inqNo}
 	</select>
 	
+	<insert id="insertQna" parameterType="qna">
+		insert into inquiries(inq_no,
+		                      inq_type,
+		                      inq_title,
+		                      inq_content,
+		                      inq_date,
+		                      inq_resp,
+		                      mem_no)
+		values (inq_seq.nextval,
+		        #{inqType},
+		        #{inqTitle},
+		        #{inqContent},
+		        sysdate,
+		        null,
+		        #{memNo})
+	</insert>
+	
 	<select id="orderList" resultType="co.yedam.my.OrderList">	<!-- 구매내역 리스트 -->
 		<!-- select list_no,
 		       list_quant,
 		       prod_no,
 		       ord_no
 		from orderlists -->
-		select p.prod_name,
-       p.prod_price,
-       o.list_quant
-from orderlists o JOIN products p on (o.prod_no = p.prod_no)
+		select d.ord_no,
+      	       p.prod_name,
+               d.ord_date,
+               o.list_quant,
+               d.ord_price,
+               d.ord_total,
+               d.ord_stat,
+               o.list_no,
+               d.mem_no    
+		from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
+                JOIN orders d on (o.ord_no = d.ord_no)
 	</select>
 	
 	<select id="selectMember" parameterType="member">

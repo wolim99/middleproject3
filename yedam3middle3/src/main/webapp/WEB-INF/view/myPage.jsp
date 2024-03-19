@@ -1,3 +1,4 @@
+<%@page import="co.yedam.my.Qna"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -60,9 +61,8 @@
 							<div class="p-4 border border-secondary">
 								<c:choose>
 									<c:when test="${!empty logid }">
-										<h4>${logName }님 (회원번호 ${logMemNo })</h4>
-										<a href="memberUpdate.do"
-									class="btn border rounded-pill px-2 text-primary"> 정보 수정</a>
+										<h4>${logName }님 (회원번호 ${logMemNo })<a href="memberUpdate.do"
+									class="btn border px-2 text-primary"> 정보 수정</a></h4>
 									</c:when>
 									<c:otherwise>
 										<h4>로그인 안되어있음</h4>
@@ -76,7 +76,7 @@
 							<div class="p-4 border border-secondary">
 								<h4>총 주문금액</h4>
 								<p>적립금: ${logPoint}</p>
-								<p>예치금:</p>
+								<p>총 구매금액: ${logTotal}</p>
 								<p>쿠 폰:</p>
 							</div>
 						</div>
@@ -119,6 +119,7 @@
 </div>
 <!-- Fruits Shop End-->
 <script>
+let total = 0;
 fetch('qna.do')
 .then(resolve => resolve.json())
 .then(result => {
@@ -128,12 +129,15 @@ fetch('qna.do')
 	})
 	
 	$(result).each((idx, item, ary) => {
+		/* total += item.ord */
 		console.log(item.inqNo)
-		$('<tr />').append(
-			$('<td />').text(item.inqDate),
-			$('<td />').text(item.inqTitle),
-			$('<td />').text(item.inqType)
-		).appendTo($('#tableList2 tbody'));
+		if(${logMemNo } == item.memNo) {
+			$('<tr />').append(
+				$('<td />').text(item.inqDate),
+				$('<td />').text(item.inqTitle),
+				$('<td />').text(item.inqType)
+			).appendTo($('#tableList2 tbody'));
+		}
 	})		
 })
 .catch(err => console.log(err,"errrrrrrrrrr"));
@@ -148,12 +152,14 @@ fetch('orderL.do')
 	
 	$(result).each((idx, item, ary) => {
 		console.log(item.listNo)
+		if(${logMemNo } == item.memNo) {
 		$('<tr />').append(
-			$('<td />').text(item.listNo),
-			$('<td />').text(item.listQuant),
-			$('<td />').text(item.prodNo),
-			$('<td />').text(item.ordNo)
+			$('<td />').text(item.ordDate),
+			$('<td />').text(item.prodName+' 등...'),
+			$('<td />').text(item.ordTotal),
+			$('<td />').text(item.ordStat)
 		).appendTo($('#tableList tbody'));
+		}
 	})		
 })
 .catch(err => console.log(err,"errrrrrrrrrr"));
