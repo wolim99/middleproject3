@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.yedam.member.cartcontrol.AddCart;
+import co.yedam.member.cartcontrol.AddCartForm;
+import co.yedam.member.cartcontrol.CartControl;
+import co.yedam.member.cartcontrol.DeleteCart;
+import co.yedam.member.cartcontrol.ListCartControl;
+import co.yedam.member.cartcontrol.UpdateCart;
+import co.yedam.member.cartcontrol.UpdateCartFrom;
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
 import co.yedam.main.MainProductsControl;
@@ -17,7 +24,6 @@ import co.yedam.main.MainSearchControl;
 import co.yedam.main.RandomProductControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
-import co.yedam.member.control.CartProduct;
 import co.yedam.member.control.LoginControl;
 import co.yedam.member.control.LoginForm;
 import co.yedam.member.control.LogoutControl;
@@ -57,6 +63,8 @@ public class FrontController extends HttpServlet {
 		controls.put("/test.do", new TestControl());
 
 		// 메인페이지 컨트롤
+
+
 		controls.put("/eventList.do", new EventListControl());
 		controls.put("/event.do", new EventControl());
 		controls.put("/mainProducts.do", new MainProductsControl());
@@ -79,6 +87,17 @@ public class FrontController extends HttpServlet {
 		controls.put("/addMemberForm.do", new AddMemberForm());
 
 		// 장바구니
+		controls.put("/cart.do", new CartControl());
+		controls.put("/listcartForm.do", new ListCartControl());
+		controls.put("/insertcartForm.do", new AddCartForm());
+		controls.put("/insertcart.do", new AddCart());
+		controls.put("/deletecart.do", new DeleteCart());
+		controls.put("/updatecartForm.do", new UpdateCartFrom());
+		controls.put("/updatecart.do", new UpdateCart());
+
+		// 주문 컨트롤
+
+		// 마이페이지 컨트롤
 		controls.put("/cartProduct.do", new CartProduct());
 
 		// 주문 컨트롤
