@@ -24,7 +24,6 @@ public class MyServiceImpl implements MyService {
 		return mapper.qnaList();
 	}
 	
-	
 	@Override
 	public Qna getQna(int inqNo) {
 		return mapper.selectQna(inqNo);
@@ -33,6 +32,11 @@ public class MyServiceImpl implements MyService {
 	@Override
 	public List<OrderList> orderList() {
 		return mapper.orderList();
+	}
+	
+	@Override
+	public boolean addQna(Qna qna) {
+		return mapper.insertQna(qna) == 1;
 	}
 	
 	@Override

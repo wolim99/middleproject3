@@ -12,6 +12,8 @@ public interface MyMapper {
 	List<Qna> qnaList();
 	// Qna 상세화면
 	Qna selectQna(int inqNo);
+	// Qna 작성
+	int insertQna(Qna qna);
 	
 	// 주문리스트
 	List<OrderList> orderList();

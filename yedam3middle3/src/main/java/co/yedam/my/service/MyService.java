@@ -7,8 +7,11 @@ import co.yedam.my.OrderList;
 import co.yedam.my.Qna;
 
 public interface MyService {
-	// 1:1문의글 리스트 .
+	// 1:1문의글 리스트.
 	List<Qna> qnaList();
+	
+	// 문의글 등록.
+	boolean addQna(Qna qna);
 	
 	// 구매품 리스트.
 	List<OrderList> orderList();
@@ -24,6 +27,8 @@ public interface MyService {
 	
 	// 회원탈퇴
 	boolean removeMember(int mno);
+	
+	// 1:1문의글2
 	
 
 
