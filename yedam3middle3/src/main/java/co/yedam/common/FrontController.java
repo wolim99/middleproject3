@@ -15,6 +15,7 @@ import co.yedam.main.EventListControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.CartProduct;
+
 import co.yedam.member.control.LoginControl;
 import co.yedam.member.control.LoginForm;
 import co.yedam.member.control.LogoutControl;
@@ -22,6 +23,10 @@ import co.yedam.my.control.QnaControl;
 import co.yedam.my.control.QnaMainControl;
 import co.yedam.order.control.DetailPageControl;
 import co.yedam.order.control.OrderPageControl;
+
+import co.yedam.main.MainProductsControl;
+import co.yedam.main.RandomProductControl;
+
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductListControl;
 
@@ -41,6 +46,8 @@ public class FrontController extends HttpServlet{
 			//메인페이지 컨트롤
 			controls.put("/eventList.do", new EventListControl());
 			controls.put("/event.do", new EventControl());
+			controls.put("/mainProducts.do", new MainProductsControl());
+			controls.put("/randProd.do", new RandomProductControl());
 			//제품 컨트롤
 			controls.put("/plist.do", new PListControl());
 			controls.put("/productList.do", new ProductListControl());
@@ -57,9 +64,7 @@ public class FrontController extends HttpServlet{
 			   
 			   // 장바구니
 			   controls.put("/cartProduct.do", new CartProduct());
-			   
-            //주문 컨트롤
-			
+
 			//주문 컨트롤
 			controls.put("/detailPage.do", new DetailPageControl());
 			controls.put("/orderPage.do", new OrderPageControl());
