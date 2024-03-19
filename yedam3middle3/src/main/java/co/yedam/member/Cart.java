@@ -11,5 +11,4 @@ public class Cart {
 	private int prodNo; // 제품 번호
 	private String prodName; // 제품 이름
 	private int prodPrice; // 제품 단가 가격
-	private int money; // 금액
 }

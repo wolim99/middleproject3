@@ -12,7 +12,7 @@ public class AddCartForm implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String path = "dak/addCart.tiles";
+		String path = "dak/cart.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 	}
 

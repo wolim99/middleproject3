@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import co.yedam.member.cartcontrol.AddCart;
 import co.yedam.member.cartcontrol.AddCartForm;
 import co.yedam.member.cartcontrol.DeleteCart;
-import co.yedam.member.cartcontrol.DeleteCartForm;
 import co.yedam.member.cartcontrol.ListCartControl;
 import co.yedam.member.cartcontrol.UpdateCart;
 import co.yedam.member.cartcontrol.UpdateCartFrom;
@@ -56,7 +55,6 @@ public class FrontController extends HttpServlet {
 		controls.put("/listcartForm.do", new ListCartControl());
 		controls.put("/insertcartForm.do", new AddCartForm());
 		controls.put("/insertcart.do", new AddCart());
-		controls.put("/deletecartForm.do", new DeleteCartForm());
 		controls.put("/deletecart.do", new DeleteCart());
 		controls.put("/updatecartForm.do", new UpdateCartFrom());
 		controls.put("/updatecart.do", new UpdateCart());
