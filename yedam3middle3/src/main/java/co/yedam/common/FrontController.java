@@ -34,8 +34,9 @@ import co.yedam.my.control.RemoveMemberControl;
 import co.yedam.my.control.ReplyControl;
 import co.yedam.my.control.orderLControl;
 import co.yedam.my.control.orderListControl;
-import co.yedam.order.DetailPageControl;
-import co.yedam.order.OrderPageControl;
+import co.yedam.order.control.DetailPageControl;
+import co.yedam.order.control.OrderPageControl;
+import co.yedam.order.control.UpdateAddrControl;
 import co.yedam.product.control.ConListControl;
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductCountControl;
@@ -83,7 +84,7 @@ public class FrontController extends HttpServlet {
 		// 주문 컨트롤
 		controls.put("/detailPage.do", new DetailPageControl());
 		controls.put("/orderPage.do", new OrderPageControl());
-		
+		controls.put("/updateAddr.do", new UpdateAddrControl());
 		// 마이페이지 컨트롤
 		controls.put("/myPage.do", new MyPageControl()); // mypage 목록 페이지.
 
