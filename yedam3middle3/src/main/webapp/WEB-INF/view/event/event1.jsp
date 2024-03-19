@@ -34,13 +34,16 @@
         function showlist(pos) {
             console.log(pos)
             $.ajax({
-                url: 'randProd.do',
+                url: 'plist.do',
                 dataType: 'json'
             }).done(function (result) {
                 console.log(result);
                 result.forEach((item, idx) => {
                     let realPrice = 0;
                     let salePer = '';
+                    if(item.prodName.indexOf('[fresheasy]')==-1&&item.prodName.indexOf('[프레시지]')==-1){
+                        return;
+                    }
                     if (item.prodSale != 0) {
                         realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
                         salePer = Math.ceil(item.prodSale * 100) + '%';
@@ -73,7 +76,7 @@
                                     .append(
                                         $('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
                                     , $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
-                                    , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
+                                    , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom" style="height:169px;"></div>').append(
                                         $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px' })
                                         , $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
                                             $('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
 import co.yedam.main.MainProductsControl;
+import co.yedam.main.MainSearchControl;
 import co.yedam.main.RandomProductControl;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
@@ -59,6 +60,7 @@ public class FrontController extends HttpServlet {
 		controls.put("/event.do", new EventControl());
 		controls.put("/mainProducts.do", new MainProductsControl());
 		controls.put("/randProd.do", new RandomProductControl());
+		controls.put("/mainsearch.do", new MainSearchControl());
 		// 제품 컨트롤
 		controls.put("/plist.do", new PListControl());
 		controls.put("/productList.do", new ProductListControl());
