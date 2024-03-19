@@ -34,6 +34,11 @@ public class LoginControl implements Control {
 			HttpSession session = req.getSession(); // 사용자별로 다른 세션값
 			session.setAttribute("logid", id); // 세션의 attribute를 활용
 			session.setAttribute("logName", member.getMemName());
+			session.setAttribute("logPhone", member.getMemPhone());
+			session.setAttribute("logMail", member.getMemMail());
+			session.setAttribute("logAddr", member.getMemAddr());
+			session.setAttribute("logPoint", member.getMemPoint());
+			session.setAttribute("logMemNo", member.getMemNo());
 			
 			resp.sendRedirect("main.do");
 		} else {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+  <properties resource="config/db.properties"/>
+ 
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+
+	<typeAliases>
+		<!-- <typeAlias alias="search" type="co.yedam.common.SearchVO"/> 타입 별칭지정 -->
+		<typeAlias alias="qna" type="co.yedam.my.Qna"/>		
+		<typeAlias alias="reply" type="co.yedam.my.Reply"/>		
+		<typeAlias alias="member" type="co.yedam.member.Member"/>
+		<typeAlias alias="product" type="co.yedam.product.Product"/>
+		<!-- <typeAlias alias="member" type="co.yedam.my.Member"/>-->		
+		<!-- <typeAlias alias="product" type="co.yedam.order.Product"/> -->
+	</typeAliases>
+
+	<environments default="development">
+	  <environment id="development">
+	    <transactionManager type="JDBC"/>
+	    <dataSource type="POOLED">
+	      <property name="driver" value="${driver}"/>
+	      <property name="url" value="${url}"/>
+	      <property name="username" value="${username}"/>
+	      <property name="password" value="${password}"/>
+	    </dataSource>
+	  </environment>
+	</environments>
+	
+	<mappers>
+	  <!-- <mapper resource="co/yedam/board/mapper/BoardMapper.xml"/> Mapper경로지정 -->
+	  <mapper resource="co/yedam/order/mapper/OrderMapper.xml"/>
+	  <mapper resource="co/yedam/member/mapper/MemberMapper.xml"/>
+	  <!-- <mapper resource="co/yedam/order/OrderMapper.xml"/> -->
+	  <mapper resource="co/yedam/my/MyMapper.xml"/>
+	  <mapper resource="co/yedam/product/mapper/ProductMapper.xml"/>
+	</mappers>
+  
+</configuration>
