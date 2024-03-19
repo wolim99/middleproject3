@@ -31,18 +31,25 @@
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
-            function showlist(order, pos) {
-                console.log(order)
+            let str = '[아침]'
+            if(str.indexOf('아침')){
+                console.log('참')
+            }else{
+                console.log('거짓')
+            }
+            function showlist(pos) {
                 $.ajax({
-                    url: 'mainProducts.do',
+                    url: 'plist.do',
                     method: 'post',
-                    data: { order: order },
                     dataType: 'json'
                 }).done(function (result) {
                     console.log(result);
                     result.forEach((item, idx) => {
                         let realPrice = 0;
                         let salePer = '';
+                        if(item.prodName.indexOf('[아침몰]')==-1){
+                        return;
+                    }
                         if (item.prodSale != 0) {
                             realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
                             salePer = Math.ceil(item.prodSale * 100) + '%';
@@ -72,6 +79,6 @@
                     console.log(err);
                 });
             }
-            showlist('prod_ordcnt', 'event');
+            showlist('event');
         </script>
         <!-- Content End -->
