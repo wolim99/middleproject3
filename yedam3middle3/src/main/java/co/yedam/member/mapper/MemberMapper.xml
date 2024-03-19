@@ -22,12 +22,18 @@
   </insert>
   
 	<!-- 장바구니 추가 -->
-	<insert id="insertCart" parameterType="co.yedam.member.Cart">
+	<insert id="insertCart" parameterType="Cart">
+	
+	<selectKey resultType="int" keyProperty="cartNo" order="BEFORE">
+	select car_seq.nextval
+	from dual
+	</selectKey>
+	
 	insert into carts (cart_no,
                        cart_quant,
                        prod_no,
                        mem_no)
-    values (car_seq.nextval, #{cartQuant}, #{prodNo}, #{memNo})
+    values (#{cartNo}, #{cartQuant}, #{prodNo}, #{memNo})
 	</insert>
 	
 	<!-- 장바구니 목록 -->

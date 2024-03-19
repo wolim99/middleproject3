@@ -19,7 +19,7 @@ public interface MemberMapper {
 	
 	int insertCart(Cart cart);
 	
-	List<Cart> CartList();
+	List<Cart> cartList();
 	
 	boolean deleteCart(Cart cart);
 	

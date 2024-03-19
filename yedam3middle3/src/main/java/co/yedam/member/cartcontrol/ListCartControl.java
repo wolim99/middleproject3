@@ -20,13 +20,18 @@ public class ListCartControl implements Control {
 		
 		MemberService mvc = new MemberServiceImpl();
 		List<Cart> list = mvc.CartList();
-	
+		
 		String json = "[";
 		for(int i=0; i<list.size(); i++) {
-			json += "{\"cartNo\": \""+ list.get(i).getCartNo()//
-					+"\",\"cartName\": \""+list.get(i).getProdName()//
-					+"\",\"cartPrice\": \""+list.get(i).getProdPrice()//
-					+"\",\"cartQuant\": \""+list.get(i).getCartQuant()//
+			json +=   "c.cart_no,\n"
+					+ "c.mem_no,\n"
+					+ "c.cart_quant,\n"
+					+ "p.prod_no,\n"
+					+ "m.mem_name,\n"
+					+ "p.prod_name,\n"
+					+ "p.prod_price,\n"
+					+ "(p.prod_price * c.cart_quant) money,\n"
+					+ "p.prod_img"
 					+"\"}";
 			if(i != list.size()-1) {
 			json += ",";

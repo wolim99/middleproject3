@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<Cart> CartList() {
-		return mapper.CartList();
+		return mapper.cartList();
 	}
 
 	@Override
