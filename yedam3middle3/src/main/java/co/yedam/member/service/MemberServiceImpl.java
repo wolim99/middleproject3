@@ -32,8 +32,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Cart> CartList() {
-		return mapper.cartList();
+	public List<Cart> CartList(String memid) {
+		return mapper.cartList(memid);
 	}
 
 	@Override

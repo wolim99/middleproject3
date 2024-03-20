@@ -7,6 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import co.yedam.common.Control;
 import co.yedam.member.Cart;
 import co.yedam.member.service.MemberService;
@@ -18,27 +21,17 @@ public class ListCartControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
 		
+		String memid = req.getParameter("memNo");
+		
+		Cart cart = new Cart();
+		cart.setMemNo(memid);
+		
 		MemberService mvc = new MemberServiceImpl();
-		List<Cart> list = mvc.CartList();
+		List<Cart> list = mvc.CartList(memid);
+		Gson gson = new GsonBuilder().create();
 		
-		String json = "[";
-		for(int i=0; i<list.size(); i++) {
-			json +=   "c.cart_no,\n"
-					+ "c.mem_no,\n"
-					+ "c.cart_quant,\n"
-					+ "p.prod_no,\n"
-					+ "m.mem_name,\n"
-					+ "p.prod_name,\n"
-					+ "p.prod_price,\n"
-					+ "(p.prod_price * c.cart_quant) money,\n"
-					+ "p.prod_img"
-					+"\"}";
-			if(i != list.size()-1) {
-			json += ",";
-			}
-		}
-		json += "]";
-		
+		String json = gson.toJson(list);
 		resp.getWriter().print(json);
+		
 	}
 }
