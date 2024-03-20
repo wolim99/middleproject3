@@ -21,6 +21,7 @@ import co.yedam.member.control.LoginControl;
 import co.yedam.member.control.LoginForm;
 import co.yedam.member.control.LogoutControl;
 import co.yedam.my.control.AddQnaControl;
+import co.yedam.my.control.AddReplyControl;
 import co.yedam.my.control.MemberUpdateControl;
 import co.yedam.my.control.ModifyMemberControl;
 import co.yedam.my.control.MyPageControl;
@@ -100,6 +101,7 @@ public class FrontController extends HttpServlet {
 		controls.put("/orderL.do", new orderLControl()); //
 		
 		controls.put("/reply.do", new ReplyControl()); // 리뷰 작성페이지.
+		controls.put("/addReply.do", new AddReplyControl()); // 리뷰 작성.
 
 	}
 

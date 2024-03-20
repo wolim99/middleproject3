@@ -52,7 +52,7 @@ fetch('orderL.do')
 				$('<td />').text(item.ordDate),
 				$('<td />').text(item.listQuant),
 				$('<td />').text(item.ordPrice),
-				$('<td><a href="#"><button class="btn btn-md bg-light border mt-4">리뷰작성</button></a></td>')
+				$('<td><a href="reply.do?listNo='+item.listNo+'"><button class="btn btn-md bg-light border mt-4">리뷰작성</button></a></td>')
 			).appendTo($('tbody'));
 		}
 	})		

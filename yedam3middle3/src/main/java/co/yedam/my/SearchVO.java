@@ -9,6 +9,6 @@ public class SearchVO {
 	private String keyword;
 	
 	// 댓글관련.
-	private int qno;
+	private int inqNo;
 	private int rpage;
 }

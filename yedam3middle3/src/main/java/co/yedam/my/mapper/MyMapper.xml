@@ -5,15 +5,47 @@
 
 <mapper namespace="co.yedam.my.mapper.MyMapper">
 
-	<select id="qnaList" resultType="qna">	<!-- qna 리스트 -->
-		select inq_no,
+	<select id="qnaList" resultType="qna" parameterType="search">	<!-- qna 리스트 -->
+		<!-- select inq_no,
 		       inq_type,
 		       inq_title,
 		       inq_content,
 		       inq_date,
 		       inq_resp,
 		       mem_no
+		from inquiries -->
+		select rn,
+		       inq_no,
+		       inq_type,
+		       inq_title,
+		       inq_content,
+		       inq_date,
+		       inq_resp,
+		       mem_no
+		from (select /*+ INDEX(b inquiries_pk) */ rownum rn, b.*
+		      from inquiries b
+		      <![CDATA[
+		      where rownum <= (#{page} * 5))a
+		       ]]>
+		where a.rn > (#{page} - 1) * 5
+	</select>
+	
+	<select id="getTotalCnt" resultType="int" parameterType="search">
+		select count(*) 
 		from inquiries
+		<where>
+		  <choose>
+			<when test="searchCondition == 'T'.toString() ">
+			title like '%'||#{keyword}||'%'
+			</when>
+			<when test="searchCondition == 'W'.toString() ">
+			writer like '%'||#{keyword}||'%'
+			</when>
+			<when test="searchCondition == 'TW'.toString() ">
+			(title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%')
+			</when>
+		  </choose>
+		</where>
 	</select>
 	
 	<select id="selectQna" resultType="qna" parameterType="int"> <!-- qna 세부내용 -->
@@ -57,7 +89,8 @@
                d.ord_total,
                d.ord_stat,
                o.list_no,
-               d.mem_no    
+               d.mem_no,
+               p.prod_no    
 		from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
                 JOIN orders d on (o.ord_no = d.ord_no)
 	</select>
@@ -78,7 +111,8 @@
 	
 	<update id="updateMember" parameterType="member">
 		update members
-	    set mem_pw = #{memPw},
+	    set mem_name = #{memName}, 
+	    mem_pw = #{memPw},
         mem_phone = #{memPhone},
         mem_mail = #{memMail},
         mem_addr = #{memAddr}
@@ -89,5 +123,37 @@
 		delete members
 		where mem_no = #{mno}
 	</delete>
-
+	
+	<insert id="insertReply" parameterType="reply">
+		insert into reviews (rev_no,
+		                     rev_star,
+		                     rev_content,
+		                     rev_date,
+		                     prod_no,
+		                     mem_no,
+		                     list_no)
+		values (rev_seq.nextval,
+		        #{revStar},
+		        #{revContent},
+		        sysdate,
+		        #{prodNo},
+		        #{memNo},
+		        #{listNo})
+	</insert>
+	
+	<select id="selectReply" resultType="reply" parameterType="int">
+		select d.ord_no,
+      	       p.prod_name,
+               d.ord_date,
+               o.list_quant,
+               d.ord_price,
+               d.ord_total,
+               d.ord_stat,
+               o.list_no,
+               d.mem_no,
+               p.prod_no    
+		from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
+                JOIN orders d on (o.ord_no = d.ord_no)
+		where o.list_no = #{listNo}
+	</select>
 </mapper>

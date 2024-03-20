@@ -17,6 +17,7 @@
 		<typeAlias alias="reply" type="co.yedam.my.Reply"/>		
 		<typeAlias alias="member" type="co.yedam.member.Member"/>
 		<typeAlias alias="product" type="co.yedam.product.Product"/>
+		<typeAlias alias="search" type="co.yedam.my.SearchVO"/>
 		<!-- <typeAlias alias="member" type="co.yedam.my.Member"/>-->		
 		<!-- <typeAlias alias="product" type="co.yedam.order.Product"/> -->
 	</typeAliases>
