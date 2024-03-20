@@ -1,0 +1,536 @@
+CREATE SEQUENCE pro_seq
+    INCREMENT BY 1
+    START WITH 1;
+    
+CREATE SEQUENCE mem_seq
+    INCREMENT BY 1
+    START WITH 1;
+        
+CREATE SEQUENCE ord_seq
+    INCREMENT BY 1
+    START WITH 1;
+    
+CREATE SEQUENCE list_seq
+    INCREMENT BY 1
+    START WITH 1;
+
+CREATE SEQUENCE rev_seq
+    INCREMENT BY 1
+    START WITH 1;
+
+CREATE SEQUENCE car_seq
+    INCREMENT BY 1
+    START WITH 1;
+    
+CREATE SEQUENCE inq_seq
+    INCREMENT BY 1
+    START WITH 1;    
+
+CREATE TABLE products (
+	prod_no	number(10) DEFAULT pro_seq.nextval,
+	prod_name	varchar2(100),
+	prod_brand	varchar2(100),
+	prod_price	number(10),
+	prod_type	varchar2(100),
+	prod_sale	number(10, 5),
+	prod_from	varchar2(100),
+	prod_date	date DEFAULT SYSDATE,
+	prod_stock	number(10),
+	prod_ordCnt number(10),
+	prod_img	varchar2(100)
+);
+CREATE TABLE members (
+	mem_no	number(10) DEFAULT mem_seq.nextval,
+	mem_id	varchar2(100),
+	mem_pw	varchar2(100),
+	mem_name	varchar2(100),
+	mem_phone	varchar2(100),
+	mem_mail	varchar2(100),
+	mem_addr	varchar2(500),
+	mem_point	number(10)
+);
+CREATE TABLE orders (
+	ord_no	number(10) DEFAULT ord_seq.nextval,
+	ord_name	varchar2(100),
+	ord_addr	varchar2(500),
+	ord_date	date DEFAULT SYSDATE,
+	ord_price	number(10),
+	ord_stat	varchar2(100),
+	ord_point	number(10),
+	ord_total	number(10),
+	ord_phone	varchar2(100),
+	mem_no	number(10) NOT NULL
+);
+CREATE TABLE orderLists (
+	list_no	number(10) DEFAULT list_seq.nextval,
+	list_quant	number(10),
+	prod_no	number(10) NOT NULL,
+	ord_no	number(10) NOT NULL
+);
+CREATE TABLE carts (
+	cart_no	number(10) DEFAULT car_seq.nextval,
+	cart_quant	number(10),
+	prod_no	number(10) NOT NULL,
+	mem_no	number(10) NOT NULL
+);
+CREATE TABLE reviews (
+	rev_no	number(10) DEFAULT rev_seq.nextval,
+	rev_star	number(10),
+	rev_content	varchar2(500),
+	rev_date	date DEFAULT SYSDATE,
+	prod_no	number(10) NOT NULL,
+	mem_no	number(10) NOT NULL,
+	list_no	number(10) NOT NULL
+);
+CREATE TABLE inquiries (
+	inq_no	number(10) DEFAULT inq_seq.nextval,
+	inq_type	varchar2(100),
+    inq_title varchar2(500),
+	inq_content	varchar2(1500),
+    inq_date  date DEFAULT SYSDATE,
+	inq_resp	varchar2(1500),
+	mem_no	number(10) NOT NULL
+);
+-- produtcs 상품
+ALTER TABLE products ADD CONSTRAINT PK_PRODUCTS PRIMARY KEY (prod_no);
+-- members 회원
+ALTER TABLE members ADD CONSTRAINT PK_MEMBERS PRIMARY KEY (mem_no);
+-- orders 주문
+ALTER TABLE orders ADD CONSTRAINT PK_ORDERS PRIMARY KEY (ord_no);
+ALTER TABLE orders ADD CONSTRAINT FK_ORDERS FOREIGN KEY (mem_no) REFERENCES MEMBERS(mem_no);
+-- orderLists 주문내역
+ALTER TABLE orderLists ADD CONSTRAINT PK_ORDERLISTS PRIMARY KEY (list_no);
+ALTER TABLE orderLists ADD CONSTRAINT FK_ORDERSLISTS1 FOREIGN KEY (ord_no) REFERENCES ORDERS(ord_no);
+ALTER TABLE orderLists ADD CONSTRAINT FK_ORDERSLISTS2 FOREIGN KEY (prod_no) REFERENCES PRODUCTS(prod_no);
+-- carts 장바구니
+ALTER TABLE carts ADD CONSTRAINT PK_CARTS PRIMARY KEY (cart_no);
+ALTER TABLE carts ADD CONSTRAINT FK_CARTS1 FOREIGN KEY (mem_no) REFERENCES MEMBERS(mem_no);
+ALTER TABLE carts ADD CONSTRAINT FK_CARTS2 FOREIGN KEY (prod_no) REFERENCES PRODUCTS(prod_no);
+-- reviews 리뷰
+ALTER TABLE reviews ADD CONSTRAINT PK_REVIEWS PRIMARY KEY (rev_no);
+ALTER TABLE reviews ADD CONSTRAINT FK_REVIEWS1 FOREIGN KEY (mem_no) REFERENCES MEMBERS(mem_no);
+ALTER TABLE reviews ADD CONSTRAINT FK_REVIEWS2 FOREIGN KEY (prod_no) REFERENCES PRODUCTS(prod_no);
+ALTER TABLE reviews ADD CONSTRAINT FK_REVIEWS3 FOREIGN KEY (list_no) REFERENCES ORDERLISTS(list_no);
+-- inquiries 문의
+ALTER TABLE inquiries ADD CONSTRAINT PK_INQUIRIES PRIMARY KEY (inq_no);
+ALTER TABLE inquiries ADD CONSTRAINT FK_INQUIRIES FOREIGN KEY (mem_no) REFERENCES MEMBERS(mem_no);
+
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('프닭 곤약 김밥 궁중잡채',
+       '프레시지',
+       7000,
+       '라이스',
+       0.21,
+       '국내산',
+       0,
+       0,
+       'pre-kimbob-jobchae.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('프닭 곤약 김밥 매콤제육',
+       '프레시지',
+       7000,
+       '라이스',
+       0.21,
+       '국내산',
+       0,
+       0,
+       'pre-kimbob-maekom.jpg');
+
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('슈퍼크런치 찰핫도그',
+       '프레시지',
+       2000,
+       '만두/간식',
+       0.05,
+       '외국산',
+       0,
+       0,
+       'pre-crunch-hotdog.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('슈퍼크런치 모짜렐라 치즈핫도그',
+       '프레시지',
+       2500,
+       '만두/간식',
+       0.04,
+       '외국산',
+       0,
+       0,
+       'pre-crunch-hotdog-mo.jpg');
+
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('PICK 통닭다리 블랙',
+       '허닭',
+       6900,
+       '닭가슴살',
+       0.43,
+       '외국산',
+       0,
+       0,
+       'heo-pick-leg-black.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('PICK 통닭다리 허니갈릭',
+       '허닭',
+       6900,
+       '닭가슴살',
+       0.43,
+       '외국산',
+       0,
+       0,
+       'heo-pick-leg-garic.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('중화식 구운 주먹밥 새우맛',
+       '발재반점',
+       2500,
+       '라이스',
+       0.6,
+       '외국산',
+       0,
+       0,
+       'bal-chin-griled-shrimp.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('중화식 구운 주먹밥 게살맛',
+       '발재반점',
+       2500,
+       '라이스',
+       0.6,
+       '외국산',
+       0,
+       0,
+       'bal-chin-griled-crab.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('프레시업 슬라이스 닭가슴살 오리지널',
+       '허닭',
+       2800,
+       '닭가슴살',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-slice-filet-origin.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('프레시업 슬라이스 닭가슴살 케이준',
+       '허닭',
+       2800,
+       '닭가슴살',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-slice-filet-cajun.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('크리스피 통 닭가슴살 치즈',
+       '허닭',
+       2900,
+       '닭가슴살',
+       0.14,
+       '국내산',
+       0,
+       0,
+       'heo-crispy-filet-ch.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('닭가슴살 비엔나 오리지널',
+       '허닭',
+       1950,
+       '소시지',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-filet-Vienna-origin.jpg');     
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('닭가슴살 비엔나 트리플치즈',
+       '허닭',
+       1950,
+       '소시지',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-filet-Vienna-ch.jpg'); 
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('오븐구이 닭가슴살바',
+       '허닭',
+       1950,
+       '소시지',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-oven-filetbar.jpg'); 
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('PICK 닭가슴살 소스 스테이크 데리야끼',
+       '허닭',
+       2500,
+       '스테이크/큐브',
+       0,
+       '외국산',
+       0,
+       0,
+       'heo-pick-filet-steak-deli.jpg'); 
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('그릴 닭가슴살 스테이크 깻잎',
+       '허닭',
+       2500,
+       '스테이크/큐브',
+       0,
+       '외국산',
+       0,
+       0,
+       'heo-gril-filet-steak-ggak.jpg'); 
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('한입 닭가슴살 큐브 떡갈비',
+       '허닭',
+       2500,
+       '스테이크/큐브',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-onbite-filet-cube.jpg'); 
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('스팀 닭가슴살볼 고추맛',
+       '허닭',
+       2500,
+       '스테이크/큐브',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-steam-filetball-chil.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('속보이는 얇은피 닭가슴살 만두',
+       '허닭',
+       2900,
+       '만두/간식',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-filet-dumpling.jpg');  
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('속보이는 얇은피 닭가슴살 김치만두',
+       '허닭',
+       2900,
+       '만두/간식',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-filet-dumpling-kimchi.jpg');
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('부드러운 닭가슴살 육포 스파이시',
+       '허닭',
+       2900,
+       '만두/간식',
+       0,
+       '국내산',
+       0,
+       0,
+       'heo-filet-jerky-spi.jpg'); 
+       
+INSERT INTO products(prod_name,
+                     prod_brand,
+                     prod_price,
+                     prod_type,
+                     prod_sale,
+                     prod_from,
+                     prod_stock,
+                     prod_ordCnt,
+                     prod_img)
+VALUES('쇠고기 육포 오리지널',
+       '허닭',
+       1500,
+       '만두/간식',
+       0,
+       '외국산',
+       0,
+       0,
+       'heo-beef-jerky-ori.jpg'); 
+
+COMMIT;
