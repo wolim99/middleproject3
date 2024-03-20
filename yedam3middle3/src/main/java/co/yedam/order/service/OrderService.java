@@ -12,7 +12,9 @@ public interface OrderService {
 	//상세페이지 서비스
 	
 	//제품 데이터
-	Product searchProd(Product product);
+	Product searchProd(int prodNo);
+	//연관 데이터
+	List<Product> relatedProd(String prodType);
 	//리뷰 평점
 	float searchRev1(int prodNo);
 	//리뷰 개수

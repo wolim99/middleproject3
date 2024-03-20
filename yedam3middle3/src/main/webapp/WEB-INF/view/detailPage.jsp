@@ -1,9 +1,9 @@
 <%@ page import="co.yedam.order.Product"%>
-<%@ page import="co.yedam.order.Review" %>
+<%@ page import="co.yedam.order.Review"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- css -->
@@ -13,16 +13,20 @@ div.detailInfo {
 	margin-right: 30px;
 }
 
-div.detailOption, div.detailInfoStar, div.detailInfoTotal1, div.reviewInfo {
+div.detailOption, div.detailInfoStar, div.detailInfoTotal1, div.reviewInfo
+	{
 	display: inline-block;
 }
-div.reviewInfo1{
+
+div.reviewInfo1 {
 	text-align: left;
 	display: inline-block;
 }
+
 div.detailInfoTotal, div.detailInfoBtn {
 	text-align: right;
 }
+
 div.detailReview {
 	display: inline-block;
 	text-align: left;
@@ -32,10 +36,10 @@ div select.detailOptionSelect {
 	width: 250px;
 	height: 30px;
 }
-button.nav-link{
+
+button.nav-link {
 	width: 324px;
 }
-
 </style>
 
 
@@ -56,8 +60,6 @@ ${review2 } >> 리뷰 개수
  -->
 
 
-${reviewList }
-
 
 <!-- 바디 영역 -->
 <div class="container-fluid py-5 mt-5">
@@ -77,15 +79,18 @@ ${reviewList }
 					</div>
 					<!-- 상단 우측 영역 -->
 					<div class="col-lg-6">
+						<!-- 제품명 -->
 						<h4 class="fw-bold mb-3">${product.prodName }</h4>
 						<!-- 평점 >> 별 -->
-						<div class="detailInfoStar"><h5>${review1 }/5</h5></div>
 						<div class="detailInfoStar">
-							<i class="fa fa-star text-secondary"></i>
-							<i class="fa fa-star text-secondary"></i>
-							<i class="fa fa-star text-secondary"></i>
-							<i class="fa fa-star text-secondary"></i>
-							<i class="fa fa-star text-secondary"></i>
+							<h5>${review1 }/5</h5>
+						</div>
+						<div class="detailInfoStar">
+							<i class="fa fa-star text-secondary"></i> <i
+								class="fa fa-star text-secondary"></i> <i
+								class="fa fa-star text-secondary"></i> <i
+								class="fa fa-star text-secondary"></i> <i
+								class="fa fa-star text-secondary"></i>
 							<div style="display: inline-block;">(${review2 })</div>
 						</div>
 						<div>
@@ -93,7 +98,7 @@ ${reviewList }
 						</div>
 						<hr>
 						<div class="detailInfo">배송비</div>
-						<div class="detailInfo">2500원</div>
+						<div id="deliveryPrice" class="detailInfo">2500</div>
 						<hr>
 						<div class="detailInfo">브랜드</div>
 						<div class="detailInfo">${product.prodBrand }</div>
@@ -118,15 +123,16 @@ ${reviewList }
 						<!-- 옵션선택 -->
 						<label>수량선택</label>
 						<div class="detailOption">
-							<input id="prodCnt" type="number" min="1" max="50" value="1" style="width: 80px;">
+							<input id="prodCnt" type="number" min="1" max="50" value="1"
+								style="width: 80px;">
 						</div>
 						<div class="detailOption">(최대 50개)</div>
 						<script>
-							$('#prodCnt').on('change', function(){
-								$.ajax("./detailPage.do")
-								.done(function(){
+							$('#prodCnt').on('change', function() {
+								$.ajax("./detailPage.do?prodNo=" + "${product.prodNo}")
+								.done(function() {
 									let inputVal = document.querySelector('#prodCnt')
-									document.querySelector('.changeTotal').innerText = inputVal.value * ${product.prodPrice };
+									document.querySelector('.changeTotal').innerText = inputVal.value * ${product.prodPrice};
 								})
 							})
 						</script>
@@ -166,197 +172,113 @@ ${reviewList }
 						<br>
 						<!-- 옵션선택 -->
 						<div class="detailInfoTotal">
-							<div class="detailInfoTotal1"><h2>총금액</h2></div>
-							<div class="detailInfoTotal1"><h2 class="changeTotal" style="color: red">${product.prodPrice }</h2></div>
-							<div class="detailInfoTotal1"><h2>원</h2></div>
+							<div class="detailInfoTotal1">
+								<h2>총금액</h2>
+							</div>
+							<div class="detailInfoTotal1">
+								<h2 class="changeTotal" style="color: red">${product.prodPrice }</h2>
+							</div>
+							<div class="detailInfoTotal1">
+								<h2>원</h2>
+							</div>
 						</div>
 						<br>
-						<div class="detailInfoBtn">					
-							<a href="#"
-							class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-							class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a> 
-							<a href="http://localhost:8080/yedam3middle3/orderPage.do"
-							class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-							class="fa fa-shopping-bag me-2 text-primary"></i>바로구매</a>
+						<div class="detailInfoBtn">
+							<a id="btn1" href="#"
+								class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+								class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a> <a
+								id="btn2" href="#"
+								class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+								class="fa fa-shopping-bag me-2 text-primary"></i>바로구매</a>
 						</div>
+						<!-- 장바구니 >> cart.do 이동 -->
+						<script>
+							document.querySelector('a#btn1').addEventListener(
+									'click', function() {
+										location.href = './cart.do';
+									})
+						</script>
+						<!-- 바로구매 >> orderPage.do 이동 -->
+						<script>
+							document
+									.querySelector('a#btn2')
+									.addEventListener(
+											'click',
+											function() {
+												let prodImg = "${product.prodImg}";
+												let prodPrice = "${product.prodPrice}";
+												let prodName = "${product.prodName}";
+												let deliveryPrice = document
+														.querySelector('#deliveryPrice');
+												let changeTotal = document
+														.querySelector('.changeTotal');
+												let prodCnt = document
+														.querySelector('#prodCnt');
+												location.href = './orderPage.do?prodImg='
+														+ prodImg
+														+ '&prodPrice='
+														+ prodPrice
+														+ '&prodName='
+														+ prodName
+														+ '&prodCnt='
+														+ prodCnt.value
+														+ '&deliveryPrice='
+														+ deliveryPrice.innerText
+														+ '&changeTotal='
+														+ changeTotal.innerText;
+											})
+						</script>
 					</div>
 				</div>
 				<!-- 상단 좌측/우측 영역 끝 -->
 				<!-- 관련 제품 영역 시작 -->
 				<br> <br> <br>
 				<h1 class="fw-bold mb-0" style="text-align: center">연관 상품</h1>
-				<div class="vesitable">
+				<div onclick="toDetailPage()" class="vesitable">
 					<div class="owl-carousel vegetable-carousel justify-content-center">
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지1 -->
-								<img src="static/img/heo-beef-jerky-ori.jpg"
-									class="img-fluid w-100 rounded-top" alt="">
-							</div>
+						<c:forEach var="productList" items="${productList }">
+							<!-- 연관 제품 1개 -->
 							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름1</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+								class="border border-primary rounded position-relative vesitable-item">
+								<div class="vesitable-img">
+									<!-- 연관제품 이미지1 -->
+									<img src="static/img/${productList.prodImg }"
+										class="img-fluid w-100 rounded-top" alt="">
+								</div>
+								<div
+									class="text-white bg-primary px-3 py-1 rounded position-absolute"
+									style="top: 10px; right: 10px;">${productList.prodType }</div>
+								<div class="p-4 pb-0 rounded-bottom">
+									<h4>${productList.prodName }</h4>
+									<p>${productList.prodBrand }</p>
+									<div class="d-flex justify-content-between flex-lg-wrap">
+										<p class="text-dark fs-5 fw-bold">${productList.prodPrice }</p>
+										<a href="http://localhost:8080/yedam3middle3/cart.do"
+											class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
+											class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지2 -->
-								<img src="static/img/heo-crispy-filet-ch.jpg"
-									class="img-fluid w-100 rounded-top" alt="">
-							</div>
-							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름2</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
-								</div>
-							</div>
-						</div>
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지3 -->
-								<img src="static/img/heo-filet-dumpling.jpg"
-									class="img-fluid w-100 rounded-top bg-light" alt="">
-							</div>
-							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름3</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
-								</div>
-							</div>
-						</div>
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지4 -->
-								<img src="static/img/heo-filet-dumpling-kimchi.jpg"
-									class="img-fluid w-100 rounded-top" alt="">
-							</div>
-							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름4</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
-								</div>
-							</div>
-						</div>
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지5 -->
-								<img src="static/img/heo-filet-jerky-spi.jpg"
-									class="img-fluid w-100 rounded-top" alt="">
-							</div>
-							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름5</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
-								</div>
-							</div>
-						</div>
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지6 -->
-								<img src="static/img/heo-filet-Vienna-ch.jpg"
-									class="img-fluid w-100 rounded-top" alt="">
-							</div>
-							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름6</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
-								</div>
-							</div>
-						</div>
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지7 -->
-								<img src="static/img/heo-filet-Vienna-origin.jpg"
-									class="img-fluid w-100 rounded-top" alt="">
-							</div>
-							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름7</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
-								</div>
-							</div>
-						</div>
-						<div
-							class="border border-primary rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<!-- 연관제품 이미지8 -->
-								<img src="static/img/heo-gril-filet-steak-ggak.jpg"
-									class="img-fluid w-100 rounded-top" alt="">
-							</div>
-							<div
-								class="text-white bg-primary px-3 py-1 rounded position-absolute"
-								style="top: 10px; right: 10px;">닭가슴살</div>
-							<div class="p-4 pb-0 rounded-bottom">
-								<h4>제품이름8</h4>
-								<p>제품설명</p>
-								<div class="d-flex justify-content-between flex-lg-wrap">
-									<p class="text-dark fs-5 fw-bold">제품가격</p>
-									<a href="#"
-										class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-										class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
+				<script>
+					function toDetailPage(){
+						let prodNo = 
+						location.href = './orderPage.do?prodImg='
+							+ prodImg
+							+ '&prodPrice='
+							+ prodPrice
+							+ '&prodName='
+							+ prodName
+							+ '&prodCnt='
+							+ prodCnt.value
+							+ '&deliveryPrice='
+							+ deliveryPrice.innerText
+							+ '&changeTotal='
+							+ changeTotal.innerText;
+					}
+				</script>
 				<br> <br> <br>
 				<!-- 관련 제품 영역 끝 -->
 				<!-- 탭 영역 시작 -->
@@ -379,8 +301,11 @@ ${reviewList }
 							<button class="nav-link border-white border-bottom-0"
 								type="button" role="tab" id="nav-mission-tab"
 								data-bs-toggle="tab" data-bs-target="#nav-mission"
-								aria-controls="nav-mission" aria-selected="false">리뷰<div style="display: inline-block;">(${review2 })</div></button>
-								
+								aria-controls="nav-mission" aria-selected="false">
+								리뷰
+								<div style="display: inline-block;">(${review2 })</div>
+							</button>
+
 						</div>
 					</nav>
 					<!-- 탭 영역 -->
@@ -506,24 +431,28 @@ ${reviewList }
 						</div>
 						<!-- 탭3 끝 -->
 						<!-- 탭4: 리뷰 -->
-						<div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+						<div class="tab-pane" id="nav-mission" role="tabpanel"
+							aria-labelledby="nav-mission-tab">
 							<p>리뷰</p>
 							<p>총평점:${review1 }/5</p>
 							<p>총개수:${review2 }</p>
 							<hr>
 							<div style="text-align: center">
 								<c:forEach var="review" items="${reviewList }">
-									<div class="detailReview">										
+									<div class="detailReview">
 										<div>작성날짜</div>
-										<div><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${review.revDate }"/></div>
+										<div>
+											<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+												value="${review.revDate }" />
+										</div>
 									</div>
 									<br>
-									<div class="detailReview">									
+									<div class="detailReview">
 										<div>평점</div>
 										<div>${review.revStar }</div>
 									</div>
 									<br>
-									<div class="detailReview">									
+									<div class="detailReview">
 										<div>내용</div>
 										<div>${review.revContent }</div>
 									</div>

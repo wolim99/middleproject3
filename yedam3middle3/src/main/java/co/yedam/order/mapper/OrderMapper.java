@@ -12,7 +12,9 @@ public interface OrderMapper {
 	//상세페이지 mapper
 	
 	//제품 데이터
-	Product selectProd(Product product);
+	Product selectProd(int prodNo);
+	//연관 제품
+	List<Product> relatedProd(String prodType);
 	//리뷰 평점
 	float selectRev1(int prodNo);
 	//리뷰 개수
