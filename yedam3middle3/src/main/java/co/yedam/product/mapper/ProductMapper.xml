@@ -11,23 +11,69 @@
   	</select>
   	
   	<select id="searchProduct" parameterType="String" resultType="product">
-  		SELECT *
-  		FROM products
-  		WHERE prod_no = prod_no
-  		<if test="brand != null and !brand.equals('')">
-    		AND prod_brand = ${brand}
-  		</if>
-  		<if test="type != null and !type.equals('')">
-    		AND prod_type like ${type}
-  		</if>
-  		<if test="price != null and price != 0">
-    		AND prod_price <![CDATA[<=]]> ${price}
-  		</if>
-  		<if test="keyword != null and !keyword.equals('')">
-    		AND prod_name like #{keyword}
-  		</if>
+	  	SELECT prod_no,
+	  	       prod_name,
+	  	       prod_brand,
+	  	       prod_price,
+	  	       prod_type,
+	  	       prod_sale,
+	  	       prod_from,
+	  	       prod_date,
+	  	       prod_stock,
+	  	       prod_ordcnt,
+	  	       prod_img
+	  	FROM(	
+	  		SELECT /*+ INDEX(p pk_products) */ ROWNUM rn, p.*
+	  		FROM products p
+	  		WHERE prod_no = prod_no
+	  		<if test="brand != null and !brand.equals('')">
+	    		AND prod_brand IN (
+				<foreach collection="brand" item="bname" index="i" separator=",">
+					#{bname}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="type != null and !type.equals('')">
+	    		AND prod_type IN (
+				<foreach collection="type" item="btype" index="i" separator=",">
+					#{btype}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="price != null and price != 0">
+	    		AND prod_price <![CDATA[<=]]> ${price}
+	  		</if>
+	  		<if test="keyword != null and !keyword.equals('')">
+	    		AND prod_name like #{keyword}
+	  		</if>
+        	AND ROWNUM <![CDATA[<=]]> (#{ppage} * 5) ) b
+  		WHERE b.rn > (#{ppage} - 1) * 5
   	</select>
   	
-  	
+  	<select id="selectCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM   products
+		WHERE prod_no = prod_no
+	  		<if test="brand != null and !brand.equals('')">
+	    		AND prod_brand IN (
+				<foreach collection="brand" item="bname" index="i" separator=",">
+					#{bname}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="type != null and !type.equals('')">
+	    		AND prod_type IN (
+				<foreach collection="type" item="btype" index="i" separator=",">
+					#{btype}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="price != null and price != 0">
+	    		AND prod_price <![CDATA[<=]]> ${price}
+	  		</if>
+	  		<if test="keyword != null and !keyword.equals('')">
+	    		AND prod_name like #{keyword}
+	  		</if>
+	</select>
   	
   </mapper>

@@ -20,10 +20,15 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> conList(String brand, String type, int price, String keyword) {
+	public List<Product> conList(String[] brand, String[] type, int price, String keyword, int ppage) {
 		// TODO Auto-generated method stub
-		System.out.println("2: "+keyword);
-		return mapper.searchProduct(brand, type, price, keyword);
+		return mapper.searchProduct(brand, type, price, keyword, ppage);
+	}
+
+	@Override
+	public int totalCount(String[] brand, String[] type, int price, String keyword) {
+		// TODO Auto-generated method stub
+		return mapper.selectCount(brand, type, price, keyword);
 	}
 
 

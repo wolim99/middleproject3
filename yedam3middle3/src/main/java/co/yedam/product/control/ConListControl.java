@@ -20,19 +20,20 @@ public class ConListControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String brand = req.getParameter("brand");
-		String type = req.getParameter("type");
+		resp.setContentType("text/json;charset=utf-8");
+		String[] brand = req.getParameterValues("brand");
+		String[] type = req.getParameterValues("type");
 		String price = req.getParameter("price");
 		String keyword = req.getParameter("keyword");
-		System.out.println("1: "+keyword);
-		resp.setContentType("text/json;charset=utf-8");
+		String ppage = req.getParameter("ppage");
+		
 		ProductService svc = new ProductServiceImpl();
-		List<Product> list = svc.conList(brand, type, Integer.parseInt(price), keyword);
+		List<Product> list = svc.conList(brand, type, Integer.parseInt(price), keyword, Integer.parseInt(ppage));
 		
 		Gson gson = new GsonBuilder().create();
 		
 		String json = gson.toJson(list);
-		System.out.println(list);
+		//System.out.println(list);
 		resp.getWriter().print(json);
 	}
 

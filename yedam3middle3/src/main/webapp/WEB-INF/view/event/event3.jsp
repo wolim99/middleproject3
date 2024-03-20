@@ -13,6 +13,7 @@
                         </div>
                         <div class="text-center mx-auto" style="max-width: 700px;">
                             <p class="mb-4"> [이벤트][포르미푸드] 포르미 도시락과 든든하게 관리해봄!</p>
+                            <hr>
                         </div>
                         <div class="col-12">
                             <img src="static/img/main/eventContent3.jpg" width="100%" height="auto">
@@ -25,8 +26,11 @@
         </div>
         <div id="event" class="container py-5 fruite p-5 bg-light rounded">
             <div class="col-lg-12" style="text-align: right;">
+                <div style="text-align: left;">
+                    <span>봄맞이 몸관리는 포르미와 함께!</span>
+                    <hr>
+                </div>
                 <div id="list" class="row g-5 justify-content-center">
-
                 </div>
             </div>
         </div>

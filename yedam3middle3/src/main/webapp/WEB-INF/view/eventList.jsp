@@ -21,6 +21,10 @@
 								<div class="fruite-img">
 									<a href="event.do?event=1"> 
 									<img src="static/img/main/eventIcon1.jpg" class="img-fluid w-100 rounded-top" alt="">
+									<div class="p-4 border border-secondary border-top-0 rounded-bottom">
+										<p style="height: 48px;color:grey;">[모음전][프레시지] 프레시지 밀키트 신제품 & BEST 모음전</p>
+										<p>2024-03-08 ~ 2024-4-03</p>
+									</div>
 									</a>
 								</div>
 							</div>
@@ -30,6 +34,10 @@
 								<div class="fruite-img">
 									<a href="event.do?event=2"> 
 									<img src="static/img/main/eventIcon2.jpg" class="img-fluid w-100 rounded-top" alt="">
+									<div class="p-4 border border-secondary border-top-0 rounded-bottom">
+										<p style="height: 48px;color:grey;">[이벤트] 33데이 특가!!!</p>
+										<p>2024-03-03 ~ 2024-03-27</p>
+									</div>
 									</a>
 								</div>
 							</div>
@@ -39,6 +47,10 @@
 								<div class="fruite-img">
 									<a href="event.do?event=3"> 
 									<img src="static/img/main/eventIcon3.jpg" class="img-fluid w-100 rounded-top" alt="">
+									<div class="p-4 border border-secondary border-top-0 rounded-bottom">
+										<p style="height: 48px;color:grey;">[이벤트][포르미푸드] 포르미 도시락과 든든하게 관리해봄!</p>
+										<p>2024-03-18~2024-03-31</p>
+									</div>
 									</a>
 								</div>
 							</div>
@@ -48,6 +60,10 @@
 								<div class="fruite-img">
 									<a href="event.do?event=4"> 
 									<img src="static/img/main/eventIcon4.jpg" class="img-fluid w-100 rounded-top" alt="">
+									<div class="p-4 border border-secondary border-top-0 rounded-bottom">
+										<p style="height: 48px; color:grey;">[이벤트][아침몰] 실온보관 닭가슴살 득템찬스!</p>
+										<p>2024-03-20~2024-03-31</p>
+									</div>
 									</a>
 								</div>
 							</div>

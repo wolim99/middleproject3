@@ -4,9 +4,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Checkout Page Start -->
+<div class="container-fluid page-header py-5">
+	<h1 class="text-center text-white display-6">회원정보 수정</h1>
+</div>
 <div class="container-fluid py-5">
 	<div class="container py-5">
-		<h1 class="mb-4">회원정보 수정</h1>
 		<form action="modifyMember.do" method="post" >
 			<input type="hidden" value="${logMemNo }" placeholder="${logMemNo}" >
 			<div class="row g-5">

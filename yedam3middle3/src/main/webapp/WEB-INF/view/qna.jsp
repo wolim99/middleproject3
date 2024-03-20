@@ -56,6 +56,8 @@
 		</tbody>
 	</table>
 </div>
+<a href="qnaAddForm.do"><button type="button">문의글 작성</button></a>
+<a href="myPage.do"><button type="button">돌아가기</button></a>
 
 <script>
 fetch('qna.do')
@@ -68,13 +70,15 @@ fetch('qna.do')
 	
 	$(result).each((idx, item, ary) => {
 		console.log(item.inqNo)
+		if(${logMemNo } == item.memNo) {
 		$('<tr />').append(
 			$('<td />').text(item.inqNo),
 			$('<td />').text(item.inqType),
 			$('<td />').append($('<a href="qnaDetail.do?inqNo='+item.inqNo+'" />').text(item.inqTitle)),
 			$('<td />').text(item.inqResp),
 			$('<td />').text(item.inqDate)
-		).appendTo($('tbody'));
+		 ).appendTo($('tbody'));
+		}
 	})
 })
 .catch(err => console.log(err,"errrrrrrrrrr"));
