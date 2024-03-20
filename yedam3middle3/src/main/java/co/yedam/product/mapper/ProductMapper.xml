@@ -10,7 +10,7 @@
   		FROM products
   	</select>
   	
-  	<select id="searchProduct" parameterType="String" resultType="product">
+  	<select id="searchProduct" parameterType="searchCon" resultType="product">
 	  	SELECT prod_no,
 	  	       prod_name,
 	  	       prod_brand,
@@ -24,7 +24,10 @@
 	  	       prod_img
 	  	FROM(	
 	  		SELECT /*+ INDEX(p pk_products) */ ROWNUM rn, p.*
-	  		FROM products p
+	  		FROM (SELECT /*+ INDEX(p pk_products) */ c.*
+              	  FROM products c
+              	  WHERE ${listtype}
+              	  ORDER BY ${sort}) p
 	  		WHERE prod_no = prod_no
 	  		<if test="brand != null and !brand.equals('')">
 	    		AND prod_brand IN (
@@ -41,19 +44,20 @@
 				)
 	  		</if>
 	  		<if test="price != null and price != 0">
-	    		AND prod_price <![CDATA[<=]]> ${price}
+	    		AND prod_price-(ROUND(prod_price*prod_sale/100)*100) <![CDATA[<=]]> ${price}
 	  		</if>
 	  		<if test="keyword != null and !keyword.equals('')">
 	    		AND prod_name like #{keyword}
 	  		</if>
-        	AND ROWNUM <![CDATA[<=]]> (#{ppage} * 5) ) b
-  		WHERE b.rn > (#{ppage} - 1) * 5
+        	AND ROWNUM <![CDATA[<=]]> (#{ppage} * 6) 
+        	) b
+  		WHERE b.rn > (#{ppage} - 1) * 6
   	</select>
   	
-  	<select id="selectCount" parameterType="String" resultType="int">
+  	<select id="selectCount" parameterType="searchCon" resultType="int">
 		SELECT COUNT(*)
 		FROM   products
-		WHERE prod_no = prod_no
+		WHERE ${listtype}
 	  		<if test="brand != null and !brand.equals('')">
 	    		AND prod_brand IN (
 				<foreach collection="brand" item="bname" index="i" separator=",">
@@ -69,7 +73,7 @@
 				)
 	  		</if>
 	  		<if test="price != null and price != 0">
-	    		AND prod_price <![CDATA[<=]]> ${price}
+	    		AND prod_price-(ROUND(prod_price*prod_sale/100)*100) <![CDATA[<=]]> ${price}
 	  		</if>
 	  		<if test="keyword != null and !keyword.equals('')">
 	    		AND prod_name like #{keyword}

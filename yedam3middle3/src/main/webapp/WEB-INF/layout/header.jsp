@@ -65,11 +65,11 @@
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="productList.do" class="nav-item nav-link active">전체상품</a>
-                            <a href="shop.html" class="nav-item nav-link">신상품</a>
-                            <a href="shop.html" class="nav-item nav-link">할인</a>
-                            <a href="shop.html" class="nav-item nav-link">베스트</a>
-                            <a href="shop.html" class="nav-item nav-link">1팩담기</a>
+                            <a href="productList.do?pagetype=all" class="nav-item nav-link active">전체상품</a>
+                            <a href="productList.do?pagetype=new" class="nav-item nav-link">신상품</a>
+                            <a href="productList.do?pagetype=sale" class="nav-item nav-link">할인</a>
+                            <a href="productList.do?pagetype=best" class="nav-item nav-link">베스트</a>
+                            <a href="productList.do?pagetype=single" class="nav-item nav-link">1팩담기</a>
                             <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-item nav-link active">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>

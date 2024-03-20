@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.common.DataSource;
 import co.yedam.product.Product;
+import co.yedam.product.SearchCon;
 import co.yedam.product.mapper.ProductMapper;
 
 public class ProductServiceImpl implements ProductService{
@@ -20,15 +21,15 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> conList(String[] brand, String[] type, int price, String keyword, int ppage) {
+	public List<Product> conList(SearchCon search) {
 		// TODO Auto-generated method stub
-		return mapper.searchProduct(brand, type, price, keyword, ppage);
+		return mapper.searchProduct(search);
 	}
 
 	@Override
-	public int totalCount(String[] brand, String[] type, int price, String keyword) {
+	public int totalCount(SearchCon search) {
 		// TODO Auto-generated method stub
-		return mapper.selectCount(brand, type, price, keyword);
+		return mapper.selectCount(search);
 	}
 
 
