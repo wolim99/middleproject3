@@ -1,0 +1,11 @@
+DECLARE
+    i NUMBER;
+BEGIN
+    i := 1;
+    FOR i IN 1..22
+    LOOP
+        UPDATE products
+        SET prod_ordCnt = ROUND(DBMS_RANDOM.VALUE(0, 100))
+        WHERE prod_no = i;
+    END LOOP;    
+END;
