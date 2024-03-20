@@ -12,7 +12,7 @@
                         </button>
                     </div>
                     <div class="text-center mx-auto" style="max-width: 700px;">
-                        <p class="mb-4"> [모음전] 프레시지 밀키트 신제품 & BEST 모음전</p>
+                        <p class="mb-4"> [모음전][프레시지] 프레시지 밀키트 신제품 & BEST 모음전</p>
                         <hr>
                     </div>
                     <div class="col-12">

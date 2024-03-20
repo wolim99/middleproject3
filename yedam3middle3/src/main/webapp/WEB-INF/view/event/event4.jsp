@@ -12,7 +12,7 @@
                             </button>
                         </div>
                         <div class="text-center mx-auto" style="max-width: 700px;">
-                            <p class="mb-4"> [이벤트] 실온보관 닭가슴살 득템찬스!</p>
+                            <p class="mb-4"> [이벤트][아침몰] 실온보관 닭가슴살 득템찬스!</p>
                             <hr>
                         </div>
                         <div class="col-12">
