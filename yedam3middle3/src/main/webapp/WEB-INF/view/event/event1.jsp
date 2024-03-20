@@ -13,6 +13,7 @@
                     </div>
                     <div class="text-center mx-auto" style="max-width: 700px;">
                         <p class="mb-4"> [모음전] 프레시지 밀키트 신제품 & BEST 모음전</p>
+                        <hr>
                     </div>
                     <div class="col-12">
                         <img src="static/img/main/eventContent1.jpg" width="100%" height="auto">
@@ -25,6 +26,10 @@
     </div>
     <div id="event" class="container py-5 fruite p-5 bg-light rounded">
         <div class="col-lg-12" style="text-align: right;">
+            <div style="text-align: left;">
+                <span>프레시지X누홀닭 콜라보 이벤트!</span>
+                <hr>
+            </div>
             <div id="list" class="row g-5 justify-content-center">
             </div>
         </div>

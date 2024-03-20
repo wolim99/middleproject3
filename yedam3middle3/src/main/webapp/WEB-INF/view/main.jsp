@@ -3,9 +3,9 @@
 		<!-- event Start -->
 		<div class="container-fluid py-5 mb-5 testimonial">
 			<div class="testimonial-header text-center" style="width: 100%;">
-				<h1 class="text-primary">
+				<p class="text-primary" style="font-size: 2.5rem;">
 					EVENT
-					</h4>
+				</p>
 			</div>
 			<div class="owl-carousel eventBanner-carousel">
 				<div>
@@ -37,8 +37,7 @@
 				<div class="row g-5 align-items-center">
 					<div class="col-md-12 col-lg-7">
 						<h4 class="mb-3 text-secondary">식단을 위한 최고의 선택!</h4>
-						<h1 class="mb-5 display-3 text-primary">닭가슴살, 닭다리살,<br>
-							소시지, 도시락까지</h1>
+						<h1 class="mb-5 display-3 text-primary">닭가슴살, 닭다리살 & 소시지, 도시락까지</h1>
 						<div id="input" class="position-relative mx-auto">
 							<input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
 								type="text" placeholder="검색어 입력">

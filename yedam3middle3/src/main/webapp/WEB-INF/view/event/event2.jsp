@@ -13,6 +13,7 @@
                     </div>
                     <div class="text-center mx-auto" style="max-width: 700px;">
                         <p class="mb-4"> [이벤트] 33데이 특가!!!</p>
+                        <hr>
                     </div>
                     <div class="col-12">
                         <img src="static/img/main/eventContent2.jpg" width="100%" height="auto">
@@ -25,8 +26,11 @@
     </div>
     <div id="event" class="container py-5 fruite p-5 bg-light rounded">
         <div class="col-lg-12" style="text-align: right;">
+            <div style="text-align: left;">
+                <span>33데이 세일 특별가!</span>
+                <hr>
+            </div>
             <div id="list" class="row g-5 justify-content-center">
-
             </div>
         </div>
     </div>
