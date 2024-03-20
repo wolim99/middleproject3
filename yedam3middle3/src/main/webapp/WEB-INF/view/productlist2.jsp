@@ -63,11 +63,11 @@
                                                 <label for="brand-2">허닭</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandbox" id="brand-2" name="prodBrand" value="fresheasy">
+                                                <input type="checkbox" class="me-2 brandbox" id="brand-3" name="prodBrand" value="fresheasy">
                                                 <label for="brand-3">프레시지</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandbox" id="brand-2" name="prodBrand" value="baljae">
+                                                <input type="checkbox" class="me-2 brandbox" id="brand-4" name="prodBrand" value="baljae">
                                                 <label for="brand-4">발재반점</label>
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@
 										type = [];
 										type.push('닭가슴살','스테이크/큐브','소시지','라이스','만두/간식');
 										pageList(brand, type, price, keyword);
-										showlist(brand, type, price, keyword);
+										showlist(brand, type, price, keyword, ppage);
 									}else {
 										$("input[name=prodType]").prop("checked", false);
 										type = [];
