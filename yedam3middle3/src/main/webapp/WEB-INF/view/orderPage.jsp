@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="co.yedam.member.Member"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style>
 div.orderInfoLabel {
@@ -26,9 +28,8 @@ div.orderInfoPay {
 }
 </style>
 <!-- 사용자 주소 업데이트 -->
-<%
-Member member = (Member) request.getAttribute("member");
-%>
+
+
 
 
 <!-- 헤더 바디 사이 영역 -->
@@ -41,7 +42,7 @@ Member member = (Member) request.getAttribute("member");
 	</ol>
 </div>
 
-${basicDel }
+
 
 <!-- 바디 영역 -->
 <div class="container-fluid py-5">
@@ -130,7 +131,7 @@ ${basicDel }
 			function infoEqCheck() {
 				let orderInfoEq = document.querySelector('.orderInfoEq');
 				let orderName1 = document.querySelector('#orderName1');
-				let orderName2 = document.querySelector('#orderName2');
+				let orderName2 = document.querySelector('.orderName2');
 				let orderPhone1 = document.querySelector('#orderPhone1');
 				let orderPhone2 = document.querySelector('#orderPhone2');
 				let orderPhone3 = document.querySelector('#orderPhone3');
@@ -143,11 +144,10 @@ ${basicDel }
 			}
 		</script>
 		<hr>
-		<form>
 		<div>
 			<div class="orderInfoLabel">이름</div>
 			<div class="orderInfoId">
-				<input id="orderName2" name="memName" type="text"
+				<input class="orderName2" name="memName" type="text"
 					style="width: 150px;">
 			</div>
 		</div>
@@ -211,6 +211,8 @@ ${basicDel }
 			<div class="orderInfoDelivery">
 				<label><input type="radio" value="기본배송지" name="AddrRadio"
 					onclick="basicAddrCheck()">기본배송지</label>
+					<input type="hidden" class="orderName2">
+				
 				<label><input type="radio" value="신규배송지" name="AddrRadio"
 					onclick="newAddrCheck()">신규배송지</label>
 			</div>
@@ -247,15 +249,13 @@ ${basicDel }
 				<input id="updateAddr" type="submit" value="배송지 저장">
 			</div>
 		</div>
-		</form>
 		<script>
 			function updateAddr(){
-				let updateAddr = document.querySelector('#updateAddr')
-				if(updateAddr.checked){
-					alert("1")
-					if("${updateAddr}" == 1){
-						alert("2")
-					}
+				let updateAddr = document.querySelector('#updateAddr');
+				let orderName2 = document.querySelector('#orderName2');
+				let orderAddr = document.querySelector('#orderAddr');
+				if(orderName2.value == null || orderAddr.value == null){
+					alert("${message1}");
 				}
 			}
 		</script>
@@ -293,6 +293,7 @@ ${basicDel }
 
 		<!-- 상품정보 시작 -->
 		<h4>상품정보</h4>
+		
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
@@ -310,25 +311,29 @@ ${basicDel }
 					<tr>
 						<th scope="row">
 							<div class="d-flex align-items-center">
-								<img src="static/img/pre-crunch-hotdog.jpg"
+								<img src="static/img/${param.prodImg }"
 									class="img-fluid me-5" style="width: 100px; height: 100px;"
 									alt="">
 							</div>
 						</th>
 						<td>
-							<p class="mb-0 mt-4">제품명1</p>
+							<p class="mb-0 mt-4">${param.prodName }</p>
 						</td>
 						<td>
-							<p class="mb-0 mt-4">수량</p>
+							<div>						
+								<input id="prodCnt" type="number" min="1" max="50" value="${param.prodCnt }" style="width: 80px;">
+							</div>
 						</td>
 						<td>
-							<p class="mb-0 mt-4">배송비</p>
+							<p class="mb-0 mt-4">${param.deliveryPrice }</p>
 						</td>
 						<td>
 							<p class="mb-0 mt-4">적립</p>
 						</td>
 						<td>
-							<p class="mb-0 mt-4">가격</p>
+							<div>							
+								<p id="changeTotal" class="mb-0 mt-4">${param.changeTotal }</p>
+							</div>
 						</td>
 					</tr>
 					<!-- 두번째 행 -->
@@ -384,18 +389,34 @@ ${basicDel }
 				</tbody>
 			</table>
 		</div>
+		<script>
+			$('#prodCnt').on('change', function(){
+				$.ajax("./orderPage.do")
+					.done(function(){
+						let inputVal = document.querySelector('#prodCnt')
+						let changeTotal = document.querySelector('#changeTotal')
+						let changeTotal2 = document.querySelector('#changeTotal2')
+						let changeTotal3 = document.querySelector('#changeTotal3')
+						let pointOfPrice = document.querySelector('#pointOfPrice')
+						changeTotal.innerText = inputVal.value * "${param.prodPrice }";
+						changeTotal2.innerText = inputVal.value * "${param.prodPrice }";
+						changeTotal3.innerText = parseInt(inputVal.value * "${param.prodPrice }") + parseInt("${param.deliveryPrice}");
+						pointOfPrice.innerText = Math.round(changeTotal3.innerText * 0.01);
+					})
+			})
+		</script>
 		<div style="text-align: right;">
 			<div class="productPrice1">주문금액:</div>
-			<div class="productPrice1">20000</div>
-			<div class="productPrice1">원 + 배송비</div>
-			<div class="productPrice1">2500</div>
+			<div id="changeTotal2" class="productPrice1">${param.changeTotal }</div>
+			<div class="productPrice1">원 + 배송비:</div>
+			<div class="productPrice1">${param.deliveryPrice }</div>
 			<div class="productPrice1">원 / 최종금액:</div>
-			<div class="productPrice1">22500</div>
+			<div id="changeTotal3" class="productPrice1">${param.changeTotal + param.deliveryPrice }</div>
 			<div class="productPrice1">원</div>
 		</div>
 		<div style="text-align: right;">
 			<div class="productPrice2">(적립예정:</div>
-			<div class="productPrice2">120</div>
+			<div id="pointOfPrice" class="productPrice2"><fmt:formatNumber value="${(param.changeTotal + param.deliveryPrice) * 0.01 }" pattern="0"></fmt:formatNumber></div>
 			<div class="productPrice2">원)</div>
 		</div>
 		<!-- 상품정보 끝 -->

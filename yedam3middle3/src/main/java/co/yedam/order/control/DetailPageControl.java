@@ -19,17 +19,26 @@ public class DetailPageControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//서비스등록
 		OrderService svc = new OrderServiceImpl();
-		//메인페이지 파라미터값 받기
 		
+		//제품페이지에서 파라미터 값 받기
+		String prodNo = req.getParameter("prodNo");
+		String prodType = req.getParameter("prodType");
 		
 		//제품 데이터
 		Product product = new Product();
-		product.setProdNo(9);
-		product = svc.searchProd(product);
+		product = svc.searchProd(Integer.parseInt(prodNo));
+		
+		//연관 데이터
+		Product product2 = new Product();
+		product2.setProdType(prodType);
+		List<Product> productList = svc.relatedProd(prodType);
+		
 		//리뷰 평점
 		float review1 = svc.searchRev1(1);
+		
 		//리뷰 개수
 		int review2 = svc.searchRev2(1);
+		
 		//리뷰 데이터
 		Review review3 = new Review();
 		review3.setProdNo(1);
@@ -37,6 +46,7 @@ public class DetailPageControl implements Control {
 		
 		//메서드 반환값으로 요청 전달
 		req.setAttribute("product", product);
+		req.setAttribute("productList", productList);
 		req.setAttribute("review1", review1);
 		req.setAttribute("review2", review2);
 		req.setAttribute("reviewList", reviewList);

@@ -20,8 +20,12 @@ public class OrderServiceImpl implements OrderService{
 	
 	//제품 데이터
 	@Override
-	public Product searchProd(Product product) {
-		return mapper.selectProd(product);
+	public Product searchProd(int prodNo) {
+		return mapper.selectProd(prodNo);
+	}
+	@Override
+	public List<Product> relatedProd(String prodType) {
+		return mapper.relatedProd(prodType);
 	}
 	//리뷰 평점
 	@Override
@@ -54,5 +58,6 @@ public class OrderServiceImpl implements OrderService{
 		}
 		return false;
 	}
+	
 	
 }

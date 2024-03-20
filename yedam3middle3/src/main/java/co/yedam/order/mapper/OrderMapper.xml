@@ -4,8 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.order.mapper.OrderMapper">
 	<!-- 제품 데이터 -->
-	<select id="selectProd" resultType="product">
-		select prod_name, prod_price, prod_brand, prod_from, prod_img
+	<select id="selectProd" resultType="product" parameterType="int">
+		select prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type
 		from   products
 		where  prod_no = #{prodNo}
 	</select>
@@ -39,6 +39,11 @@
 		set mem_addr = #{memAddr}
 		where mem_name = #{memName}
 	</update>
+	<select id="relatedProd" resultType="product" parameterType="String">
+		select prod_type, prod_name, prod_price, prod_img, prod_brand
+		from   products
+		where  prod_type = #{prodType}
+	</select>
 	
 
 </mapper>

@@ -20,17 +20,24 @@ public class OrderPageControl implements Control {
 		String memAddr = req.getParameter("memAddr");
 		
 		//기본배송지
-		String basicAddr = svc.selectBasicAddr("홍길동");
+		String basicAddr = svc.selectBasicAddr(memName);
+		//배송지수정
 		Member member = new Member();
 		member.setMemAddr(memAddr);
 		member.setMemName(memName);
 		Boolean updateAddr = true;
-		if(memName != null && memAddr != null) {			
-			updateAddr = svc.updateAddr(member);
-		}
 		
+		//기본배송지		
 		req.setAttribute("basicAddr",basicAddr);
-		req.setAttribute("updateAddr", updateAddr);
+		
+		//배송지수정
+		if(memName == null || memAddr == null) {
+			req.setAttribute("message1", "이름과 주소를 입력해 주세요.");
+		}
+		else {			
+			updateAddr = svc.updateAddr(member);
+			req.setAttribute("updateAddr", updateAddr);
+		}
 		
 		String path = "dak/orderPage.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
