@@ -39,6 +39,7 @@ public class LoginControl implements Control {
 			session.setAttribute("logAddr", member.getMemAddr());
 			session.setAttribute("logPoint", member.getMemPoint());
 			session.setAttribute("logMemNo", member.getMemNo());
+			session.setAttribute("logPw", pw);
 			
 			resp.sendRedirect("main.do");
 		} else {

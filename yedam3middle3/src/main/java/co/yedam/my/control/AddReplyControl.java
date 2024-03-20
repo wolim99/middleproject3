@@ -7,37 +7,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.common.Control;
-import co.yedam.member.Member;
+import co.yedam.my.Reply;
 import co.yedam.my.service.MyService;
 import co.yedam.my.service.MyServiceImpl;
 
-public class ModifyMemberControl implements Control {
+public class AddReplyControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		
-		String mname = req.getParameter("memName");
+		String rstar = req.getParameter("revStar");
+		String rcontent = req.getParameter("revContent");
+		String pno = req.getParameter("prodNo");
 		String mno = req.getParameter("memNo");
-		String pw = req.getParameter("memPw");
-		String phone = req.getParameter("memPhone");
-		String mail = req.getParameter("memMail");
-		String addr = req.getParameter("memAddr");
+		String lno = req.getParameter("listNo");
 		
-		Member member = new Member();
-		member.setMemName(mname);
-		member.setMemNo(Integer.parseInt(mno));
-		member.setMemPw(pw);
-		member.setMemPhone(phone);
-		member.setMemMail(mail);
-		member.setMemAddr(addr);
+		Reply reply = new Reply();
+		reply.setRevStar(Integer.parseInt(rstar));
+		reply.setRevContent(rcontent);
+		reply.setProdNo(Integer.parseInt(pno));
+		reply.setMemNo(Integer.parseInt(mno));
+		reply.setListNo(Integer.parseInt(lno));
 		
 		MyService svc = new MyServiceImpl();
 		
-		if (svc.modifyMember(member)) {
+		if (svc.addReply(reply)) {
 			resp.getWriter().print("{\"retCode\": \"OK\"}");
-			resp.sendRedirect("logout.do");
+			resp.sendRedirect("orderList.do");
 		} else {
 			resp.getWriter().print("{\"retCode\": \"NG\"}");
 		}
+
 	}
+
 }

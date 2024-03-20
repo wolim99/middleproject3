@@ -1,4 +1,4 @@
-<%@page import="co.yedam.my.Qna"%>
+<%@page import="co.yedam.my.Reply"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -10,32 +10,9 @@
 <!-- Checkout Page Start -->
 <div class="container-fluid py-5">
 	<div class="container py-5">
-		<form action="#">
+		<form action="addReply.do" method="post">
+		<p>주문번호</p><input value="${reply.listNo }" name="listNo">
 			<div class="row g-5">
-				<div class="col-md-12 col-lg-6 col-xl-7">
-					<div class="form-item">
-						<label class="form-label my-3">문의글 유형</label> <select>
-							<option>상품문의</option>
-							<option>배송문의</option>
-							<option>기타문의</option>
-						</select>
-					</div>
-					<div class="form-item">
-						<label class="form-label my-3">문의글 제목 <sup>*</sup></label> <input
-							type="text" class="form-control">
-					</div>
-					<div class="form-item">
-						<label class="form-label my-3">내용<sup>*</sup></label>
-						<textarea name="text" class="form-control" spellcheck="false"
-							cols="30" rows="11"></textarea>
-					</div>
-					<div class="form-item">
-						<label class="form-label my-3">회원번호</label> <input type="text"
-							class="form-control" placeholder="${logMemNo }" readonly>
-					</div>
-
-				</div>
-				<div class="col-md-12 col-lg-6 col-xl-5">
 					<div class="table-responsive">
 						<table class="table">
 							<thead>
@@ -56,13 +33,31 @@
 							</tbody>
 						</table>
 					</div>
-					
-					
-					<div
-						class="row g-4 text-center align-items-center justify-content-center pt-4">
-						<button type="button"
-							class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place
-							Order</button>
+				<div class="col-md-12 col-lg-6 col-xl-7">
+					<div class="form-item">
+						<label class="form-label my-3">별점</label> 
+						<select name="revStar">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+					<div class="form-item">
+						<label class="form-label my-3">리뷰 내용<sup>*</sup></label>
+						<textarea name="revContent" class="form-control" cols="30" rows="11"></textarea>
+					</div>
+					<div class="form-item">
+					<p>상품번호</p><input class="form-control" name="prodNo" value="${reply.prodNo }">
+					</div>
+					<div class="form-item">
+						<label class="form-label my-3">회원번호</label> <input type="text"
+							class="form-control" name="memNo" placeholder="${logMemNo }" value="${logMemNo }" readonly>
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary">작성하기</button>
+						<a href="orderList.do"><button type="button" class="btn btn-secondary">돌아가기</button></a>
 					</div>
 				</div>
 			</div>
@@ -70,3 +65,27 @@
 	</div>
 </div>
 <!-- Checkout Page End -->
+<script>
+fetch('orderL.do')
+.then(resolve => resolve.json())
+.then(result => {
+	console.log(result);
+	result.forEach(item => {
+		console.log(item);
+	})
+	
+	$(result).each((idx, item, ary) => {
+		console.log(item.listNo)
+		if(${reply.listNo } == item.listNo) {
+			$('<tr />').append(
+				$('<td />').text(item.prodName),
+				$('<td />').text(item.ordPrice),
+				$('<td />').text(item.listQuant),
+				$('<td />').text(item.ordTotal),
+			).appendTo($('tbody'));
+		}
+	})		
+})
+.catch(err => console.log(err,"errrrrrrrrrr"));
+
+</script>

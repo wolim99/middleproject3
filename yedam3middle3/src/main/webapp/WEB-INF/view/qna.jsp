@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="co.yedam.my.Qna"%>
+<%@page import="co.yedam.my.PageDTO"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script
@@ -55,6 +56,26 @@
 
 		</tbody>
 	</table>
+</div>
+<div class="center">
+	 <div class="pagination">
+		<c:if test="${page.prev }">
+			<a href="qnaMain.do?page=${page.starPage -1 }"> &laquo; </a>
+		</c:if>
+		<c:forEach begin="${page.starPage }" end="${page.endPage }" var="p">
+			<c:choose>
+				<c:when test="${p eq page.page }">
+					<a href="qnaMain.do?page=${p }" class="active">${p }</a>
+				</c:when>
+				<c:otherwise>
+					<a href="qnaMain.do?page=${p }">${p }</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${page.next }">
+			<a href="qnaMain.do?page=${page.endPage +1 }"> &raquo; </a>
+		</c:if>
+	 </div>
 </div>
 <a href="qnaAddForm.do"><button type="button">문의글 작성</button></a>
 <a href="myPage.do"><button type="button">돌아가기</button></a>

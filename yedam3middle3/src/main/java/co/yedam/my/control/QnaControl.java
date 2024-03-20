@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 
 import co.yedam.common.Control;
 import co.yedam.my.Qna;
+import co.yedam.my.SearchVO;
 import co.yedam.my.service.MyService;
 import co.yedam.my.service.MyServiceImpl;
 
@@ -20,9 +21,12 @@ public class QnaControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
+		
+		SearchVO search = new SearchVO();
 		MyService svc = new MyServiceImpl();
-		List<Qna> list = svc.qnaList();
-
+		List<Qna> list = svc.qnaList(search);
+		
+		
 		/*
 		 * String json = "["; for (int i = 0; i < list.size(); i++) { json +=
 		 * "{\"inqNo\":\"" + list.get(i).getInqNo() + "\",\"qType\":\"" +

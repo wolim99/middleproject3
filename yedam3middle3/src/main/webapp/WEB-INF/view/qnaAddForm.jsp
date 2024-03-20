@@ -14,24 +14,24 @@
 			<div class="row g-5">
 				<div class="col-md-12 col-lg-6 col-xl-7">
 					<div class="form-item">
-						<label class="form-label my-3">문의글 유형</label> <select>
-							<option>상품문의</option>
-							<option>배송문의</option>
-							<option>기타문의</option>
+						<label class="form-label my-3">문의글 유형</label> 
+						<select name="inqType">
+							<option value="상품문의">상품문의</option>
+							<option value="배송문의">배송문의</option>
+							<option value="기타문의">기타문의</option>
 						</select>
 					</div>
 					<div class="form-item">
 						<label class="form-label my-3">문의글 제목 <sup>*</sup></label> <input
-							type="text" class="form-control">
+							type="text" class="form-control" name="inqTitle">
 					</div>
 					<div class="form-item">
 						<label class="form-label my-3">내용<sup>*</sup></label>
-						<textarea name="text" class="form-control" spellcheck="false"
-							cols="30" rows="11"></textarea>
+						<textarea class="form-control" cols="30" rows="11" name="inqContent"></textarea>
 					</div>
 					<div class="form-item">
 						<label class="form-label my-3">회원번호</label> <input type="text"
-							class="form-control" value="${logMemNo }" placeholder="${logMemNo }" readonly>
+							class="form-control" name="memNo" value="${logMemNo }" placeholder="${logMemNo }" readonly>
 					</div>
 					<div>
 						<button type="submit" class="btn btn-primary">작성하기</button>

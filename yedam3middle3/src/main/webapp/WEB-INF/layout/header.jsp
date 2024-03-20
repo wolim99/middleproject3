@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,8 +51,16 @@
                         <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
                     </div>
                     <div class="top-link pe-2">
-                        <a href="loginForm.do" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white mx-2">회원가입</small></a>
+	                    <c:choose>
+							<c:when test="${!empty logid }">
+								<a href="logout.do" class="text-white"><small class="text-white mx-2">로그아웃</small></a>
+							</c:when>
+							<c:otherwise>
+								<a href="loginForm.do" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
+                       			<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small></a>					
+							</c:otherwise>
+						</c:choose>
+                        
                     </div>
                 </div>
             </div>
