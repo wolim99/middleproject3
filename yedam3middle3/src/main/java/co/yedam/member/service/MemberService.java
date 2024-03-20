@@ -15,7 +15,7 @@ public interface MemberService {
 	// 장바구니
 	int insertCart(Cart cart);
 	
-	List<Cart> CartList();
+	List<Cart> CartList(String memid);
 	
 	boolean deleteCart(Cart cart);
 	

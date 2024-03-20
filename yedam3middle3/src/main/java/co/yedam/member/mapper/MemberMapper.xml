@@ -37,7 +37,7 @@
 	</insert>
 	
 	<!-- 장바구니 목록 -->
-	<select id="cartList" resultType="co.yedam.member.Cart">
+	<select id="cartList" resultType="co.yedam.member.Cart" parameterType="String">
 	  select c.cart_no,
              c.mem_no,
              c.cart_quant,
