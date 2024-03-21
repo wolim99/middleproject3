@@ -20,63 +20,10 @@
 					</tr>
 				</thead>
 				<tbody>
-				<!-- 바나나 샘플 -->
-					<tr>
-						<th scope="row">
-							<div class="d-flex align-items-center">
-								<img src="img/vegetable-item-3.png"
-									class="img-fluid me-5 rounded-circle"
-									style="width: 80px; height: 80px;" alt="">
-							</div>
-						</th>
-						<td>
-							<p class="mb-0 mt-4">Big Banana</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">2.99 $</p>
-						</td>
-						<td>
-							<div class="input-group quantity mt-4" style="width: 100px;">
-								<div class="input-group-btn">
-									<button
-										class="btn btn-sm btn-minus rounded-circle bg-light border">
-										<i class="fa fa-minus"></i>
-									</button>
-								</div>
-								<input type="text"
-									class="form-control form-control-sm text-center border-0"
-									value="1">
-								<div class="input-group-btn">
-									<button
-										class="btn btn-sm btn-plus rounded-circle bg-light border">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-							</div>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">2.99 $</p>
-						</td>
-						<td>
-							<button class="btn btn-md rounded-circle bg-light border mt-4">
-								<i class="fa fa-times text-danger"></i>
-							</button>
-						</td>
-					</tr>
-					<!-- 바나나 샘플 코드 -->
+
 				</tbody>
 			</table>
 		</div>
-		<!-- 쿠폰 적용
-		 <div class="mt-5">
-			<input type="text"
-				class="border-0 border-bottom rounded me-5 py-3 mb-4"
-				placeholder="Coupon Code">
-			<button
-				class="btn border-secondary rounded-pill px-4 py-3 text-primary"
-				type="button">Apply Coupon</button>
-		</div>
-		   -->
 		<div class="row g-4 justify-content-end">
 			<div class="col-8"></div>
 			<div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
@@ -89,15 +36,6 @@
 							<h5 class="mb-0 me-4">Subtotal:</h5>
 							<p class="mb-0">$96.00</p>
 						</div>
-						<!-- 배송비
-						<div class="d-flex justify-content-between">
-							<h5 class="mb-0 me-4">Shipping</h5>
-							<div class="">
-								<p class="mb-0">Flat rate: $3.00</p>
-							</div>
-						</div>
-						<p class="mb-0 text-end">Shipping to Ukraine.</p>
-						 -->
 					</div>
 					<div
 						class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
@@ -129,7 +67,7 @@ $(document).ready(function() {
                     var subtotal = item.cartQuant * item.prodPrice;
                     total += subtotal;
                     var row = '<tr>' +
-                              '<th scope="row"><div class="d-flex align-items-center"><img src="static/img/' +item.prodImg+ '" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt=""></div></th>' +
+                              '<th scope="row"><div class="d-flex align-items-center"><img src="static/img/' +item.prodImg+ '" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;"></div></th>' +
                               '<td><p class="mb-0 mt-4">' + item.prodName + '</p></td>' +
                               '<td><p class="mb-0 mt-4">' + item.prodPrice + ' 원</p></td>' +
                               '<td><div class="input-group quantity mt-4" style="width: 100px;">' +
@@ -138,18 +76,102 @@ $(document).ready(function() {
                               '<button class="btn btn-sm btn-plus rounded-circle bg-light border"><i class="fa fa-plus"></i></button>' +
                               '</div></td>' +
                               '<td><p class="mb-0 mt-4">' + subtotal + ' 원</p></td>' +
-                              '<td><button class="btn btn-md rounded-circle bg-light border mt-4"><i class="fa fa-times text-danger"></i></button></td>' +
+                              '<td><button class="btn btn-md rounded-circle bg-light border mt-4 btn-delete-cart" data-cartno="'+item.cartNo+'"><i class="fa fa-times text-danger"></i></button></td>' +
                               '</tr>';
                     $('tbody').append(row);
                 });
 
-                $('p:contains("Subtotal:")').next().text('$' + total);
-                var shipping = parseFloat($('p:contains("Flat rate:")').text().split('$')[1]);
+                $('p:contains("Subtotal:")').next().text('원' + total);
+                var shipping = parseFloat($('p:contains("Flat rate:")').text().split(' 원')[1]);
                 var grandTotal = total + shipping;
-                $('p:contains("Total")').next().text('$' + grandTotal.toFixed(2));
+                $('p:contains("Total")').next().text('원' + grandTotal.toFixed(2));
             },
             error: function() {
                 alert('장바구니 데이터를 불러오는 데 실패했습니다.');
+            }
+        });
+    }
+  $(document).on('click', '.quantity button', function () {
+      var $button = $(this);
+      var oldValue = $button.closest('.quantity').find('input').val();
+      var newVal = 0;
+      if ($button.hasClass('btn-plus')) {
+          newVal = parseFloat(oldValue) + 1;
+      } else {
+          if (oldValue > 1) {
+              newVal = parseFloat(oldValue) - 1;
+          } else {
+              newVal = 1;
+          }
+      }
+      $button.closest('.quantity').find('input').val(newVal);
+
+      // AJAX 요청을 통해 서버에 수량 변경을 알립니다.
+      var memNo = $button.closest('tr').data('memNo');
+      var prodNo = $button.closest('tr').data('prodNo');
+
+      $.ajax({
+          url: 'updatecart.do',
+          type: 'POST',
+          data: {
+              memNo: memNo,
+              prodNo: prodNo,
+              cartQuant: newVal
+          },
+          success: function(response) {
+              var result = JSON.parse(response);
+              if(result.retCode === "OK") {
+                  console.log('수량 업데이트 성공');
+              } else {
+                  alert('수량 업데이트 실패');
+              }
+          },
+          error: function() {
+              alert('서버 통신 오류');
+          }
+      });
+  });
+
+  function updateTotal() {
+     var total = 0;
+  $('tbody tr').each(function() {
+      var price = parseFloat($(this).find('td:nth-child(3) p').text().replace('원'));
+      var quantity = parseFloat($(this).find('.quantity input').val());
+      var subtotal = price * quantity;
+      total += subtotal;
+
+      // 각 항목의 소계 업데이트 (선택적)
+      $(this).find('td:nth-child(5) p').text(subtotal.toFixed(2) + ' 원');
+  });
+
+  // 화면에 총액 표시 업데이트
+  $('.subtotal p').last().text('원' + total.toFixed(2));
+  $('.total p').last().text('원' + total.toFixed(2));
+  }
+});
+
+//AJAX 요청을 통해 장바구니 항목 삭제 기능
+$(document).on('click', '.btn-delete-cart', function() {
+    var cartNo = $(this).data('cartno');
+
+    if(confirm('정말로 삭제 하실건가요')) {
+        $.ajax({
+            url: 'deletecart.do',
+            type: 'POST',
+            data: {
+                cartNo: cartNo
+            },
+            success: function(response) {
+                var result = JSON.parse(response);
+                if(result.retCode === "OK") {
+                    alert('삭제를 성공했습니다');
+                    location.reload();
+                } else {
+                    alert('삭제를 실패했습니다');
+                }
+            },
+            error: function() {
+                alert('서버에러.');
             }
         });
     }

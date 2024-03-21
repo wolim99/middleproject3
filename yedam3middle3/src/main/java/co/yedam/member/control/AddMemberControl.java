@@ -28,9 +28,6 @@ public class AddMemberControl implements Control {
 		String Addr = "("+postcode+") "+address+" "+detailAddress+" "+extraAddress;
 		
 		
-		
-		System.out.println(Addr);
-		
 		Member member = new Member();
 		member.setMemId(id);
 		member.setMemPw(pw);
