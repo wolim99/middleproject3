@@ -21,28 +21,6 @@ public class QnaMainControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
 		
-		String page = req.getParameter("page");
-		page = page == null ? "1" : page;
-		
-		String searchCond = req.getParameter("searchCondition");
-		String keyword = req.getParameter("keyword");
-		
-		// 검색조건.
-		SearchVO search = new SearchVO();
-		search.setPage(Integer.parseInt(page));
-		search.setSearchCondition(searchCond);
-		search.setKeyword(keyword);
-		
-		MyService svc = new MyServiceImpl();
-		List<Qna> list = svc.qnaList(search);
-		
-		PageDTO pageDTO = new PageDTO(Integer.parseInt(page), svc.qnaTotalCnt(search));
-		
-		req.setAttribute("list", list);
-		req.setAttribute("page", pageDTO);
-		req.setAttribute("searchCondition", searchCond);
-		req.setAttribute("keyword", keyword);
-		
 		String path = "dak/qna.tiles";
 		RequestDispatcher dispatch = req.getRequestDispatcher(path);
 		dispatch.forward(req, resp);

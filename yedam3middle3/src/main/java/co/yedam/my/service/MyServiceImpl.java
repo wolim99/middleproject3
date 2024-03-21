@@ -1,12 +1,12 @@
 package co.yedam.my.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.common.DataSource;
 import co.yedam.member.Member;
+import co.yedam.my.OrdSearchVO;
 import co.yedam.my.OrderList;
 import co.yedam.my.Qna;
 import co.yedam.my.Reply;
@@ -19,16 +19,20 @@ public class MyServiceImpl implements MyService {
 
 	SqlSession session = DataSource.getInstance().openSession(true);
 	MyMapper mapper = session.getMapper(MyMapper.class);
-	List<Member> member = new ArrayList<>();
 	
 	@Override
-	public List<Qna> qnaList(SearchVO search) {
-		return mapper.qnaList(search);
+	public List<Qna> qnaList() {
+		return mapper.qnaList();
+	}
+	
+	@Override
+	public List<Qna> qnaSelectList(SearchVO search) {
+		return mapper.qnaSelectList(search);
 	}
 	
 	@Override
 	public int qnaTotalCnt(SearchVO search) {
-		return mapper.getTotalCnt(search);
+		return mapper.selectCount(search);
 	}
 	
 	@Override
@@ -42,8 +46,13 @@ public class MyServiceImpl implements MyService {
 	}
 	
 	@Override
-	public List<OrderList> orderList() {
-		return mapper.orderList();
+	public List<OrderList> orderList(OrdSearchVO oSearch) {
+		return mapper.orderList(oSearch);
+	}
+	
+	@Override
+	public int ordTotalCnt(OrdSearchVO oSearch) {
+		return mapper.selectOrdCount(oSearch);
 	}
 	
 	@Override
