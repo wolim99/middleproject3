@@ -23,11 +23,11 @@
 	  	       prod_ordcnt,
 	  	       prod_img
 	  	FROM(	
-	  		SELECT /*+ INDEX(p pk_products) */ ROWNUM rn, p.*
-	  		FROM (SELECT /*+ INDEX(p pk_products) */ c.*
+	  		SELECT ROWNUM rn, p.*
+	  		FROM (SELECT c.*
               	  FROM products c
               	  WHERE ${listtype}
-              	  ORDER BY ${sort}) p
+              	  ORDER BY ${sort}, prod_no) p
 	  		WHERE prod_no = prod_no
 	  		<if test="brand != null and !brand.equals('')">
 	    		AND prod_brand IN (

@@ -21,13 +21,14 @@ public class AddMemberControl implements Control {
 		String name = req.getParameter("memName");
 		String Phone = req.getParameter("memPhone");
 		String Mail = req.getParameter("memMail");
-		String Addr = req.getParameter("memAddr");
+		String postcode = req.getParameter("postcode");
+		String address = req.getParameter("address");
+		String detailAddress = req.getParameter("detailAddress");
+		String extraAddress = req.getParameter("extraAddress");
+		String Addr = "("+postcode+") "+address+" "+detailAddress+" "+extraAddress;
 		
-		System.out.println(id);
-		System.out.println(pw);
-		System.out.println(name);
-		System.out.println(Phone);
-		System.out.println(Mail);
+		
+		
 		System.out.println(Addr);
 		
 		Member member = new Member();

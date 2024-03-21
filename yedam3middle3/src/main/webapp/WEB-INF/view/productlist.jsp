@@ -135,8 +135,8 @@
                             </div>
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center product-item">
-                                
                                <script>
+                               
                                	let listtype = '';
                                 if(${pagetype } === 'all'){
                                 	$('.headtitle').text('전체 상품');
@@ -181,10 +181,10 @@
 								})
                                 //페이징 버튼
                                 function pagingFunc() {
-                                	ppage = 1;
 	                                $('div .pagination a').on('click', function (e) {
 	                                	e.preventDefault(); //a태그의 링크기능 차단.
 	                    				ppage = $(this).data("page");
+	                                	console.log(ppage);
 	                    				showlist(brand, type, price, keyword, ppage, sort, listtype);
 	                    				pageList(brand, type, price, keyword, listtype);
 									})
