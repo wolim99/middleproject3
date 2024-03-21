@@ -5,15 +5,18 @@
 
 <mapper namespace="co.yedam.my.mapper.MyMapper">
 
-	<select id="qnaList" resultType="qna" parameterType="search">	<!-- qna 리스트 -->
-		<!-- select inq_no,
+	<select id="qnaList" resultType="qna">	<!-- qna 리스트 -->
+		select inq_no,
 		       inq_type,
 		       inq_title,
 		       inq_content,
 		       inq_date,
 		       inq_resp,
 		       mem_no
-		from inquiries -->
+		from inquiries
+	</select>
+	
+	<select id="qnaSelectList" resultType="qna" parameterType="search">	<!-- qna 리스트 -->
 		select rn,
 		       inq_no,
 		       inq_type,
@@ -22,7 +25,7 @@
 		       inq_date,
 		       inq_resp,
 		       mem_no
-		from (select /*+ INDEX(b inquiries_pk) */ rownum rn, b.*
+		from (select /*+ INDEX(b inq_date) */ rownum rn, b.*
 		      from inquiries b
 		      <![CDATA[
 		      where rownum <= (#{page} * 5))a
@@ -30,22 +33,9 @@
 		where a.rn > (#{page} - 1) * 5
 	</select>
 	
-	<select id="getTotalCnt" resultType="int" parameterType="search">
+	<select id="selectCount" resultType="int" parameterType="search">
 		select count(*) 
 		from inquiries
-		<where>
-		  <choose>
-			<when test="searchCondition == 'T'.toString() ">
-			title like '%'||#{keyword}||'%'
-			</when>
-			<when test="searchCondition == 'W'.toString() ">
-			writer like '%'||#{keyword}||'%'
-			</when>
-			<when test="searchCondition == 'TW'.toString() ">
-			(title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%')
-			</when>
-		  </choose>
-		</where>
 	</select>
 	
 	<select id="selectQna" resultType="qna" parameterType="int"> <!-- qna 세부내용 -->
@@ -75,12 +65,7 @@
 		        #{memNo})
 	</insert>
 	
-	<select id="orderList" resultType="co.yedam.my.OrderList">	<!-- 구매내역 리스트 -->
-		<!-- select list_no,
-		       list_quant,
-		       prod_no,
-		       ord_no
-		from orderlists -->
+	<!-- <select id="orderList" resultType="co.yedam.my.OrderList">	구매내역 리스트
 		select d.ord_no,
       	       p.prod_name,
                d.ord_date,
@@ -93,6 +78,33 @@
                p.prod_no    
 		from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
                 JOIN orders d on (o.ord_no = d.ord_no)
+	</select> -->
+	
+	<select id="orderList" resultType="co.yedam.my.OrderList" parameterType="co.yedam.my.OrdSearchVO">
+		select *   
+        from (select  rownum rn, b.*
+		      from (select d.ord_no,
+      	       				p.prod_name,
+              				 d.ord_date,
+              				 o.list_quant,
+             				  d.ord_price,
+             				  d.ord_total,
+             				  d.ord_stat,
+             				  o.list_no,
+             				  d.mem_no,
+             				  p.prod_no
+                    from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
+                               JOIN orders d on (o.ord_no = d.ord_no)) b
+              <![CDATA[                 
+		      where rownum <= (#{opage} * 5))a  
+		      ]]>            
+        where a.rn > (#{opage} - 1) * 5
+        order by ord_date desc
+	</select> 
+	
+	<select id="selectOrdCount" resultType="int" parameterType="co.yedam.my.OrdSearchVO">
+		select count(*) 
+		from orderlists
 	</select>
 	
 	<select id="selectMember" parameterType="member">

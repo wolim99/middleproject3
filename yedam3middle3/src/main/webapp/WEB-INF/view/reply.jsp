@@ -11,7 +11,7 @@
 <div class="container-fluid py-5">
 	<div class="container py-5">
 		<form action="addReply.do" method="post">
-		<p>주문번호</p><input value="${reply.listNo }" name="listNo">
+		<input type="hidden" value="${reply.listNo }" name="listNo">
 			<div class="row g-5">
 					<div class="table-responsive">
 						<table class="table">
@@ -49,7 +49,7 @@
 						<textarea name="revContent" class="form-control" cols="30" rows="11"></textarea>
 					</div>
 					<div class="form-item">
-					<p>상품번호</p><input class="form-control" name="prodNo" value="${reply.prodNo }">
+					<input type="hidden" class="form-control" name="prodNo" value="${reply.prodNo }">
 					</div>
 					<div class="form-item">
 						<label class="form-label my-3">회원번호</label> <input type="text"

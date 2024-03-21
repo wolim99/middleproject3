@@ -3,6 +3,7 @@ package co.yedam.my.mapper;
 import java.util.List;
 
 import co.yedam.member.Member;
+import co.yedam.my.OrdSearchVO;
 import co.yedam.my.OrderList;
 import co.yedam.my.Qna;
 import co.yedam.my.Reply;
@@ -10,16 +11,21 @@ import co.yedam.my.SearchVO;
 
 public interface MyMapper {
 	
-	// Qna 리스트.
-	List<Qna> qnaList(SearchVO search);
-	int getTotalCnt(SearchVO search);
+	// Qna 전체 리스트.
+	List<Qna> qnaList();
+	
+	List<Qna> qnaSelectList(SearchVO search);
+	// 페이지 계산을 위한 전체건수.
+	int selectCount(SearchVO search);
 	// Qna 상세화면
 	Qna selectQna(int inqNo);
 	// Qna 작성
 	int insertQna(Qna qna);
 	
 	// 주문리스트
-	List<OrderList> orderList();
+	List<OrderList> orderList(OrdSearchVO oSearch);
+	// 주문 전체건수.
+	int selectOrdCount(OrdSearchVO oSearch);
 	
 	// 리뷰작성용 주문리스트 상세화면
 	Reply selectReply(int listNo);
