@@ -43,7 +43,7 @@
 								type="text" placeholder="검색어 입력">
 							<button type="submit"
 								class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
-								style="top: 0; right: 25%;" >검색</button>
+								style="top: 0; right: 25%;">검색</button>
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-5">
@@ -52,22 +52,26 @@
 								<div class="carousel-item active rounded">
 									<img src="static/img/hero-img-1.png" width="600px" height="400px"
 										class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide"> <a
-										href="mainsearch.do?type=닭가슴살" class="btn px-4 py-2 text-white rounded">닭가슴살</a>
+										href="mainsearch.do?type=닭가슴살&pagetype=all"
+										class="btn px-4 py-2 text-white rounded">닭가슴살</a>
 								</div>
 								<div class="carousel-item rounded">
 									<img src="static/img/hero-img-2.jpg" class="img-fluid w-100 h-100 rounded"
 										alt="Second slide">
-									<a href="mainsearch.do?type=스테이크/큐브" class="btn px-4 py-2 text-white rounded">스테이크</a>
+									<a href="mainsearch.do?type=스테이크/큐브&pagetype=all"
+										class="btn px-4 py-2 text-white rounded">스테이크</a>
 								</div>
 								<div class="carousel-item rounded">
 									<img src="static/img/hero-img-3.jpg" class="img-fluid w-100 h-100 rounded"
 										alt="Second slide">
-									<a href="mainsearch.do?type=소시지" class="btn px-4 py-2 text-white rounded">소시지</a>
+									<a href="mainsearch.do?type=소시지&pagetype=all"
+										class="btn px-4 py-2 text-white rounded">소시지</a>
 								</div>
 								<div class="carousel-item rounded">
 									<img src="static/img/hero-img-4.jpg" class="img-fluid w-100 h-100 rounded"
 										alt="Second slide">
-									<a href="mainsearch.do?type=라이스" class="btn px-4 py-2 text-white rounded">라이스</a>
+									<a href="mainsearch.do?type=라이스&pagetype=all"
+										class="btn px-4 py-2 text-white rounded">라이스</a>
 								</div>
 							</div>
 							<button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
@@ -97,9 +101,12 @@
 							<h1>베스트</h1>
 						</div>
 						<div style="text-align: right; margin: 0;">
-							<button type="button" href="#" class="btn btn-outline-secondary">
-								<span>view more</span>
-							</button>
+							<a href="productList.do?pagetype=best">
+								<button type="button" href="productList.do?pagetype=best"
+									class="btn btn-outline-secondary">
+									<span>view more</span>
+								</button>
+							</a>
 						</div>
 					</div>
 					<div class="row g-4" style="margin-top: 5px;">
@@ -123,9 +130,11 @@
 							<h1>신상품</h1>
 						</div>
 						<div style="text-align: right; margin:0;">
-							<button type="button" href="#" class="btn btn-outline-primary">
-								<span>view more</span>
-							</button>
+							<a href="mainsearch.do?pagetype=new">
+								<button type="button" class="btn btn-outline-primary">
+									<span>view more</span>
+								</button>
+							</a>
 						</div>
 					</div>
 					<div class="row g-4" style="margin-top: 5px;">
@@ -149,9 +158,11 @@
 							<h1>1팩담기</h1>
 						</div>
 						<div style="text-align: right;margin: 0;">
-							<button type="button" href="#" class="btn btn-outline-secondary">
-								<span>view more</span>
-							</button>
+							<a href="productList.do?pagetype=single">
+								<button type="button" class="btn btn-outline-secondary">
+									<span>view more</span>
+								</button>
+							</a>
 						</div>
 					</div>
 					<div class="row g-4" style="margin-top: 5px;">
@@ -164,8 +175,92 @@
 			</div>
 		</div>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 		<script>
+			let listtype = "prod_comp = 'single'"
+			let type = [];
+			type.push('닭가슴살', '스테이크/큐브', '소시지', '라이스', '만두/간식');
+			let brand = [];
+			brand.push('허닭', '프레시지', '발재반점', '포르미', '아침몰', '닭다리살', '양념육', '양식');
+			let price = 70000;
+			let keyword = '';
+			let ppage = 1;
+			let sort = "prod_date DESC";
+			let listcnt = 0;
+			function showlist2(brand, type, price, keyword, ppage = 1, sort, listtype, pos) {
+				$('.product-item').html('');
+				$.ajax({
+					url: 'conlist.do',
+					//url: 'plist.do',
+					method: 'post',
+					traditional: true,
+					data: { brand: brand, type: type, price: price, keyword: keyword, ppage: ppage, sort: sort, listtype: listtype },
+					dataType: 'json',
+					success: function (result) {
+						console.log(result);
+
+						result.forEach((item, idx) => {
+							if (listcnt >= 4) {
+								return;
+							}
+							console.log(listcnt);
+							listcnt++
+							let realPrice = 0;
+							let salePer = '';
+							if (item.prodSale != 0) {
+								realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
+								salePer = Math.ceil(item.prodSale * 100) + '%';
+							} else {
+								realPrice = item.prodPrice
+							}
+							if (salePer != 0) {
+								$('#' + pos + ' #list').append(
+									$('<div class="col-md-6 col-lg-6 col-xl-3"></div>').append(
+										$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
+											.append(
+												$('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
+											, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+											, $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
+												$('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'text-align': 'left', 'height': '48px' })
+												, $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+													$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+														$('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
+														, $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px' })
+															, $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
+													).css({ 'margin': '0px' })
+													, $('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+										)
+									)
+								)
+							} else {
+								$('#' + pos + ' #list').append(
+									$('<div class="col-md-6 col-lg-6 col-xl-3"></div>').append(
+										$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
+											.append(
+												$('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
+											, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+											, $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').css({ 'height': '169px' }).append(
+												$('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'text-align': 'left', 'height': '48px' })
+												, $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+													$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+														$('<dd />').append($('<span />'), $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
+													).css({ 'margin': '0px' })
+													, $('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+										)
+									)
+								)
+							}
+
+
+
+						})
+					},
+					error: function (err) {
+						console.log('error=> ' + err);
+					}
+				});
+			}
+
 			function showlist(order, pos) {
 				console.log(order)
 				$.ajax({
@@ -184,38 +279,62 @@
 						} else {
 							realPrice = item.prodPrice
 						}
-						$('#' + pos + ' #list').append(
-							$('<div class="col-md-6 col-lg-6 col-xl-3"></div>').append(
-								$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
-									.append(
-										$('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
-									, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
-									, $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
-										$('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px' })
-										, $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
-											$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
-												$('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
-												, $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px' })
-													, $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
-											).css({ 'margin': '0px' })
-											, $('<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+						if (salePer != 0) {
+							$('#' + pos + ' #list').append(
+								$('<div class="col-md-6 col-lg-6 col-xl-3"></div>').append(
+									$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
+										.append(
+											$('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
+										, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+										, $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
+											$('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'text-align': 'left', 'height': '48px' })
+											, $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+												$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+													$('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
+													, $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px' })
+														, $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
+												).css({ 'margin': '0px' })
+												, $('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+									)
 								)
 							)
-						)
+						} else {
+							$('#' + pos + ' #list').append(
+								$('<div class="col-md-6 col-lg-6 col-xl-3"></div>').append(
+									$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
+										.append(
+											$('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
+										, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+										, $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').css({ 'height': '169px' }).append(
+											$('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'text-align': 'left', 'height': '48px' })
+											, $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+												$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+													$('<dd />').append($('<span />'), $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
+												).css({ 'margin': '0px' })
+												, $('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+									)
+								)
+							)
+						}
+
 					})
 				}).fail(function (err) {
 					console.log(err);
 				});
 			}
-			$('#input').on('change',function(){
+			$('#input').on('change', function () {
 
-				location.href='mainsearch.do?search='+$('.hero-header input').val()
+				location.href = 'mainsearch.do?pagetype=all&search=' + $('.hero-header input').val()
 			}
 			)
-			
-			
+			// $('div .input-group').on('change', function () {
+
+			// 	location.href = 'mainsearch.do?pagetype=all&search=' + $('div .input-group input').val()
+			// }
+			// )
+
+			showlist2(brand, type, price, keyword, ppage, sort, listtype, 'pack');
 			showlist('prod_ordcnt', 'best');
 			showlist('prod_date', 'new');
-			showlist('prod_no', 'pack');
 		</script>
 		<!-- 1 pack End-->

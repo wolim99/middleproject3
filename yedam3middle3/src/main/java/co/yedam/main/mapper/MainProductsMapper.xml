@@ -5,17 +5,55 @@
   
 <mapper namespace="co.yedam.main.mapper.MainProductsMapper">
 	<select id="prodList" parameterType="String" resultType="product">
-		SELECT *
-		FROM (select rownum rn, a.* 
-        	from products a
-        	order by #{order} desc)
- 		where 4 >= rn 
+		select rownum, a.*
+        from(select  * 
+        from products
+        order by ${order} desc) a
+        where 4>=rownum
+
 	</select>
-	<select id="randomList"  resultType="product">
-select * from (
-    select * from products order by DBMS_RANDOM.RANDOM
-)
-where   4>=rownum
+	<select id="forsort" parameterType="searchCon" resultType="product">
+	  	SELECT prod_no,
+	  	       prod_name,
+	  	       prod_brand,
+	  	       prod_price,
+	  	       prod_type,
+	  	       prod_sale,
+	  	       prod_from,
+	  	       prod_date,
+	  	       prod_stock,
+	  	       prod_ordcnt,
+	  	       prod_img
+	  	FROM(	
+	  		SELECT /*+ INDEX(p pk_products) */ ROWNUM rn, p.*
+	  		FROM (SELECT /*+ INDEX(p pk_products) */ c.*
+              	  FROM products c
+              	  WHERE ${listtype}
+              	  ORDER BY ${sort}) p
+	  		WHERE prod_no = prod_no
+	  		<if test="brand != null and !brand.equals('')">
+	    		AND prod_brand IN (
+				<foreach collection="brand" item="bname" index="i" separator=",">
+					#{bname}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="type != null and !type.equals('')">
+	    		AND prod_type IN (
+				<foreach collection="type" item="btype" index="i" separator=",">
+					#{btype}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="price != null and price != 0">
+	    		AND prod_price-(ROUND(prod_price*prod_sale/100)*100) <![CDATA[<=]]> ${price}
+	  		</if>
+	  		<if test="keyword != null and !keyword.equals('')">
+	    		AND prod_name like #{keyword}
+	  		</if>
+        	AND ROWNUM <![CDATA[<=]]> (#{ppage} * 6) 
+        	) b
+  		WHERE b.rn > (#{ppage} - 1) * 6
+  	</select>
  		
-	</select>
 </mapper>
