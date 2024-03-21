@@ -23,7 +23,7 @@
 									<img src="static/img/main/eventIcon1.jpg" class="img-fluid w-100 rounded-top" alt="">
 									<div class="p-4 border border-secondary border-top-0 rounded-bottom">
 										<p style="height: 48px;color:grey;">[모음전][프레시지] 프레시지 밀키트 신제품 & BEST 모음전</p>
-										<p>2024-03-08 ~ 2024-4-03</p>
+										<p>2024-03-08 ~ 2024-04-03</p>
 									</div>
 									</a>
 								</div>

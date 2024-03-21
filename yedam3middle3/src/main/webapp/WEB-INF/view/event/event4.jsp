@@ -36,13 +36,7 @@
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
-            let str = '[아침]'
-            if(str.indexOf('아침')){
-                console.log('참')
-            }else{
-                console.log('거짓')
-            }
-            function showlist(pos) {
+            function showlist(pos, name) {
                 $.ajax({
                     url: 'plist.do',
                     method: 'post',
@@ -52,7 +46,7 @@
                     result.forEach((item, idx) => {
                         let realPrice = 0;
                         let salePer = '';
-                        if(item.prodName.indexOf('[아침몰]')==-1){
+                        if(item.prodName.indexOf(name)==-1){
                         return;
                     }
                         if (item.prodSale != 0) {
@@ -68,14 +62,14 @@
                                         $('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
                                     , $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
                                     , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
-                                        $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px' })
+                                        $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({'text-align':'left', 'height': '48px' })
                                         , $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
                                             $('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
                                                 $('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
                                                 , $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px' })
                                                     , $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
                                             ).css({ 'margin': '0px' })
-                                            , $('<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+                                            , $('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
                                 )
                             )
                         )
@@ -84,6 +78,9 @@
                     console.log(err);
                 });
             }
-            showlist('event');
+            showlist('event','바로드숑 실온보관 19종 1팩 골라담기');
+            showlist('event','1+1 실온보관 한입 큐브 4종 1+1팩');
+            showlist('event','바로드숑 개별포장 고구마 1kg');
+            showlist('event','가마솥 아침밥 9+9팩');
         </script>
         <!-- Content End -->
