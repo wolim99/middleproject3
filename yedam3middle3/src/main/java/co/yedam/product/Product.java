@@ -17,5 +17,5 @@ public class Product {
 	private int prodStock;
 	private int prodOrdCnt;
 	private String prodImg;
-	
+	private String prodComp;
 }

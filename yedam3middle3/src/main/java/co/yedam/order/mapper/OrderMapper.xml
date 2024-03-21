@@ -5,18 +5,37 @@
 <mapper namespace="co.yedam.order.mapper.OrderMapper">
 	<!-- 제품 데이터 -->
 	<select id="selectProd" resultType="product" parameterType="int">
-		select prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type
+		select prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type, prod_comp
 		from   products
 		where  prod_no = #{prodNo}
 	</select>
+	<!-- 연관 제품 -->
+	<select id="relatedProd" resultType="product" parameterType="int">
+		select prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type, prod_sale
+        from   products
+        <where>  
+               prod_type = (select   prod_type
+                            from     products
+                            where    prod_no = #{prodNo})
+        <![CDATA[
+        and    prod_no <> #{prodNo}
+        ]]>
+        </where>
+	</select>
+	<!-- 옵션 데이터 -->
+	<select id="selectOption" resultType="option" parameterType="int">
+		select opt_text
+		from   options
+		where  prod_no = #{prodNo}
+	</select>
 	<!-- 리뷰 평점 -->
-	<select id="selectRev1" resultType="_float">
+	<select id="selectRev1" resultType="_float" parameterType="int">
 		select round(AVG(rev_star),1) 
 		from   reviews
 		where  prod_no = #{prodNo}
 	</select>
 	<!-- 리뷰 개수 -->
-	<select id="selectRev2" resultType="int">
+	<select id="selectRev2" resultType="int" parameterType="int">
 		select count(rev_no) 
 		from   reviews
 		where  prod_no = #{prodNo}
@@ -39,11 +58,4 @@
 		set mem_addr = #{memAddr}
 		where mem_name = #{memName}
 	</update>
-	<select id="relatedProd" resultType="product" parameterType="String">
-		select prod_type, prod_name, prod_price, prod_img, prod_brand
-		from   products
-		where  prod_type = #{prodType}
-	</select>
-	
-
 </mapper>

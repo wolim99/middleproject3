@@ -22,6 +22,7 @@
 		<typeAlias alias="searchCon" type="co.yedam.product.SearchCon"/>
 		<typeAlias alias="review" type="co.yedam.order.Review"/>
 		<typeAlias alias="search" type="co.yedam.my.SearchVO"/>
+		<typeAlias alias="option" type="co.yedam.product.Option"/>
 		<!-- <typeAlias alias="member" type="co.yedam.my.Member"/>-->		
 		<!-- <typeAlias alias="product" type="co.yedam.order.Product"/> -->
 	</typeAliases>
