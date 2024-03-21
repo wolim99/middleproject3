@@ -23,13 +23,6 @@ public class AddMemberControl implements Control {
 		String Mail = req.getParameter("memMail");
 		String Addr = req.getParameter("memAddr");
 		
-		System.out.println(id);
-		System.out.println(pw);
-		System.out.println(name);
-		System.out.println(Phone);
-		System.out.println(Mail);
-		System.out.println(Addr);
-		
 		Member member = new Member();
 		member.setMemId(id);
 		member.setMemPw(pw);

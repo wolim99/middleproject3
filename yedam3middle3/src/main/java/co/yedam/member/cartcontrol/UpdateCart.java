@@ -28,14 +28,9 @@ public class UpdateCart implements Control {
 		MemberService mvc = new MemberServiceImpl();
 		
 		if(mvc.modifyCart(cart)) {
-			resp.sendRedirect("cart.do");
+			resp.getWriter().print("{\"retCode\": \"OK\"}");
 		} else {
-			req.setAttribute("messager", "수정 중 에러가 발생했습니다");
-			String path = "dak/error.tiles";
-			// 상세페이지 혹은 메인으로 갈것
-			req.getRequestDispatcher(path).forward(req, resp);
+			resp.getWriter().print("{\"retCode\": \"NG\"}");
 		}
-		
 	}
-
 }
