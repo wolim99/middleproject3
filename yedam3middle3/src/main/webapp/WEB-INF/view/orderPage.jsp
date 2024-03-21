@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="co.yedam.member.Member"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style>
@@ -320,8 +321,14 @@ div.orderInfoPay {
 							<p class="mb-0 mt-4">${param.prodName }</p>
 						</td>
 						<td>
-							<div>						
-								<input id="prodCnt" type="number" min="1" max="50" value="${param.prodCnt }" style="width: 80px;">
+							<div>
+								<c:if test="${param.prodComp eq 'single' }">									
+									<input id="prodCnt" type="number" min="1" max="50" value="${param.prodCnt }" style="width: 80px;">
+									<p>(최대 ${param.prodCnt })</p>
+								</c:if>	
+								<c:if test="${param.prodComp eq 'package' }">
+									<input id="prodCnt" type="text" value="${param.optionListLength }" style="width: 80px;">
+								</c:if>			
 							</div>
 						</td>
 						<td>

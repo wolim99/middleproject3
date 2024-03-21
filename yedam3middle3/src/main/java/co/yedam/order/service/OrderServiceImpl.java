@@ -8,6 +8,7 @@ import co.yedam.common.DataSource;
 import co.yedam.member.Member;
 import co.yedam.order.Review;
 import co.yedam.order.mapper.OrderMapper;
+import co.yedam.product.Option;
 import co.yedam.product.Product;
 
 public class OrderServiceImpl implements OrderService{
@@ -23,9 +24,15 @@ public class OrderServiceImpl implements OrderService{
 	public Product searchProd(int prodNo) {
 		return mapper.selectProd(prodNo);
 	}
+	//연관 데이터
 	@Override
-	public List<Product> relatedProd(String prodType) {
-		return mapper.relatedProd(prodType);
+	public List<Product> relatedProd(int prodNo) {
+		return mapper.relatedProd(prodNo);
+	}
+	//옵션 데이터
+	@Override
+	public List<Option> searchOption(int prodNo) {
+		return mapper.selectOption(prodNo);
 	}
 	//리뷰 평점
 	@Override
@@ -39,8 +46,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 	//리뷰 리스트
 	@Override
-	public List<Review> reviewList(Review review) {
-		return mapper.reviewList(review);
+	public List<Review> reviewList(int prodNo) {
+		return mapper.reviewList(prodNo);
 	}
 	
 	//주문페이지 서비스
