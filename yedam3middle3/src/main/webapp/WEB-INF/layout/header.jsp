@@ -49,9 +49,11 @@
                 <div class="container topbar bg-primary d-none d-lg-block">
                     <div class="d-flex justify-content-between">
                         <div class="top-info ps-2">
-                            <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
-                                    class="text-white">123 Street, New York</a></small>
-                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="mailto:project.yedam.help@gmail.com"
+                            <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a
+                                    href="https://www.google.co.kr/maps/dir//%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%A4%91%EC%95%99%EB%8C%80%EB%A1%9C+403/data=!4m8!4m7!1m0!1m5!1m1!1s0x3565e3c3c8af5edd:0x323d8951a9d8b08a!2m2!1d128.5932375!2d35.8690295?hl=ko&entry=ttu"
+                                    class="text-white">대구광역시 중구 중앙대로 403</a></small>
+                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a
+                                    href="mailto:project.yedam.help@gmail.com"
                                     class="text-white">project.yedam.help@gmail.com</a></small>
                         </div>
                         <div class="top-link pe-2">
@@ -61,9 +63,10 @@
                                             class="text-white mx-2">로그아웃</small></a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="loginForm.do" class="text-white"><small
-                                        class="text-white mx-2">로그인</small>/</a>
-                                <a href="#" class="text-white"><small class="text-white mx-2">회원가입</small></a>
+                                    <a href="#" class="text-white" data-bs-toggle="modal"
+                                        data-bs-target="#loginModal"><small class="text-white mx-2">로그인</small>/</a>
+                                    <a href="addMemberForm.do" class="text-white"><small
+                                            class="text-white mx-2">회원가입</small></a>
                                 </c:otherwise>
                             </c:choose>
 
@@ -102,19 +105,18 @@
                                 <a href="eventList.do" class="nav-item nav-link">이벤트</a>
                             </div>
                         </div>
-                        <div class="d-flex m-3 me-0">
+                        <div id="icons" class="d-flex m-3 me-0">
                             <button
                                 class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                                data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                    class="fas fa-search text-primary"></i></button>
-                            <a href="#" class="position-relative me-4 my-auto">
+                                data-bs-toggle="modal" data-bs-target="#searchModal">
+                                <i class="fas fa-search text-primary"></i></button>
+                            <a onClick="bag()" class="position-relative me-4 my-auto" href="#">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
-                                <span
-                                    class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                <!-- <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span> -->
                             </a>
 
-                            <a href="myPage.do" class="my-auto">
+                            <a onClick="my()" class="my-auto" href="#">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
                         </div>
@@ -145,12 +147,96 @@
                 </div>
             </div>
             <!-- Modal Search End -->
+            <!-- 로그인 모달 -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel">로그인</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- 여기에 로그인 폼을 삽입 -->
+                            <c:if test="${!empty message }">
+                                <p style="color: red;">${message}</p>
+                            </c:if>
+                            <form action="login.do" method="post">
+                                <div class="mb-3">
+                                    <label for="memId" class="form-label">아이디</label>
+                                    <input type="text" class="form-control" id="memId" name="memId">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="memPw" class="form-label">비밀번호</label>
+                                    <input type="password" class="form-control" id="memPw" name="memPw">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-outline-primary">로그인</button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                        data-bs-dismiss="modal">취소</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" onclick="window.location.href='addMemberForm.do';"
+                                class="btn btn-outline-info">신규회원가입</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--로그인 모달끝-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <script>
+                let memNo1=null;
                 $('div .input-group').on('change', function () {
 
                     location.href = 'mainsearch.do?pagetype=all&search=' + $('div .input-group input').val()
                 }
                 )
+                function bag() {
+                    if (${ !empty logid }) {
+                        window.location.href = 'cart.do'
+                    }else {
+                        alert('로그인 후 이용이 가능합니다.')
+                    }
+                }
+                function my() {
+                    if (${ !empty logid }) {
+                        window.location.href = 'myPage.do'
+                    }else {
+                        alert('로그인 후 이용이 가능합니다.')
+                    }
+                }
+                
+                if(${ !empty logMemNo }){
+                    memNo1 = '${logMemNo}';
+                }
+                
+                function countercart() {
+                    $.ajax({
+                        url: 'listcartForm.do',
+                        type: 'GET',
+                        data: { memNo: memNo1 },
+                        dataType: 'json',
+                        success: function (result) {
+                            $('#icons :nth-child(2)').append(
+                                $('<span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;"/>').text(result.length)
+                            )
+                        },
+                        error: function () {
+                            alert('장바구니 데이터를 불러오는 데 실패했습니다.');
+                        }
+                    });
+                }
+                if(memNo1!=null){
+                    countercart();
+                   
+                }else{
+                    $('#icons :nth-child(2)').append(
+                                $('<span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;"/>').text('0')
+                            )
+                }
+                
+               
+                        
             </script>
             <div class="container-fluid page-header"></div>

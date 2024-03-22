@@ -42,8 +42,8 @@
 						<label class="form-label my-3">주소<sup>*</sup></label> <input
 							type="text" id="addr" class="form-control" placeholder="${logAddr }" name="memAddr">
 					</div>
-						<a href="logout.do"><button type="submit" onclick="return check()">수정</button></a>
-						<a href="myPage.do"><button type="button">취소</button></a>
+						<a href="logout.do"><button type="submit" class="btn btn-outline-primary" onclick="return check()">수정</button></a>
+						<a href="myPage.do"><button type="button" class="btn btn-outline-danger">취소</button></a>
 				</div>
 			</div>
 		</form>

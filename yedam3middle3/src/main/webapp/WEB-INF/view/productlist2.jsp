@@ -144,22 +144,27 @@
                                 if(${pagetype} === 'all'){
                                 	$('.headtitle').text('전체 상품');
                                 	$('.sidetitle').text('전체 상품');
+									$('.navbar-nav > a:nth-child(1)').addClass('active');
                                 	listtype = 'prod_no = prod_no';
                                 }else if(${pagetype} === 'new'){
                                 	$('.headtitle').text('신상품');
                                 	$('.sidetitle').text('신상품');
+									$('.navbar-nav > a:nth-child(2)').addClass('active');
                                 	listtype = 'rownum<11';
                                 }else if(${pagetype} === 'sale'){
                                 	$('.headtitle').text('할인 상품');
                                 	$('.sidetitle').text('할인 상품');
+									$('.navbar-nav > a:nth-child(3)').addClass('active');
                                 	listtype = 'prod_sale != 0';
                                 }else if(${pagetype} === 'best'){
                                 	$('.headtitle').text('베스트 상품');
                                 	$('.sidetitle').text('베스트 상품');
+									$('.navbar-nav > a:nth-child(4)').addClass('active');
                                 	listtype = 'prod_ordcnt > 50';
                                 }else if(${pagetype} === 'single'){
                                 	$('.headtitle').text('1팩 담기');
                                 	$('.sidetitle').text('1팩 담기');
+									$('.navbar-nav > a:nth-child(5)').addClass('active');
                                 	listtype = "prod_comp = 'single'"
                                 }
                                 let rndEvnt = Math.floor(Math.random() * (4)) + 1; //1~4
@@ -321,7 +326,6 @@
 											}else{
 												realPrice = item.prodPrice
 											}
-											if (salePer != 0) {
                                                         $('.product-item').append(
                                                             $('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
                                                                 $('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
@@ -340,25 +344,6 @@
                                                                 )
                                                             )
                                                         )
-                                                    } else {
-                                                        $('.product-item').append(
-                                                            $('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
-                                                                $('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
-                                                                    .append(
-                                                                        $('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
-                                                                    , $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
-                                                                    , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom" style="height:169px;"></div>').append(
-                                                                        $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px' })
-                                                                        , $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
-                                                                            $('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
-                                                                                $('<dt />')
-                                                                                , $('<dd />').append($('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
-                                                                            ).css({ 'margin': '0px' })
-                                                                            , $('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
-                                                                )
-                                                            )
-                                                        )
-                                                    }
 						            		
 										})
 						            },
