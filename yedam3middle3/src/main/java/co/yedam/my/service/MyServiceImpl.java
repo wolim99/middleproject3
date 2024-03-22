@@ -41,6 +41,16 @@ public class MyServiceImpl implements MyService {
 	}
 	
 	@Override
+	public boolean removeQna(int inqno) {
+		return mapper.deleteQna(inqno) == 1;
+	}
+	
+	@Override
+	public boolean modifyQna(Qna qna) {
+		return mapper.updateQna(qna) == 1;
+	}
+	
+	@Override
 	public Reply getReply(int listNo) {
 		return mapper.selectReply(listNo);
 	}

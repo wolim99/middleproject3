@@ -28,7 +28,7 @@
 				</tr>
 				<tr>
 					<td align="center">
-						<a href="main.do"><button type="submit" class="btn btn-primary" id="delbtn">회원 탈퇴</button></a>
+						<button type="submit" class="btn btn-primary" id="delbtn" disabled>회원 탈퇴</button>
 						<a href="myPage.do"><button type="button" class="btn btn-secondary">취소</button></a>
 					</td>
 				</tr>
