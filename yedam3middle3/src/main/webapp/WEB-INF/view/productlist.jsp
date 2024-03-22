@@ -184,7 +184,9 @@
 	                                $('div .pagination a').on('click', function (e) {
 	                                	e.preventDefault(); //a태그의 링크기능 차단.
 	                    				ppage = $(this).data("page");
-	                                	console.log(ppage);
+	                                	console.log("ppage:"+ppage);
+	                                	console.log("start:"+startPage);
+	                                	console.log("end:"+endPage);
 	                    				showlist(brand, type, price, keyword, ppage, sort, listtype);
 	                    				pageList(brand, type, price, keyword, listtype);
 									})
@@ -223,7 +225,7 @@
 								//브랜드 개별체크박스
                                 $('.brandCk').on('change', '.brandbox', function (e) {
                                 	ppage = 1;
-    	                            if($(".brandbox:checked").length == 7){
+    	                            if($(".brandbox:checked").length == 5){
     	                            	console.log("full");
     	                            	$(".brandall").prop("checked", true);
     	                            }else {
@@ -253,7 +255,7 @@
 									if($(".typeall").is(":checked")){
 										$("input[name=prodType]").prop("checked", true);
 										type = [];
-										type.push('닭가슴살','스테이크/큐브','소시지','라이스','만두/간식');
+										type.push('닭가슴살','스테이크/큐브','소시지','라이스','만두/간식','닭다리살','양념육','양식');
 										showlist(brand, type, price, keyword, ppage, sort, listtype);
 										pageList(brand, type, price, keyword, listtype);
 									}else {
@@ -266,7 +268,7 @@
 								//종류 개별체크박스
 								$('.typeCk').on('change', '.typebox', function (e) {
 									ppage = 1;
-    	                            if($(".typebox:checked").length == 5){
+    	                            if($(".typebox:checked").length == 8){
     	                            	$(".typeall").prop("checked", true);
     	                            }else {
     	                                $(".typeall").prop("checked", false);
@@ -318,7 +320,7 @@
 												realPrice = item.prodPrice
 											}
 											$('.product-item').append(	
-											$('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append($('<a href="/detailPage.do?prodno='+item.prodNo+'"></a>').append(
+											$('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append($('<a href="detailPage.do?prodNo='+item.prodNo+'"></a>').append(
 													$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
 															.append(
 															$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
@@ -344,7 +346,9 @@
 						        });
                                 }
                                 
-                                function pageList(brand, type, price, keyword, listtype) {
+    						    let startPage, endPage; // 1~5, 6~10,...
+                                let next, prev;
+    						    function pageList(brand, type, price, keyword, listtype) {
                                 	
                                 	$.ajax({
     						            url: 'productcount.do',
@@ -360,14 +364,14 @@
     							            	$('.listhead').text("상품: "+totalCnt+"개");
     						            	}
     						            	$('div .pagination').html('');
-    						        		let startPage, endPage; // 1~5, 6~10,...
-    						        		let next, prev;
+    						        		
     						        		let realEnd = Math.ceil(totalCnt / 6);
-    						        		endPage = Math.ceil(ppage / 6) * 5;
+    						        		endPage = Math.ceil(ppage / 5) * 5;
     						        		startPage = endPage - 4;
     						        		endPage = endPage > realEnd ? realEnd : endPage;
     						        		next = endPage < realEnd ? true : false;
     						        		prev = startPage > 1;
+    						        		
     						        		if (prev) {
     						        			let aTag = document.createElement('a');
     						        			//aTag.innerText = startPage - 1;
