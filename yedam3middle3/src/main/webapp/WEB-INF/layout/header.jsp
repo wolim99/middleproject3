@@ -51,8 +51,8 @@
                         <div class="top-info ps-2">
                             <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
                                     class="text-white">123 Street, New York</a></small>
-                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#"
-                                    class="text-white">Email@Example.com</a></small>
+                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="mailto:project.yedam.help@gmail.com"
+                                    class="text-white">project.yedam.help@gmail.com</a></small>
                         </div>
                         <div class="top-link pe-2">
                             <c:choose>
@@ -62,8 +62,8 @@
                                 </c:when>
                                 <c:otherwise>
                                     <a href="loginForm.do" class="text-white"><small
-                                            class="text-white mx-2">로그인</small>/</a>
-                                    <a href="#" class="text-white"><small class="text-white mx-2">회원가입</small></a>
+                                        class="text-white mx-2">로그인</small>/</a>
+                                <a href="#" class="text-white"><small class="text-white mx-2">회원가입</small></a>
                                 </c:otherwise>
                             </c:choose>
 

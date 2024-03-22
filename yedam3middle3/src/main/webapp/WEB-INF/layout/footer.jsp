@@ -109,6 +109,31 @@
 
     <!-- Template Javascript -->
     <script src="static/js/main.js"></script>
+    <script>
+        let urlstr = window.location.href.split('/')
+        console.log(urlstr[4])
+        if(urlstr[4].indexOf('event')>=0){
+            $('.navbar-nav > a').removeClass('active');
+            $('.navbar-nav > a:nth-child(6)').addClass('active').css('font-weight','bold');
+        }else if(urlstr[4].indexOf('pagetype'>=0)){
+            if(urlstr[4].indexOf('all')>=0){
+                $('.navbar-nav > a').removeClass('active');
+                $('.navbar-nav > a:nth-child(1)').addClass('active').css('font-weight','bold');
+            }else if(urlstr[4].indexOf('new')>=0){
+                $('.navbar-nav > a').removeClass('active');
+                $('.navbar-nav > a:nth-child(2)').addClass('active').css('font-weight','bold');
+            }else if(urlstr[4].indexOf('sale')>=0){
+                $('.navbar-nav > a').removeClass('active');
+                $('.navbar-nav > a:nth-child(3)').addClass('active').css('font-weight','bold');
+            }else if(urlstr[4].indexOf('best')>=0){
+                $('.navbar-nav > a').removeClass('active');
+                $('.navbar-nav > a:nth-child(4)').addClass('active').css('font-weight','bold');
+            }else if(urlstr[4].indexOf('single')>=0){
+                $('.navbar-nav > a').removeClass('active');
+                $('.navbar-nav > a:nth-child(5)').addClass('active').css('font-weight','bold');
+            }
+        }
+    </script>
     </body>
 
 </html>
