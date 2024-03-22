@@ -80,4 +80,7 @@
 		</div>
 	</div>
 </div>
+<script>
+	$('.navbar-nav > a:nth-child(6)').addClass('active');
+</script>
 <!-- Fruits Shop End-->

@@ -51,8 +51,8 @@
                         <div class="top-info ps-2">
                             <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
                                     class="text-white">123 Street, New York</a></small>
-                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#"
-                                    class="text-white">Email@Example.com</a></small>
+                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="mailto:project.yedam.help@gmail.com"
+                                    class="text-white">project.yedam.help@gmail.com</a></small>
                         </div>
                         <div class="top-link pe-2">
                             <c:choose>
@@ -61,9 +61,8 @@
                                             class="text-white mx-2">로그아웃</small></a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="loginForm.do" class="text-white"><small
-                                            class="text-white mx-2">로그인</small>/</a>
-                                    <a href="#" class="text-white"><small class="text-white mx-2">회원가입</small></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"><small class="text-white mx-2" >로그인</small>/</a>
+                                    <a href="addMemberForm.do" class="text-white"><small class="text-white mx-2">회원가입</small></a>
                                 </c:otherwise>
                             </c:choose>
 
@@ -145,6 +144,41 @@
                 </div>
             </div>
             <!-- Modal Search End -->
+            <!-- 모달 -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">로그인</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- 여기에 로그인 폼을 삽입 -->
+          <c:if test="${!empty message }">
+            <p style="color: red;">${message}</p>
+          </c:if>
+          <form action="login.do" method="post">
+            <div class="mb-3">
+              <label for="memId" class="form-label">아이디</label>
+              <input type="text" class="form-control" id="memId" name="memId">
+            </div>
+            <div class="mb-3">
+              <label for="memPw" class="form-label">비밀번호</label>
+              <input type="password" class="form-control" id="memPw" name="memPw">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">로그인</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" onclick="window.location.href='addMemberForm.do';" class="btn btn-primary">신규회원가입</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--모달끝-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <script>
                 $('div .input-group').on('change', function () {

@@ -144,27 +144,22 @@
                                 if(${pagetype} === 'all'){
                                 	$('.headtitle').text('전체 상품');
                                 	$('.sidetitle').text('전체 상품');
-									$('.navbar-nav > a:nth-child(1)').addClass('active');
                                 	listtype = 'prod_no = prod_no';
                                 }else if(${pagetype} === 'new'){
                                 	$('.headtitle').text('신상품');
                                 	$('.sidetitle').text('신상품');
-									$('.navbar-nav > a:nth-child(2)').addClass('active');
                                 	listtype = 'rownum<11';
                                 }else if(${pagetype} === 'sale'){
                                 	$('.headtitle').text('할인 상품');
                                 	$('.sidetitle').text('할인 상품');
-									$('.navbar-nav > a:nth-child(3)').addClass('active');
                                 	listtype = 'prod_sale != 0';
                                 }else if(${pagetype} === 'best'){
                                 	$('.headtitle').text('베스트 상품');
                                 	$('.sidetitle').text('베스트 상품');
-									$('.navbar-nav > a:nth-child(4)').addClass('active');
                                 	listtype = 'prod_ordcnt > 50';
                                 }else if(${pagetype} === 'single'){
                                 	$('.headtitle').text('1팩 담기');
                                 	$('.sidetitle').text('1팩 담기');
-									$('.navbar-nav > a:nth-child(5)').addClass('active');
                                 	listtype = "prod_comp = 'single'"
                                 }
                                 let rndEvnt = Math.floor(Math.random() * (4)) + 1; //1~4

@@ -253,7 +253,7 @@
 									if($(".typeall").is(":checked")){
 										$("input[name=prodType]").prop("checked", true);
 										type = [];
-										type.push('닭가슴살','스테이크/큐브','소시지','라이스','만두/간식');
+										type.push('닭가슴살','스테이크/큐브','소시지','라이스','만두/간식','닭다리살','양념육','양식');
 										showlist(brand, type, price, keyword, ppage, sort, listtype);
 										pageList(brand, type, price, keyword, listtype);
 									}else {
