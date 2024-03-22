@@ -23,8 +23,6 @@ public interface MemberMapper {
 	
 	boolean deleteCart(Cart cart);
 	
-	boolean modifyCart(Cart cart);
-	
 	// 합금액
 	int totalMoney(Cart cart);
 	
@@ -32,6 +30,6 @@ public interface MemberMapper {
 	Cart countCart(Cart cart);
 	
 	// 장바구니 수량 변경
-	Cart updateCart(Cart cart);
+	int updateCart(Cart cart);
 	
 }

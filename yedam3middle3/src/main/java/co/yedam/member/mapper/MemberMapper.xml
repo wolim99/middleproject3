@@ -17,7 +17,7 @@
 	and    mem_pw = #{memPw}
   </select>
 	
-  <insert id="insertMember" parameterType="member" >
+  <insert id="insertMember" parameterType="member">
 	insert into members (mem_id,
                          mem_pw,
                          mem_name,
@@ -91,10 +91,11 @@
     </select>
       
       <!-- 장바구니에 동인한 상품이 있을시 수정 -->
-    <update id="updateCart">
+    <update id="updateCart" parameterType="cart">
       update carts
-      set cart_quant = cart_quant + #{cartQuant}
+      set cart_quant = #{cartQuant}
       where mem_no = #{memNo}
-      and pord_no = #{prodNo}
+      and prod_no = #{prodNo}
     </update>
+    
 </mapper>

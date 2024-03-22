@@ -22,9 +22,10 @@ public class ListCartControl implements Control {
 		resp.setContentType("text/json;charset=utf-8");
 		
 		String memid = req.getParameter("memNo");
+		System.out.println(memid);
 		
 		Cart cart = new Cart();
-		cart.setMemNo(memid);
+		cart.setMemNo(Integer.parseInt(memid));
 		
 		MemberService mvc = new MemberServiceImpl();
 		List<Cart> list = mvc.CartList(memid);

@@ -42,11 +42,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean modifyCart(Cart cart) {
-		return mapper.modifyCart(cart);
-	}
-
-	@Override
 	public int totalMoney(Cart cart) {
 		return mapper.totalMoney(cart);
 	}
@@ -57,7 +52,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Cart updateCart(Cart cart) {
+	public int updateCart(Cart cart) {
+		System.out.println(cart);
+		System.out.println(mapper.updateCart(cart));
 		return mapper.updateCart(cart);
 	}
 }
