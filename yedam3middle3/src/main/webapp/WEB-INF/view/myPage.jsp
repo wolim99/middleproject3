@@ -99,8 +99,8 @@
 								<c:choose>
 									<c:when test="${!empty logid }">
 										<h4>${logName }님
-											(회원번호 ${logMemNo })<a href="memberUpdate.do"
-												class="btn border px-2 text-primary"> 정보 수정</a>
+											(회원번호 ${logMemNo })<button onClick="window.location.href='memberUpdate.do'"
+												class="btn btn-outline-secondary"> 정보 수정</button>
 										</h4>
 									</c:when>
 									<c:otherwise>

@@ -71,8 +71,8 @@
 		<a href="#" class="rounded">&raquo;</a>
 	</div>
 </div>
-<a href="qnaAddForm.do"><button type="button">문의글 작성</button></a>
-<a href="myPage.do"><button type="button">돌아가기</button></a>
+<a href="qnaAddForm.do"><button type="button" class="btn btn-primary">문의글 작성</button></a>
+<a href="myPage.do"><button type="button"class="btn btn-secondary">돌아가기</button></a>
 
 <script>
 let qpage = 1;

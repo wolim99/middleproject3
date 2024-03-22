@@ -72,7 +72,7 @@
 		</div>
 		<div class="mt-5">
 			<a href="myPage.do"><button
-					class="btn border-secondary rounded-pill px-4 py-3 text-primary"
+					class="btn border-secondary rounded-pill text-primary"
 					type="button">돌아가기</button></a>
 		</div>
 	</div>

@@ -30,16 +30,16 @@
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td><input style="width: 160px" type="text" name="postcode" id="postcode" class="form-control" placeholder="우편번호">
-			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<td><input style="width: 160px; display: inline-block;" type="text" name="postcode" id="postcode" class="form-control" placeholder="우편번호">
+			<input type="button" style="display: inline-block;" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 			<input type="text" name="address" id="address" class="form-control" placeholder="주소">
 			<input type="text" name="detailAddress" id="detailAddress" class="form-control" placeholder="상세주소">
 			<input type="text" name="extraAddress" id="extraAddress" class="form-control" placeholder="참고항목"></td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<button type="submit" class="btn btn-primary">등록</button>
-				<button type="reset" class="btn btn-warning">취소</button>
+				<button type="submit" class="btn btn-outline-primary">등록</button>
+				<button type="reset" class="btn btn-outline-danger">취소</button>
 		</tr>
 	</table>
 </form>
