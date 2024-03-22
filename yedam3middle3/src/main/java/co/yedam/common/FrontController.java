@@ -40,8 +40,10 @@ import co.yedam.my.control.QnaTotalControl;
 import co.yedam.my.control.RemoveForm;
 import co.yedam.my.control.RemoveMemberControl;
 import co.yedam.my.control.ReplyControl;
+import co.yedam.my.control.modifyQnaControl;
 import co.yedam.my.control.orderLControl;
 import co.yedam.my.control.orderListControl;
+import co.yedam.my.control.removeQnaControl;
 import co.yedam.order.control.DetailPageControl;
 import co.yedam.order.control.OrderPageControl;
 import co.yedam.order.control.UpdateAddrControl;
@@ -112,6 +114,8 @@ public class FrontController extends HttpServlet {
 		controls.put("/addQna.do", new AddQnaControl()); // qna 작성.
 		controls.put("/qnaTotal.do", new QnaTotalControl()); // qna
 		controls.put("/qnaCount.do", new QnaCountControl()); // qna 페이징 카운트
+		controls.put("/removeQna.do", new removeQnaControl()); // qna 페이징 카운트
+		controls.put("/modifyQna.do", new modifyQnaControl()); // qna 페이징 카운트
 		
 		controls.put("/memberUpdate.do", new MemberUpdateControl()); // 회원정보 수정 페이지.
 		controls.put("/modifyMember.do", new ModifyMemberControl()); // 회원정보 수정.

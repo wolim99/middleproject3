@@ -21,6 +21,10 @@ public interface MyMapper {
 	Qna selectQna(int inqNo);
 	// Qna 작성
 	int insertQna(Qna qna);
+	// Qna 삭제
+	int deleteQna(int inqno);
+	// Qna 수정
+	int updateQna(Qna qna);
 	
 	// 주문리스트
 	List<OrderList> orderList();

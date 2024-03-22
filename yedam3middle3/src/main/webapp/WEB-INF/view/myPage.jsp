@@ -213,7 +213,7 @@ $.ajax({
     	result.forEach((item,idx) => {
     		$('#ordlist').append($('<tr />').append(
     				 $('<td />').text(item.ordDate),
-    				 $('<td />').text(item.prodName+' 등...'),
+    				 $('<td />').text(item.prodName),
     				 $('<td />').text(item.ordTotal),
     				 $('<td />').text(item.ordStat)
     		));

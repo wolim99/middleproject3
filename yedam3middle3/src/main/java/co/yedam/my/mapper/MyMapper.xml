@@ -68,6 +68,18 @@
 		        #{memNo})
 	</insert>
 	
+	<delete id="deleteQna" parameterType="int">
+		delete inquiries
+		where inq_no = #{inqNo}
+	</delete>
+	
+	<update id="updateQna" parameterType="qna">
+		update inquiries
+		set inq_title = #{inqTitle},
+		    inq_content = #{inqContent}
+		where inq_no =  #{inqNo}   
+	</update>
+	
 	<select id="orderList" resultType="co.yedam.my.OrderList">
 		select d.ord_no,
       	       p.prod_name,

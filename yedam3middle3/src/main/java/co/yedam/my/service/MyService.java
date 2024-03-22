@@ -20,6 +20,10 @@ public interface MyService {
 	boolean addQna(Qna qna);
 	// 문의글 단건조회.
 	Qna getQna(int inqNo);
+	// 문의글 삭제.
+	boolean removeQna(int mno);
+	// 문의글 수정.
+	boolean modifyQna(Qna qna);
 	
 	// 구매품 리스트.
 	List<OrderList> orderList();
@@ -41,6 +45,8 @@ public interface MyService {
 	
 	// 댓글 등록
 	boolean addReply(Reply reply);
+	
+	
 
 
 }
