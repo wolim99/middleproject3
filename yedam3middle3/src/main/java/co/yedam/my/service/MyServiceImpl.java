@@ -46,8 +46,13 @@ public class MyServiceImpl implements MyService {
 	}
 	
 	@Override
-	public List<OrderList> orderList(OrdSearchVO oSearch) {
-		return mapper.orderList(oSearch);
+	public List<OrderList> orderList() {
+		return mapper.orderList();
+	}
+	
+	@Override
+	public List<OrderList> ordSelectList(OrdSearchVO osearch) {
+		return mapper.ordSelectList(osearch);
 	}
 	
 	@Override

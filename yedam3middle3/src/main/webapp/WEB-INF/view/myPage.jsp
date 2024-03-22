@@ -131,38 +131,22 @@
 									<th>주문상세</th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach var="ordList" items="${olist }">
-									<tr>
-										<td><fmt:formatDate value="${ordList.ordDate }"
-												pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
-										<td>${ordList.prodName }</td>
-										<td>${ordList.ordTotal }</td>
-										<td>${ordList.ordStat }</td>
-									</tr>
-								</c:forEach>
+							<tbody id="ordlist">
+								
 							</tbody>
 						</table>
 					</div>
-					<div class="center">
-						<div class="pagination">
-							<c:if test="${opage.prev }">
-								<a href="myPage.do?page=1&opage=${opage.starPage -1 }"> &laquo; </a>
-							</c:if>
-							<c:forEach begin="${opage.starPage }" end="${opage.endPage }"
-								var="p">
-								<c:choose>
-									<c:when test="${p eq opage.opage }">
-										<a href="myPage.do?page=1&opage=${p }" class="active">${p }</a>
-									</c:when>
-									<c:otherwise>
-										<a href="myPage.do?page=1&opage=${p }">${p }</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${opage.next }">
-								<a href="myPage.do?page=1&opage=${opage.endPage +1 }"> &raquo; </a>
-							</c:if>
+					<div class="col-12">
+						<div id="opg" class="pagination d-flex justify-content-center mt-5">
+							<a href="#" class="rounded">&laquo;</a> 
+							<a href="#"
+							class="active rounded">1</a> 
+							<a href="#" class="rounded">2</a> 
+							<a href="#" class="rounded">3</a> 
+							<a href="#" class="rounded">4</a> 
+							<a href="#" class="rounded">5</a> 
+							<a href="#" class="rounded">6</a> 
+							<a href="#" class="rounded">&raquo;</a>
 						</div>
 					</div>
 					<div id="show">
@@ -175,37 +159,22 @@
 									<th>게시판</th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach var="qna" items="${list }">
-									<tr>
-										<td><fmt:formatDate value="${qna.inqDate }"
-												pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
-										<td>${qna.inqTitle }</td>
-										<td>${qna.inqType }</td>
-									</tr>
-								</c:forEach>
+							<tbody id="qnalist">
+								
 							</tbody>
 						</table>
 					</div>
-					<div class="center">
-						<div class="pagination">
-							<c:if test="${page.prev }">
-								<a href="myPage.do?page=${page.starPage -1 }&opage=1"> &laquo; </a>
-							</c:if>
-							<c:forEach begin="${page.starPage }" end="${page.endPage }"
-								var="p">
-								<c:choose>
-									<c:when test="${p eq page.page }">
-										<a href="myPage.do?page=${p }&opage=1" class="active">${p }</a>
-									</c:when>
-									<c:otherwise>
-										<a href="myPage.do?page=${p }&opage=1">${p }</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${page.next }">
-								<a href="myPage.do?page=${page.endPage +1 }&opage=1"> &raquo; </a>
-							</c:if>
+					<div class="col-12">
+						<div id="qpg" class="pagination d-flex justify-content-center mt-5">
+							<a href="#" class="rounded">&laquo;</a> 
+							<a href="#"
+							class="active rounded">1</a> 
+							<a href="#" class="rounded">2</a> 
+							<a href="#" class="rounded">3</a> 
+							<a href="#" class="rounded">4</a> 
+							<a href="#" class="rounded">5</a> 
+							<a href="#" class="rounded">6</a> 
+							<a href="#" class="rounded">&raquo;</a>
 						</div>
 					</div>
 				</div>
@@ -215,50 +184,206 @@
 </div>
 <!-- Fruits Shop End-->
 <script>
-	/* let total = 0;
-	 fetch('qna.do')
-	 .then(resolve => resolve.json())
-	 .then(result => {
-	 console.log(result);
-	 result.forEach(item => {
-	 console.log(item);
-	 })
-	
-	 $(result).each((idx, item, ary) => {
-	 //total += item.ord
-	 console.log(item.inqNo)
-	 if(${logMemNo } == item.memNo) {
-	 $('<tr />').append(
-	 $('<td />').text(item.inqDate),
-	 $('<td />').text(item.inqTitle),
-	 $('<td />').text(item.inqType)
-	 ).appendTo($('#tableList2 tbody'));
-	 }
-	 })		
-	 })
-	 .catch(err => console.log(err,"errrrrrrrrrr")); */
+let opage = 1;
+let qpage = 1;	 
+let totalCnt = 0;
+let memNo = ${logMemNo};
+// 주문내역 목록+페이징	 
+function opagingFunc() {
+	opage = 1;
+    $('div #opg a').on('click', function (e) {
+    	e.preventDefault(); //a태그의 링크기능 차단.
+		opage = $(this).data("page");
+		oshowlist(opage, memNo);
+		opageList(memNo);
+	})
+}
 
-	/* fetch('orderL.do')
-	 .then(resolve => resolve.json())
-	 .then(result => {
-	 console.log(result);
-	 result.forEach(item => {
-	 console.log(item);
-	 })
+function oshowlist(opage = 1,memNo) {
+	$('#ordlist').html('');
+$.ajax({
+    url: 'ordTotal.do',
+    method: 'post',
+    traditional : true,
+    data: {opage: opage, memNo: memNo},
+    dataType: 'json',
+    success: function (result) { 
+    	console.log(result);
+    	
+    	result.forEach((item,idx) => {
+    		$('#ordlist').append($('<tr />').append(
+    				 $('<td />').text(item.ordDate),
+    				 $('<td />').text(item.prodName+' 등...'),
+    				 $('<td />').text(item.ordTotal),
+    				 $('<td />').text(item.ordStat)
+    		));
+		})
+    },
+    error: function (err) { 
+        console.log('error=> ' + err);
+    }
+});
+}
+
+function opageList(memNo) {
 	
-	 $(result).each((idx, item, ary) => {
-	 console.log(item.listNo)
-	 if(${logMemNo } == item.memNo) {
-	 $('<tr />').append(
-	 $('<td />').text(item.ordDate),
-	 $('<td />').text(item.prodName+' 등...'),
-	 $('<td />').text(item.ordTotal),
-	 $('<td />').text(item.ordStat)
-	 ).appendTo($('#tableList tbody'));
-	 }
-	 })		
-	 })
-	 .catch(err => console.log(err,"errrrrrrrrrr")); */
+	$.ajax({
+        url: 'ordCount.do',
+        method: 'post',
+        traditional : true,
+        data: {memNo: memNo},
+        dataType: 'json',
+        success: function (result) {
+        	totalCnt = result.totalCount;
+        	$('div #opg').html('');
+    		let startPage, endPage; // 1~5, 6~10,...
+    		let next, prev;
+    		let realEnd = Math.ceil(totalCnt / 5);
+    		endPage = Math.ceil(opage / 5) * 5;
+    		startPage = endPage - 4;
+    		endPage = endPage > realEnd ? realEnd : endPage;
+    		next = endPage < realEnd ? true : false;
+    		prev = startPage > 1;
+    		console.log(endPage);
+    		console.log(realEnd);
+    		console.log(totalCnt);
+    		if (prev) {
+    			let aTag = document.createElement('a');
+    			//aTag.innerText = startPage - 1;
+    			aTag.innerHTML = '&laquo;';
+    			aTag.setAttribute('data-page', startPage - 1);
+    			aTag.href = '#';
+    			document.querySelector('div#opg').appendChild(aTag);
+    		}
+    		for (let p = startPage; p <= endPage; p++) {
+    			let aTag = document.createElement('a');
+    			aTag.innerText = p;
+    			aTag.setAttribute('data-page', p);
+    			aTag.href = '#';
+    			if (p == opage) {
+    				aTag.className = 'active';
+    			}
+    			document.querySelector('div#opg').appendChild(aTag);
+    		}
+    		if (next) {
+    			let aTag = document.createElement('a');
+    			//aTag.innerText = endPage + 1;
+    			aTag.innerHTML = '&raquo;';
+    			aTag.setAttribute('data-page', endPage + 1);
+    			aTag.href = '#';
+    			document.querySelector('div#opg').appendChild(aTag);
+    		}
+    		opagingFunc();
+        },
+        error: function (err) { 
+            console.log('error=> ' + err);
+        }
+});
+}
+
+oshowlist(opage, memNo);
+opageList(memNo);
+// end 주문내역 목록+페이징
+
+// 문의내역 목록+페이징	 
+function qpagingFunc() {
+	qpage = 1;
+    $('div #qpg a').on('click', function (e) {
+    	e.preventDefault(); //a태그의 링크기능 차단.
+		qpage = $(this).data("page");
+		qshowlist(qpage, memNo);
+		qpageList(memNo);
+	})
+}
+
+function qshowlist(qpage = 1,memNo) {
+	$('#qnalist').html('');
+$.ajax({
+    url: 'qnaTotal.do',
+    method: 'post',
+    traditional : true,
+    data: {qpage: qpage, memNo: memNo},
+    dataType: 'json',
+    success: function (result) { 
+    	console.log(result);
+    	
+    	result.forEach((item,idx) => {
+    		console.log(item.inqNo);
+    		$('#qnalist').append($('<tr />').append(
+    				$('<td />').text(item.inqDate),
+    				 $('<td />').text(item.inqTitle),
+    				 $('<td />').text(item.inqType)
+    			 ));
+		})
+    },
+    error: function (err) { 
+        console.log('error=> ' + err);
+    }
+});
+}
+
+
+function qpageList(memNo) {
+	
+	$.ajax({
+        url: 'qnaCount.do',
+        method: 'post',
+        traditional : true,
+        data: {memNo: memNo},
+        dataType: 'json',
+        success: function (result) {
+        	totalCnt = result.totalCount;
+        	/* if(totalCnt == 0){
+        		$('.listhead').text("조회된 상품이 없습니다.");
+        	}else{
+            	$('.listhead').text("상품: "+totalCnt+"개");
+        	} */
+        	$('div #qpg').html('');
+    		let startPage, endPage; // 1~5, 6~10,...
+    		let next, prev;
+    		let realEnd = Math.ceil(totalCnt / 5);
+    		endPage = Math.ceil(qpage / 5) * 5;
+    		startPage = endPage - 4;
+    		endPage = endPage > realEnd ? realEnd : endPage;
+    		next = endPage < realEnd ? true : false;
+    		prev = startPage > 1;
+    		if (prev) {
+    			let aTag = document.createElement('a');
+    			//aTag.innerText = startPage - 1;
+    			aTag.innerHTML = '&laquo;';
+    			aTag.setAttribute('data-page', startPage - 1);
+    			aTag.href = '#';
+    			document.querySelector('div#qpg').appendChild(aTag);
+    		}
+    		for (let p = startPage; p <= endPage; p++) {
+    			let aTag = document.createElement('a');
+    			aTag.innerText = p;
+    			aTag.setAttribute('data-page', p);
+    			aTag.href = '#';
+    			if (p == qpage) {
+    				aTag.className = 'active';
+    			}
+    			document.querySelector('div#qpg').appendChild(aTag);
+    		}
+    		if (next) {
+    			let aTag = document.createElement('a');
+    			//aTag.innerText = endPage + 1;
+    			aTag.innerHTML = '&raquo;';
+    			aTag.setAttribute('data-page', endPage + 1);
+    			aTag.href = '#';
+    			document.querySelector('div#qpg').appendChild(aTag);
+    		}
+    		qpagingFunc();
+        },
+        error: function (err) { 
+            console.log('error=> ' + err);
+        }
+});
+}
+
+qshowlist(qpage, memNo);
+qpageList(memNo);
+// end 문의내역 목록+페이징	 
 </script>
 
 

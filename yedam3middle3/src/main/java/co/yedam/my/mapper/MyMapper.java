@@ -23,7 +23,9 @@ public interface MyMapper {
 	int insertQna(Qna qna);
 	
 	// 주문리스트
-	List<OrderList> orderList(OrdSearchVO oSearch);
+	List<OrderList> orderList();
+	
+	List<OrderList> ordSelectList(OrdSearchVO osearch);
 	// 주문 전체건수.
 	int selectOrdCount(OrdSearchVO oSearch);
 	

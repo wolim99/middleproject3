@@ -7,7 +7,7 @@
 <%-- <% Member member = (Member) request.getAttribute("member"); %> --%>
 
 <h3>회원 탈퇴</h3>
-<form action="removeMember.do">
+<form action="removeMember.do" method="post">
 	<input type="hidden" value=${logMemNo } name="mno">
 	<div class="col-md-12 col-lg-6 col-xl-5">
 		<table class="table">
@@ -23,12 +23,36 @@
 					<td>${logName }</td>
 				</tr>
 				<tr>
+					<th>비밀번호 입력</th>
+					<td><input type="password" id="chkpw"><input type="button" id="chk" value="비밀번호 확인"></td>
+				</tr>
+				<tr>
 					<td align="center">
-						<button type="submit" class="btn btn-primary">회원 탈퇴</button> <a
-						href="myPage.do"><button class="btn btn-secondary">취소</button></a>
+						<a href="main.do"><button type="submit" class="btn btn-primary" id="delbtn">회원 탈퇴</button></a>
+						<a href="myPage.do"><button type="button" class="btn btn-secondary">취소</button></a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </form>
+<script>
+$('#chk').on('click', function(e){
+		let logppw = ${logPw}
+		console.log("pw:"+logppw);
+		console.log("val:"+$('#chkpw').val());
+		
+		console.log("bool:"+ ($('#chkpw').val() == ''));
+	if($('#chkpw').val() == ''){
+		alert('비밀번호를 입력하세요.')
+	 }else if($('#chkpw').val() != ${logPw}){
+		 alert('비밀번호가 틀립니다');
+		 $("#delbtn").attr("disabled",true);
+	}else if($('#chkpw').val() == logppw) {
+		alert('비밀번호가 확인되었습니다.');
+		$("#delbtn").removeAttr("disabled");
+	} 	
+})
+
+</script>
+

@@ -29,8 +29,11 @@ import co.yedam.my.control.AddReplyControl;
 import co.yedam.my.control.MemberUpdateControl;
 import co.yedam.my.control.ModifyMemberControl;
 import co.yedam.my.control.MyPageControl;
+import co.yedam.my.control.OrdCountControl;
+import co.yedam.my.control.OrdTotalControl;
 import co.yedam.my.control.QnaAddFormControl;
 import co.yedam.my.control.QnaControl;
+import co.yedam.my.control.QnaCountControl;
 import co.yedam.my.control.QnaDetailControl;
 import co.yedam.my.control.QnaMainControl;
 import co.yedam.my.control.QnaTotalControl;
@@ -107,7 +110,8 @@ public class FrontController extends HttpServlet {
 		controls.put("/qnaDetail.do", new QnaDetailControl()); // qna 상세 페이지.
 		controls.put("/qnaAddForm.do", new QnaAddFormControl()); // qna 작성 페이지.
 		controls.put("/addQna.do", new AddQnaControl()); // qna 작성.
-		controls.put("/qnaTotal.do", new QnaTotalControl()); // qna 작성.
+		controls.put("/qnaTotal.do", new QnaTotalControl()); // qna
+		controls.put("/qnaCount.do", new QnaCountControl()); // qna 페이징 카운트
 		
 		controls.put("/memberUpdate.do", new MemberUpdateControl()); // 회원정보 수정 페이지.
 		controls.put("/modifyMember.do", new ModifyMemberControl()); // 회원정보 수정.
@@ -115,8 +119,10 @@ public class FrontController extends HttpServlet {
 		controls.put("/removeMember.do", new RemoveMemberControl()); // 회원정보 삭제.
 
 		controls.put("/orderList.do", new orderListControl()); // 주문 목록 페이지.
-		controls.put("/orderL.do", new orderLControl()); //
-
+		controls.put("/orderL.do", new orderLControl()); // 주문 리스트
+		controls.put("/ordTotal.do", new OrdTotalControl()); // 주문 
+		controls.put("/ordCount.do", new OrdCountControl()); // 주문 페이징 카운트
+		
 		controls.put("/reply.do", new ReplyControl()); // 리뷰 작성페이지.
 		controls.put("/addReply.do", new AddReplyControl()); // 리뷰 작성.
 

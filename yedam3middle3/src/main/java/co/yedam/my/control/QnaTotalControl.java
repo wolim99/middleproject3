@@ -22,10 +22,12 @@ public class QnaTotalControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		resp.setContentType("text/json;charset=utf-8");
-		String page = req.getParameter("page");
+		String qpage = req.getParameter("qpage");
+		String mno = req.getParameter("memNo");
 		
 		SearchVO search = new SearchVO();
-		search.setPage(Integer.parseInt(page));
+		search.setQpage(Integer.parseInt(qpage));
+		search.setMemNo(Integer.parseInt(mno));
 		
 		System.out.println("search값은" + search);
 		
