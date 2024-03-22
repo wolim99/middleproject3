@@ -5,7 +5,7 @@
 <mapper namespace="co.yedam.order.mapper.OrderMapper">
 	<!-- 제품 데이터 -->
 	<select id="selectProd" resultType="product" parameterType="int">
-		select prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type, prod_comp
+		select prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type, prod_comp, prod_sale
 		from   products
 		where  prod_no = #{prodNo}
 	</select>
@@ -22,6 +22,17 @@
         ]]>
         </where>
 	</select>
+	<select id="relatedProd2" resultType="product">
+        select prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type, prod_sale
+        from   (select   ROWNUM, prod_no, prod_name, prod_price, prod_brand, prod_from, prod_img, prod_type, prod_sale
+                from     products
+                order by prod_sale desc)
+        <where>
+        <![CDATA[
+        ROWNUM <= 8
+        ]]>
+        </where>
+	</select>
 	<!-- 옵션 데이터 -->
 	<select id="selectOption" resultType="option" parameterType="int">
 		select opt_text
@@ -29,13 +40,13 @@
 		where  prod_no = #{prodNo}
 	</select>
 	<!-- 리뷰 평점 -->
-	<select id="selectRev1" resultType="_float" parameterType="int">
-		select round(AVG(rev_star),1) 
+	<select id="selectRev1" resultType="String" parameterType="int">
+		select round(AVG(rev_star),0) 
 		from   reviews
 		where  prod_no = #{prodNo}
 	</select>
 	<!-- 리뷰 개수 -->
-	<select id="selectRev2" resultType="int" parameterType="int">
+	<select id="selectRev2" resultType="String" parameterType="int">
 		select count(rev_no) 
 		from   reviews
 		where  prod_no = #{prodNo}

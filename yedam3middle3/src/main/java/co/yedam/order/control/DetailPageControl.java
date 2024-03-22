@@ -28,23 +28,45 @@ public class DetailPageControl implements Control {
 		Product product = new Product();
 		product = svc.searchProd(Integer.parseInt(prodNo));
 		
-		//연관 데이터
-		List<Product> productList = svc.relatedProd(Integer.parseInt(prodNo));
+		List<Product> productList2 = svc.relatedProd2();
+		if(svc.relatedProd(Integer.parseInt(prodNo)) == null) {
+			//연관 데이터
+			List<Product> productList = svc.relatedProd(Integer.parseInt(prodNo));
+			//연관 데이터2
+			req.setAttribute("productList", productList);
+			req.setAttribute("productList2", productList2);
+		}
+		else {
+			//연관 데이터
+			List<Product> productList = svc.relatedProd(Integer.parseInt(prodNo));
+			req.setAttribute("productList", productList);
+			req.setAttribute("productList2", productList2);
+		}
+		
+		
 		
 		//옵션 데이터
 		List<Option> optionList = svc.searchOption(Integer.parseInt(prodNo));
 		
+		
 		//리뷰 평점, 개수	
-		if(svc.searchRev2(Integer.parseInt(prodNo)) <= 0) {
+		if(svc.searchRev2(Integer.parseInt(prodNo)) == null) {
 			req.setAttribute("noReviewMsg", "작성된 리뷰가 없습니다!");
-			int review2 = svc.searchRev2(Integer.parseInt(prodNo));
+			String review2 = svc.searchRev2(Integer.parseInt(prodNo));
 			req.setAttribute("review2", review2);
 		}
 		else {
-			float review1 = svc.searchRev1(Integer.parseInt(prodNo));
-			int review2 = svc.searchRev2(Integer.parseInt(prodNo));
-			req.setAttribute("review1", review1);
-			req.setAttribute("review2", review2);
+			if(svc.searchRev1(Integer.parseInt(prodNo)) != null) {
+				String review1 = svc.searchRev1(Integer.parseInt(prodNo));
+				String review2 = svc.searchRev2(Integer.parseInt(prodNo));
+				req.setAttribute("review1", Integer.parseInt(review1));
+				req.setAttribute("review2", Integer.parseInt(review2));
+			}
+			else {
+				String review2 = svc.searchRev2(Integer.parseInt(prodNo));
+				req.setAttribute("review1", 0);
+				req.setAttribute("review2", Integer.parseInt(review2));
+			}
 		}
 				
 		//리뷰 데이터
@@ -52,7 +74,6 @@ public class DetailPageControl implements Control {
 		
 		//메서드 반환값으로 요청 전달
 		req.setAttribute("product", product);
-		req.setAttribute("productList", productList);
 		req.setAttribute("optionList", optionList);
 		req.setAttribute("reviewList", reviewList);
 		

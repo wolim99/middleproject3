@@ -29,6 +29,11 @@ public class OrderServiceImpl implements OrderService{
 	public List<Product> relatedProd(int prodNo) {
 		return mapper.relatedProd(prodNo);
 	}
+	//연관 데이터2
+	@Override
+	public List<Product> relatedProd2() {
+		return mapper.relatedProd2();
+	}
 	//옵션 데이터
 	@Override
 	public List<Option> searchOption(int prodNo) {
@@ -36,12 +41,12 @@ public class OrderServiceImpl implements OrderService{
 	}
 	//리뷰 평점
 	@Override
-	public float searchRev1(int prodNo) {
+	public String searchRev1(int prodNo) {
 		return mapper.selectRev1(prodNo);
 	}
 	//리뷰 개수
 	@Override
-	public int searchRev2(int prodNo) {
+	public String searchRev2(int prodNo) {
 		return mapper.selectRev2(prodNo);
 	}
 	//리뷰 리스트
@@ -65,6 +70,7 @@ public class OrderServiceImpl implements OrderService{
 		}
 		return false;
 	}
+	
 	
 	
 }

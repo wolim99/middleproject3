@@ -16,12 +16,14 @@ public interface OrderService {
 	Product searchProd(int prodNo);
 	//연관 데이터
 	List<Product> relatedProd(int prodNo);
+	//연관 데이터2
+	List<Product> relatedProd2();
 	//옵션 데이터
 	List<Option> searchOption(int prodNo);
 	//리뷰 평점
-	float searchRev1(int prodNo);
+	String searchRev1(int prodNo);
 	//리뷰 개수
-	int searchRev2(int prodNo);
+	String searchRev2(int prodNo);
 	//리뷰 리스트
 	List<Review> reviewList(int prodNo);
 	
