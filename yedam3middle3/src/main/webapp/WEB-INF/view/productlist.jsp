@@ -145,7 +145,7 @@
                                 }else if(${pagetype } === 'new'){
                                 	$('.headtitle').text('신상품');
                                 	$('.sidetitle').text('신상품');
-                                	listtype = 'prod_date = (SELECT MAX(prod_date) FROM products) ';
+                                	listtype = "prod_date >= (SELECT TO_DATE(ROUND(AVG(TO_NUMBER(TO_CHAR(prod_date, 'yyMMdd')))),'yy/MM/dd') FROM products)";
                                 }else if(${pagetype } === 'sale'){
                                 	$('.headtitle').text('할인 상품');
                                 	$('.sidetitle').text('할인 상품');
@@ -211,7 +211,7 @@
 									if($(".brandall").is(":checked")){
 										$("input[name=prodBrand]").prop("checked", true);
 										brand = [];
-										brand.push('허닭','프레시지','발재반점','포르미','아침몰','닭다리살','양념육','양식');
+										brand.push('허닭','프레시지','발재반점','포르미','아침몰');
 										console.log(brand);
 										showlist(brand, type, price, keyword, ppage, sort, listtype);
 										pageList(brand, type, price, keyword, listtype);
