@@ -32,14 +32,14 @@ public class MyPageControl implements Control {
 		opage = opage == null ? "1" : opage; 
 		
 		SearchVO search = new SearchVO();
-		search.setPage(Integer.parseInt(page));
+		search.setQpage(Integer.parseInt(page));
 		
 		OrdSearchVO oSearch = new OrdSearchVO();
 		oSearch.setOpage(Integer.parseInt(opage));
 		
 		MyService svc = new MyServiceImpl();
 		List<Qna> list = svc.qnaList();
-		List<OrderList> olist = svc.orderList(oSearch);
+		List<OrderList> olist = svc.orderList();
 		
 		PageDTO pageDTO = new PageDTO(Integer.parseInt(page), svc.qnaTotalCnt(search));
 		OrdPageDTO OPageDTO = new OrdPageDTO(Integer.parseInt(opage), svc.ordTotalCnt(oSearch));

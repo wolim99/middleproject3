@@ -22,7 +22,8 @@ public interface MyService {
 	Qna getQna(int inqNo);
 	
 	// 구매품 리스트.
-	List<OrderList> orderList(OrdSearchVO oSearch);
+	List<OrderList> orderList();
+	List<OrderList> ordSelectList(OrdSearchVO osearch);
 	// 구매품 전체 건수.
 	int ordTotalCnt(OrdSearchVO oSearch);
 	

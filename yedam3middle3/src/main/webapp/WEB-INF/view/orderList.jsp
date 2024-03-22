@@ -56,38 +56,18 @@
 						<th scope="col"></th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach var="ordList" items="${list }">
-						<tr>
-							<td>${ordList.prodName }</td>
-							<td><fmt:formatDate value="${ordList.ordDate }"
-									pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
-							<td>${ordList.listQuant }</td>
-							<td>${ordList.ordTotal }</td>
-							<td><a href="reply.do?listNo='+${ordList.listNo}+'"><button class="btn btn-md bg-light border mt-4">리뷰작성</button></a></td>
-						</tr>
-					</c:forEach>
+				<tbody id="ordlist">
+					
 				</tbody>
 			</table>
 		</div>
-		<div class="center">
-			<div class="pagination">
-				<c:if test="${page.prev }">
-					<a href="orderList.do?page=${page.starPage -1 }"> &laquo; </a>
-				</c:if>
-				<c:forEach begin="${page.starPage }" end="${page.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p eq page.page }">
-							<a href="orderList.do?page=${p }" class="active">${p }</a>
-						</c:when>
-						<c:otherwise>
-							<a href="orderList.do?page=${p }">${p }</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${page.next }">
-					<a href="orderList.do?page=${page.endPage +1 }"> &raquo; </a>
-				</c:if>
+		<div class="col-12">
+			<div class="pagination d-flex justify-content-center mt-5">
+				<a href="#" class="rounded">&laquo;</a> <a href="#"
+					class="active rounded">1</a> <a href="#" class="rounded">2</a> <a
+					href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> <a
+					href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> <a
+					href="#" class="rounded">&raquo;</a>
 			</div>
 		</div>
 		<div class="mt-5">
@@ -98,27 +78,105 @@
 	</div>
 </div>
 <!-- Cart Page End -->
-<script>
-	/* fetch('orderL.do')
-	 .then(resolve => resolve.json())
-	 .then(result => {
-	 console.log(result);
-	 result.forEach(item => {
-	 console.log(item);
-	 })
+<script>	 
+let opage = 1;
+let totalCnt = 0;
+let memNo = ${logMemNo};	 
+
+//페이징 버튼
+function pagingFunc() {
+	opage = 1;
+    $('div .pagination a').on('click', function (e) {
+    	e.preventDefault(); //a태그의 링크기능 차단.
+		opage = $(this).data("page");
+		showlist(opage, memNo);
+		pageList(memNo);
+	})
+}
+
+function showlist(opage = 1,memNo) {
+	$('#ordlist').html('');
+$.ajax({
+    url: 'ordTotal.do',
+    method: 'post',
+    traditional : true,
+    data: {opage: opage, memNo: memNo},
+    dataType: 'json',
+    success: function (result) { 
+    	console.log(result);
+    	
+    	result.forEach((item,idx) => {
+    		$('#ordlist').append($('<tr />').append(
+    			$('<td />').text(item.prodName),
+    			$('<td />').text(item.ordDate),
+    			$('<td />').text(item.listQuant),
+    			$('<td />').text(item.ordPrice),
+    			$('<td><a href="reply.do?listNo='+item.listNo+'"><button class="btn btn-md bg-light border mt-4">리뷰작성</button></a></td>')
+    		));
+		})
+    },
+    error: function (err) { 
+        console.log('error=> ' + err);
+    }
+});
+}
+
+function pageList(memNo) {
 	
-	 $(result).each((idx, item, ary) => {
-	 console.log(item.listNo)
-	 if(${logMemNo } == item.memNo) {
-	 $('<tr />').append(
-	 $('<td />').text(item.prodName),
-	 $('<td />').text(item.ordDate),
-	 $('<td />').text(item.listQuant),
-	 $('<td />').text(item.ordPrice),
-	 $('<td><a href="reply.do?listNo='+item.listNo+'"><button class="btn btn-md bg-light border mt-4">리뷰작성</button></a></td>')
-	 ).appendTo($('tbody'));
-	 }
-	 })		
-	 })
-	 .catch(err => console.log(err,"errrrrrrrrrr")); */
+	$.ajax({
+        url: 'ordCount.do',
+        method: 'post',
+        traditional : true,
+        data: {memNo: memNo},
+        dataType: 'json',
+        success: function (result) {
+        	totalCnt = result.totalCount;
+        	$('div .pagination').html('');
+    		let startPage, endPage; // 1~5, 6~10,...
+    		let next, prev;
+    		let realEnd = Math.ceil(totalCnt / 5);
+    		endPage = Math.ceil(opage / 5) * 5;
+    		startPage = endPage - 4;
+    		endPage = endPage > realEnd ? realEnd : endPage;
+    		next = endPage < realEnd ? true : false;
+    		prev = startPage > 1;
+    		console.log(endPage);
+    		console.log(realEnd);
+    		console.log(totalCnt);
+    		if (prev) {
+    			let aTag = document.createElement('a');
+    			//aTag.innerText = startPage - 1;
+    			aTag.innerHTML = '&laquo;';
+    			aTag.setAttribute('data-page', startPage - 1);
+    			aTag.href = '#';
+    			document.querySelector('div.pagination').appendChild(aTag);
+    		}
+    		for (let p = startPage; p <= endPage; p++) {
+    			let aTag = document.createElement('a');
+    			aTag.innerText = p;
+    			aTag.setAttribute('data-page', p);
+    			aTag.href = '#';
+    			if (p == opage) {
+    				aTag.className = 'active';
+    			}
+    			document.querySelector('div.pagination').appendChild(aTag);
+    		}
+    		if (next) {
+    			let aTag = document.createElement('a');
+    			//aTag.innerText = endPage + 1;
+    			aTag.innerHTML = '&raquo;';
+    			aTag.setAttribute('data-page', endPage + 1);
+    			aTag.href = '#';
+    			document.querySelector('div.pagination').appendChild(aTag);
+    		}
+    		pagingFunc();
+        },
+        error: function (err) { 
+            console.log('error=> ' + err);
+        }
+});
+}
+
+showlist(opage, memNo);
+pageList(memNo);
 </script>

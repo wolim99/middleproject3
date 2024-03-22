@@ -27,15 +27,18 @@
 		       mem_no
 		from (select /*+ INDEX(b inq_date) */ rownum rn, b.*
 		      from inquiries b
+		      where mem_no = #{memNo}
 		      <![CDATA[
-		      where rownum <= (#{page} * 5))a
+		      and rownum <= (#{qpage} * 5))a
 		       ]]>
-		where a.rn > (#{page} - 1) * 5
+		where a.rn > (#{qpage} - 1) * 5
+		
 	</select>
 	
 	<select id="selectCount" resultType="int" parameterType="search">
 		select count(*) 
 		from inquiries
+		where mem_no = #{memNo}
 	</select>
 	
 	<select id="selectQna" resultType="qna" parameterType="int"> <!-- qna 세부내용 -->
@@ -65,7 +68,7 @@
 		        #{memNo})
 	</insert>
 	
-	<!-- <select id="orderList" resultType="co.yedam.my.OrderList">	구매내역 리스트
+	<select id="orderList" resultType="co.yedam.my.OrderList">
 		select d.ord_no,
       	       p.prod_name,
                d.ord_date,
@@ -78,9 +81,9 @@
                p.prod_no    
 		from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
                 JOIN orders d on (o.ord_no = d.ord_no)
-	</select> -->
+	</select>
 	
-	<select id="orderList" resultType="co.yedam.my.OrderList" parameterType="co.yedam.my.OrdSearchVO">
+	<select id="ordSelectList" resultType="co.yedam.my.OrderList" parameterType="co.yedam.my.OrdSearchVO">
 		select *   
         from (select  rownum rn, b.*
 		      from (select d.ord_no,
@@ -95,16 +98,18 @@
              				  p.prod_no
                     from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
                                JOIN orders d on (o.ord_no = d.ord_no)) b
-              <![CDATA[                 
-		      where rownum <= (#{opage} * 5))a  
-		      ]]>            
+                    where mem_no = #{memNo}           
+              		<![CDATA[                 
+		     		and rownum <= (#{opage} * 5))a  
+		      		]]>            
         where a.rn > (#{opage} - 1) * 5
         order by ord_date desc
 	</select> 
 	
 	<select id="selectOrdCount" resultType="int" parameterType="co.yedam.my.OrdSearchVO">
 		select count(*) 
-		from orderlists
+		from orderlists o JOIN orders d on (o.ord_no = d.ord_no)
+		where mem_no = #{memNo}
 	</select>
 	
 	<select id="selectMember" parameterType="member">

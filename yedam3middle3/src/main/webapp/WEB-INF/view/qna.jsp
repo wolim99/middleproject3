@@ -53,74 +53,63 @@
 				<th>작성일자</th>
 			</tr>
 		</thead>
-		<tbody>
-
+		<tbody id="qnalist2">
+			
 		</tbody>
 	</table>
 </div>
+
 <div class="col-12">
 	<div class="pagination d-flex justify-content-center mt-5">
-		<a href="#" class="rounded">&laquo;</a> <a href="#"
-			class="active rounded">1</a> <a href="#" class="rounded">2</a> <a
-			href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> <a
-			href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> <a
-			href="#" class="rounded">&raquo;</a>
+		<a href="#" class="rounded">&laquo;</a> 
+		<a href="#" class="active rounded">1</a> 
+		<a href="#" class="rounded">2</a> 
+		<a href="#" class="rounded">3</a>
+		<a href="#" class="rounded">4</a> 
+		<a href="#" class="rounded">5</a> 
+		<a href="#" class="rounded">6</a>
+		<a href="#" class="rounded">&raquo;</a>
 	</div>
 </div>
 <a href="qnaAddForm.do"><button type="button">문의글 작성</button></a>
 <a href="myPage.do"><button type="button">돌아가기</button></a>
 
 <script>
-/* fetch('qna.do')
-.then(resolve => resolve.json())
-.then(result => {
-	$(result).each((idx, item, ary) => {
-		if(${logMemNo } == item.memNo) {
-		$('<tr />').append(
-			$('<td />').text(item.inqNo),
-			$('<td />').text(item.inqType),
-			$('<td />').append($('<a href="qnaDetail.do?inqNo='+item.inqNo+'" />').text(item.inqTitle)),
-			$('<td />').text(item.inqResp),
-			$('<td />').text(item.inqDate)
-		 ).appendTo($('tbody'));
-		}
-	})
-})
-.catch(err => console.log(err,"errrrrrrrrrr")); */
-
-let page = 1;
+let qpage = 1;
 let totalCnt = 0;
+let memNo = ${logMemNo};
 
 //페이징 버튼
 function pagingFunc() {
-	ppage = 1;
+	qpage = 1;
     $('div .pagination a').on('click', function (e) {
     	e.preventDefault(); //a태그의 링크기능 차단.
-		ppage = $(this).data("page");
-		showlist(page);
-		pageList();
+		qpage = $(this).data("page");
+		showlist(qpage, memNo);
+		pageList(memNo);
 	})
 }
 
-function showlist(page = 1) {
-	$('#qnalist').html('');
+function showlist(qpage = 1,memNo) {
+	$('#qnalist2').html('');
 $.ajax({
-    url: 'qna.do',
+    url: 'qnaTotal.do',
     method: 'post',
     traditional : true,
-    data: {page: page},
+    data: {qpage: qpage, memNo: memNo},
     dataType: 'json',
     success: function (result) { 
     	console.log(result);
     	
     	result.forEach((item,idx) => {
-    		$('<tr />').append(
+    		console.log(item.inqNo);
+    		$('#qnalist2').append($('<tr />').append(
     				$('<td />').text(item.inqNo),
     				$('<td />').text(item.inqType),
     				$('<td />').append($('<a href="qnaDetail.do?inqNo='+item.inqNo+'" />').text(item.inqTitle)),
     				$('<td />').text(item.inqResp),
     				$('<td />').text(item.inqDate)
-    			 ).appendTo($('tbody'));
+    			 ));
 		})
     },
     error: function (err) { 
@@ -129,26 +118,26 @@ $.ajax({
 });
 }
 
-function pageList() {
+function pageList(memNo) {
 	
 	$.ajax({
-        url: 'qnaTotal.do',
+        url: 'qnaCount.do',
         method: 'post',
         traditional : true,
-        data: {},
+        data: {memNo: memNo},
         dataType: 'json',
         success: function (result) {
         	totalCnt = result.totalCount;
-        	if(totalCnt == 0){
+        	/* if(totalCnt == 0){
         		$('.listhead').text("조회된 상품이 없습니다.");
         	}else{
             	$('.listhead').text("상품: "+totalCnt+"개");
-        	}
+        	} */
         	$('div .pagination').html('');
     		let startPage, endPage; // 1~5, 6~10,...
     		let next, prev;
-    		let realEnd = Math.ceil(totalCnt / 6);
-    		endPage = Math.ceil(ppage / 6) * 5;
+    		let realEnd = Math.ceil(totalCnt / 5);
+    		endPage = Math.ceil(qpage / 5) * 5;
     		startPage = endPage - 4;
     		endPage = endPage > realEnd ? realEnd : endPage;
     		next = endPage < realEnd ? true : false;
@@ -166,7 +155,7 @@ function pageList() {
     			aTag.innerText = p;
     			aTag.setAttribute('data-page', p);
     			aTag.href = '#';
-    			if (p == ppage) {
+    			if (p == qpage) {
     				aTag.className = 'active';
     			}
     			document.querySelector('div.pagination').appendChild(aTag);
@@ -187,6 +176,7 @@ function pageList() {
 });
 }
 
-showlist(page);
-pageList();
-</script>
+showlist(qpage, memNo);
+pageList(memNo);
+</script>	
+

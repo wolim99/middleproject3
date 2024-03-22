@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class SearchVO {
-	private int page;
+	private int qpage;
+	private int memNo;
 }
