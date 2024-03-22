@@ -16,12 +16,14 @@ public interface OrderMapper {
 	Product selectProd(int prodNo);
 	//연관 제품
 	List<Product> relatedProd(int prodNo);
+	//연관 제품2
+	List<Product> relatedProd2();
 	//옵션 데이터
 	List<Option> selectOption(int prodNo);
 	//리뷰 평점
-	float selectRev1(int prodNo);
+	String selectRev1(int prodNo);
 	//리뷰 개수
-	int selectRev2(int prodNo);
+	String selectRev2(int prodNo);
 	//리뷰 리스트
 	List<Review> reviewList(int prodNo);
 	

@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- css -->
 <style>
@@ -50,25 +51,24 @@ button.nav-link {
 <!-- 헤더와 바디 사이 영역 -->
 <div class="container-fluid page-header py-5">
 	<h1 class="text-center text-white display-6">상세페이지</h1>
+	<!--
 	<ol class="breadcrumb justify-content-center mb-0">
 		<li class="breadcrumb-item"><a href="#">Home</a></li>
 		<li class="breadcrumb-item"><a href="#">Pages</a></li>
 		<li class="breadcrumb-item active text-white">Shop Detail</li>
-	</ol>
+	</ol>-->
 </div>
 
 <!-- 
 ${product } >> 제품 데이터(이름, 가격, 브랜드, 원산지, 이미지경로)
 ${productList } >> 연관 제품 데이터(이름, 가격, 브랜드, 원산지, 이미지경로)
+${productList2 } >> 연관 제품 데이터(이름, 가격, 브랜드, 원산지, 이미지경로)
 ${review1 } >> 리뷰 평점
 ${review2 } >> 리뷰 개수
 ${optionList } >> 옵션 데이터
 ${product.prodComp } >> single or package
 ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
  -->
-
-
-
 
 
 
@@ -94,16 +94,34 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 						<h4 class="fw-bold mb-3">${product.prodName }</h4>
 						<!-- 평점 >> 별 -->
 						<div class="detailInfoStar">
-							<h5>${review1 }/5</h5>
+							<c:if test="${review2 > 0 }">								
+								<h5>${review1 }/5</h5>
+							</c:if>
+							<c:if test="${review2 == 0 }">
+								<h5>0/5</h5>
+							</c:if>
 						</div>
 						<div class="detailInfoStar">
-							<i class="fa fa-star text-secondary"></i> <i
-								class="fa fa-star text-secondary"></i> <i
-								class="fa fa-star text-secondary"></i> <i
-								class="fa fa-star text-secondary"></i> <i
-								class="fa fa-star text-secondary"></i>
-							<div style="display: inline-block;">(${review2 })</div>
+							<c:if test="${review1 == 0 }">
+								<div style="display: inline-block;">☆☆☆☆☆</div>
+							</c:if>
+							<c:if test="${review1 == 1 }"> 
+								<div style="display: inline-block;">★☆☆☆☆</div>
+							</c:if>
+							<c:if test="${review1 == 2 }">
+								<div style="display: inline-block;">★★☆☆☆</div>
+							</c:if>
+							<c:if test="${review1 == 3 }">
+								<div style="display: inline-block;">★★★☆☆</div>
+							</c:if>
+							<c:if test="${review1 == 4 }">
+								<div style="display: inline-block;">★★★★☆</div>
+							</c:if>
+							<c:if test="${review1 == 5 }">
+								<div style="display: inline-block;">★★★★★</div>
+							</c:if>
 						</div>
+						<div style="display: inline-block;">(${review2 })</div>
 						<div>
 							<h1 class="fw-bold mb-3">${product.prodPrice }</h1>
 						</div>
@@ -200,18 +218,19 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 									alert("구매 수량을 초과했습니다.")
 								}
 							})
-						</script>
-						<script>
-							
-						</script>
-						
+						</script>		
 						<!-- 총금액 -->
 						<div class="detailInfoTotal">
 							<div class="detailInfoTotal1">
 								<h2>총금액</h2>
 							</div>
 							<div class="detailInfoTotal1">
-								<h2 class="changeTotal" style="color: red">${product.prodPrice }</h2>
+								<c:if test="${product.prodComp eq 'single' }">							
+									<h2 class="changeTotal" style="color: red">${product.prodPrice }</h2>
+								</c:if>
+								<c:if test="${product.prodComp eq 'package' }">
+									<h2 class="changeTotal" style="color: red">0</h2>
+								</c:if>
 							</div>
 							<div class="detailInfoTotal1">
 								<h2>원</h2>
@@ -280,54 +299,112 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 				<!-- 상단 좌측/우측 영역 끝 -->
 				<!-- 관련 제품 영역 시작 -->
 				<br> <br> <br>
-				<h1 class="fw-bold mb-0" style="text-align: center">연관 상품</h1>
 				<div class="vesitable">
-					<div class="owl-carousel vegetable-carousel justify-content-center">
-						<c:forEach var="productList" items="${productList }">
+					<c:if test="${fn:length(productList) != 0}">
+					<h1 class="fw-bold mb-0" style="text-align: center">"${product.prodName }" 관련 제품</h1>
+						<div class="owl-carousel vegetable-carousel justify-content-center">
+						<!-- 연관제품 있을때 -->
+							<c:forEach var="list1" items="${productList }">
 							<!-- 연관 제품 1개 -->
-							<div onclick="location.href='detailPage.do?prodNo=${productList.prodNo }'" class="border border-primary rounded position-relative vesitable-item">
+							<div onclick="location.href='detailPage.do?prodNo=${list1.prodNo }'" class="border border-primary rounded position-relative vesitable-item">
 								<div class="vesitable-img">
 									<!-- 연관제품 이미지1 -->
-									<img src="static/img/${productList.prodImg }"
+									<img src="static/img/${list1.prodImg }"
 										class="img-fluid w-100 rounded-top" alt="">
 								</div>
 								<div
 									class="text-white bg-primary px-3 py-1 rounded position-absolute"
-									style="top: 10px; right: 10px;">${productList.prodType }</div>
+									style="top: 10px; right: 10px;">${list1.prodType }</div>
 								<div class="p-4 pb-0 rounded-bottom">
-									<h4>${productList.prodName }</h4>
-									<p>${productList.prodBrand }</p>
+									<h4>${list1.prodName }</h4>
+									<p>${list1.prodBrand }</p>
 									<div class="d-flex justify-content-between flex-lg-wrap">
-										<p id="salePer" class="text-dark fs-5 fw-bold">${productList.prodSale }</p>
-										<p id="realPrice" class="text-dark fs-5 fw-bold">${productList.prodPrice }</p>
-										<p id="salePrice" class="text-dark fs-5 fw-bold">${productList.prodPrice }</p>
+										<c:if test="${list.prodSale != 0 }">
+											<div>											
+												<p id="salePer2" class="text-dark fs-5 fw-bold"><fmt:formatNumber value="${list1.prodSale * 100 }" pattern="0"/>%</p>
+											</div>											
+										</c:if>
+										<c:if test="${list1.prodSale == 0 }">
+											<div>
+												<p id="salePer2" class="text-dark fs-5 fw-bold"></p>
+											</div>
+										</c:if>
+										<p id="realPrice1" class="text-dark fs-5 fw-bold">${list1.prodPrice }</p>
+										<p id="salePrice1" class="text-dark fs-5 fw-bold">${list1.prodPrice }</p>
 										<a href="http://localhost:8080/yedam3middle3/cart.do"
 											class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
 											class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
 									</div>
 								</div>
-								<script>
-									/*
-									let realPrice = 0;
-									let salePer = '';
-									let salePrice = 0;
-									alert("${productList.prodPrice}")
-									
-									if("${productList.prodSale}" != 0){
-										realPrice = "${productList.prodPrice}" - (Math.round("${productList.prodPrice}"*"${productList.prodSale}"/100)*100);
-										document.querySelector('#realPrice').innerText = realPrice;
-										salePer = Math.ceil("${productList.prodSale}"*100) + '%';
-										document.querySelector('#salePer').innerText = salePer;
-										document.querySelector('#salePrice').innerText = "${productList.prodPrice}" * "${productList.prodSale}";
-									}else{
-										document.querySelector('#realPrice').innerText = "${productList.prodPrice}";
-										document.querySelector('#salePer').innerText = 0;
-									}*/
-								</script>
 							</div>
-						</c:forEach>
-					</div>
+							</c:forEach>
+						</div>
+					</c:if>
+					<c:if test="${fn:length(productList) == 0}">
+					<h1 class="fw-bold mb-0" style="text-align: center">이런 상품도 있어요</h1>
+						<div class="owl-carousel vegetable-carousel justify-content-center">
+						<!-- 연관제품 없을때 -->
+							<c:forEach var="list2" items="${productList2 }">
+							<!-- 연관 제품 1개 -->
+							<div onclick="location.href='detailPage.do?prodNo=${list2.prodNo }'" class="border border-primary rounded position-relative vesitable-item">
+								<div class="vesitable-img">
+									<!-- 연관제품 이미지1 -->
+									<img src="static/img/${list2.prodImg }"
+										class="img-fluid w-100 rounded-top" alt="">
+								</div>
+								<div
+									class="text-white bg-primary px-3 py-1 rounded position-absolute"
+									style="top: 10px; right: 10px;">${list2.prodType }</div>
+								<div class="p-4 pb-0 rounded-bottom">
+									<h4>${list2.prodName }</h4>
+									<p>${list2.prodBrand }</p>
+									<div class="d-flex justify-content-between flex-lg-wrap">
+										<c:if test="${list2.prodSale != 0 }">
+											<div>											
+												<p id="salePer2" class="text-dark fs-5 fw-bold">${list2.prodSale * 100 }%</p>
+											</div>											
+										</c:if>
+										<c:if test="${list2.prodSale == 0 }">
+											<div>
+												<p id="salePer2" class="text-dark fs-5 fw-bold"></p>
+											</div>
+										</c:if>
+										<p id="realPrice2" class="text-dark fs-5 fw-bold">${list2.prodPrice }</p>
+										<p id="salePrice2" class="text-dark fs-5 fw-bold">${list2.prodPrice }</p>
+										<a href="http://localhost:8080/yedam3middle3/cart.do"
+											class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
+											class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
+									</div>
+								</div>
+								
+							</div>
+							</c:forEach>
+						</div>
+					</c:if>
 				</div>
+				<script>
+					$(function(){
+						let realPrice = 0;
+						let salePer = '';
+						let salePer1 = document.querySelector('#salePer1');
+						let realPrice1 = document.querySelector('#realPrice1');
+						let salePrice1 = document.querySelector('#salePrice1');
+						let salePer2 = document.querySelector('#salePer2');
+						let realPrice2 = document.querySelector('#realPrice2');
+						let salePrice2 = document.querySelector('#salePrice2');
+						if("${list1.prodSale}" != 0){
+							realPrice = "${list1.prodPrice}" - (Math.round("${list1.prodPrice}"*"${list1.prodSale}"/100)*100);
+							salePer = Math.ceil("${list1.prodSale}"*100) + '%';
+							salePer1.innerText = salePer;
+							realPrice1.innerText = "${list1.prodPrice}";
+							salePrice1.innerText = realPrice;
+						}else{
+							realPrice2 = "${list1.prodPrice}";
+							salePer2.innerText = '';
+							salePric2 = "${list1.prodPrice}";
+						}
+					})
+				</script>
 				<br> <br> <br>
 				<!-- 관련 제품 영역 끝 -->
 				<!-- 탭 영역 시작 -->
@@ -506,7 +583,7 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 							aria-labelledby="nav-mission-tab">
 							<p>리뷰</p>
 							
-							<c:if test="${review2 > 0 }">
+							<c:if test="${review2 != null }">
 								<p>총평점:${review1 }/5</p>
 								<p>총개수:${review2 }</p>
 								<hr>
@@ -534,7 +611,7 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 								</c:forEach>
 								</div>
 							</c:if>
-							<c:if test="${review2 < 1 }">
+							<c:if test="${review2 == null }">
 								<hr>
 								<div style="text-align: center;"><h1>${noReviewMsg }</h1></div>
 							</c:if>
