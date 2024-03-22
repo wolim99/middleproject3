@@ -1,0 +1,223 @@
+CREATE TABLE options (
+	prod_no	number(10),
+	opt_text	varchar2(100)	
+);
+
+ALTER TABLE options ADD CONSTRAINT FK_OPTIONS1 FOREIGN KEY (prod_no) REFERENCES PRODUCTS(prod_no);
+
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '잡곡밥 도시락 6종 6팩'),
+        '잡곡도시락 6종 6팩(맛별 1팩씩)');
+
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '잡곡밥 도시락 6종 6팩'),
+        '잡곡씨앗귀리'||CHR(038)||'동그랑땡 6팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '잡곡밥 도시락 6종 6팩'),
+        '잡곡무청나물'||CHR(038)||'너비아니 6팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '잡곡밥 도시락 6종 6팩'),
+        '잡곡스크램블'||CHR(038)||'숯불제육 6팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '잡곡밥 도시락 6종 6팩'),
+        '잡곡곤드레'||CHR(038)||'오믈렛 6팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '잡곡밥 도시락 6종 6팩'),
+        '잡곡흑미'||CHR(038)||'오믈렛 6팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '잡곡밥 도시락 6종 6팩'),
+        '잡곡렌틸'||CHR(038)||'닭강정 6팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '그릴 닭가슴살 스테이크 6종 12팩'),
+        '맛별 2팩씩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '어묵바 3종 혼합10팩'),
+        '햄4+고추3+오징어3');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = 'pick 통닭다리 3종 혼합 6팩'),
+        '허니2+레드2+블랙2');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '아침란1구');
+
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 허브갈릭');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 훈제');
+
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 촉촉저염');
+
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 갈릭');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 커리');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 마라');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 소시지 오리지널');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '닭가슴살 소시지 청양고추');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '바로드숑 갈비 스테이크');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '바로드숑 큐브 오리지널');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '바로드숑 큐브 청양고추');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '바로드숑 감자');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '바로드숑 옥수수');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '고구마(슬라이스)');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '고구마(통)');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '바로드숑 실온보관 19종 1팩 골라담기'),
+        '단호박');
+       
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '1+1 실온보관 한입 큐브 4종 1+1팩'),
+        '한입큐브 떡갈비 1+1팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '1+1 실온보관 한입 큐브 4종 1+1팩'),
+        '한입큐브 청양 1+1팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '1+1 실온보관 한입 큐브 4종 1+1팩'),
+        '한입큐브 토마토치즈 1+1팩');
+        
+INSERT INTO options(prod_no,
+                    opt_text)
+VALUES((SELECT prod_no
+        FROM products
+        WHERE prod_name = '1+1 실온보관 한입 큐브 4종 1+1팩'),
+        '한입큐브 카레 1+1팩');
