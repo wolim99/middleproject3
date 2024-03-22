@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class Cart {
+	private String option; // 옵션
+	private int inputcut; // 거름망
 	private String cartNo; // 장바구니 번호
 	private int cartQuant; // 수량
 	private int memNo; // 사용자 번호

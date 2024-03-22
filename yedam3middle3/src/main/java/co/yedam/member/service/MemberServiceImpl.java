@@ -57,4 +57,14 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println(mapper.updateCart(cart));
 		return mapper.updateCart(cart);
 	}
+
+	@Override
+	public int selectoption(Cart cart) {
+		return mapper.selectoption(cart);
+	}
+
+	@Override
+	public int insertselectCart(Cart cart) {
+		return mapper.insertselectCart(cart);
+	}
 }

@@ -333,7 +333,7 @@
 																					,$('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({'margin': '0px','color': 'grey'})
 																							,$('<span />').append($('<h5 />').text(realPrice + '원').css({'margin': '0px'}))).css({'margin-left': '8px'})
 																					).css({'margin': '0px'})
-																			,$('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
+																			,$('<a href="cart.do?prodNo='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
 															)
 														))
 													)
