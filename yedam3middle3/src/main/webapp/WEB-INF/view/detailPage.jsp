@@ -15,8 +15,11 @@ div.detailInfo {
 }
 
 div.detailOption, div.detailInfoStar, div.detailInfoTotal1, div.reviewInfo
-	{
+{
 	display: inline-block;
+}
+div.detailReview {
+	text-align: left;
 }
 
 div.reviewInfo1 {
@@ -196,10 +199,6 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 								else{
 									alert("구매 수량을 초과했습니다.")
 								}
-								/*
-								document.querySelector('.delBtn').addEventListener('click', function(){
-									
-								})*/
 							})
 						</script>
 						<script>
@@ -234,58 +233,46 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 										location.href = './cart.do';
 									})
 						</script>
-						<!-- 단품 바로구매 >> orderPage.do 이동 -->
+						<!-- 단품,패키지 바로구매 >> orderPage.do 이동 -->
 						<script>
 							document.querySelector('a#btn2').addEventListener('click',function() {
-								let prodImg = "${product.prodImg}";
-								let prodPrice = "${product.prodPrice}";
-								let prodName = "${product.prodName}";
-								let deliveryPrice = document.querySelector('#deliveryPrice');
-								let changeTotal = document.querySelector('.changeTotal');
-								let prodCnt = document.querySelector('#prodCnt');
-								let prodComp = "${product.prodComp}";
-								
-								location.href = './orderPage.do?prodImg='
-									+ prodImg
-									+ '&prodPrice='
-									+ prodPrice
-									+ '&prodName='
-									+ prodName
-									+ '&prodCnt='
-									+ prodCnt.value
-									+ '&deliveryPrice='
-									+ deliveryPrice.innerText
-									+ '&changeTotal='
-									+ changeTotal.innerText
-									+ '&prodComp='
-									+ prodComp;
-							})
-						</script>
-						<!-- 패키지 바로구매 >> orderPage.do 이동 -->
-						<script>
-							document.querySelector('a#btn2').addEventListener('click',function() {
-								let prodImg = "${product.prodImg}";
-								let prodPrice = "${product.prodPrice}";
-								let prodName = "${product.prodName}";
-								let deliveryPrice = document.querySelector('#deliveryPrice');
-								let changeTotal = document.querySelector('.changeTotal');
-								let optionListLength = "${fn:length(optionList) }";
-								let prodComp = "${product.prodComp}";
-								
-								location.href = './orderPage.do?prodImg='
-									+ prodImg
-									+ '&prodPrice='
-									+ prodPrice
-									+ '&prodName='
-									+ prodName
-									+ '&deliveryPrice='
-									+ deliveryPrice.innerText
-									+ '&changeTotal='
-									+ changeTotal.innerText
-									+ '&optionListLength='
-									+ optionListLength
-									+ '&prodComp='
-									+ prodComp;
+								//단품 파라미터
+								if("${product.prodComp}" == "single"){
+									let prodImg = "${product.prodImg}";
+									let prodPrice = "${product.prodPrice}";
+									let prodName = "${product.prodName}";
+									let prodComp = "${product.prodComp}";
+									let prodCnt = document.querySelector('#prodCnt');
+									let deliveryPrice = document.querySelector('#deliveryPrice');
+									let changeTotal = document.querySelector('.changeTotal');
+									
+									
+									location.href = './orderPage.do?prodImg=' + prodImg
+										+ '&prodPrice=' + prodPrice
+										+ '&prodName=' + prodName
+										+ '&prodComp=' + prodComp
+										+ '&deliveryPrice=' + deliveryPrice.innerText
+										+ '&changeTotal=' + changeTotal.innerText
+										+ '&prodCnt=' + prodCnt.value;
+								}
+								//패키지 파라미터
+								else if("${product.prodComp}" == "package"){
+									let prodImg = "${product.prodImg}";
+									let prodPrice = "${product.prodPrice}";
+									let prodName = "${product.prodName}";
+									let prodComp = "${product.prodComp}";
+									let deliveryPrice = document.querySelector('#deliveryPrice');
+									let changeTotal = document.querySelector('.changeTotal');
+									let cnt = document.querySelector('#cnt');
+									
+									location.href = './orderPage.do?prodImg=' + prodImg
+										+ '&prodPrice=' + prodPrice
+										+ '&prodName=' + prodName
+										+ '&prodComp=' + prodComp
+										+ '&deliveryPrice=' + deliveryPrice.innerText
+										+ '&changeTotal=' + changeTotal.innerText
+										+ '&cnt=' + cnt.value;
+								}
 							})
 						</script>
 					</div>
@@ -518,32 +505,39 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 						<div class="tab-pane" id="nav-mission" role="tabpanel"
 							aria-labelledby="nav-mission-tab">
 							<p>리뷰</p>
-							<p>총평점:${review1 }/5</p>
-							<p>총개수:${review2 }</p>
-							<hr>
-							<div style="text-align: center">
+							
+							<c:if test="${review2 > 0 }">
+								<p>총평점:${review1 }/5</p>
+								<p>총개수:${review2 }</p>
+								<hr>
+								<div style="text-align: center">
 								<c:forEach var="review" items="${reviewList }">
 									<div class="detailReview">
-										<div>작성날짜</div>
-										<div>
+										<div class="reviewInfo">작성날짜</div>
+										<div class="reviewInfo">
 											<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
 												value="${review.revDate }" />
 										</div>
 									</div>
 									<br>
 									<div class="detailReview">
-										<div>평점</div>
-										<div>${review.revStar }</div>
+										<div class="reviewInfo">평점</div>
+										<div class="reviewInfo">${review.revStar }</div>
 									</div>
 									<br>
 									<div class="detailReview">
-										<div>내용</div>
-										<div>${review.revContent }</div>
+										<div class="reviewInfo">내용</div>
+										<div class="reviewInfo">${review.revContent }</div>
 									</div>
-									<hr>
 									<br>
+									<hr>
 								</c:forEach>
-							</div>
+								</div>
+							</c:if>
+							<c:if test="${review2 < 1 }">
+								<hr>
+								<div style="text-align: center;"><h1>${noReviewMsg }</h1></div>
+							</c:if>
 						</div>
 						<!-- 탭4 끝 -->
 						<div class="tab-pane" id="nav-vision" role="tabpanel">
