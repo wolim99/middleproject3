@@ -19,15 +19,20 @@ public class UpdateCart implements Control {
 		String mno = req.getParameter("memNo");
 		String pno = req.getParameter("prodNo");
 		String cartQ = req.getParameter("cartQuant");
+		System.out.println("mno: " + mno);
+		System.out.println("pno: "+ pno);
+		System.out.println("cartQ: "+ cartQ);
 		
 		Cart cart = new Cart();
-		cart.setMemNo(mno);
+		cart.setMemNo(Integer.parseInt(mno));
 		cart.setProdNo(Integer.parseInt(pno));
 		cart.setCartQuant(Integer.parseInt(cartQ));
 		
 		MemberService mvc = new MemberServiceImpl();
+		System.out.println(mvc.updateCart(cart));
 		
-		if(mvc.modifyCart(cart)) {
+		if(mvc.updateCart(cart) != 0) {
+			System.out.println(cart);
 			resp.getWriter().print("{\"retCode\": \"OK\"}");
 		} else {
 			resp.getWriter().print("{\"retCode\": \"NG\"}");
