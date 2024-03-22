@@ -52,17 +52,34 @@
 </div>
 <!-- Cart Page End -->
 <script>
-let memNo=${logMemNo};
+let memNo;
+let prodNo;
 console.log(memNo);
 $(document).ready(function() {
+	insertcart();
   loadCartItems();
+  function insertcart (){
+	  memNo=${logMemNo};
+	  prodNo=${prodNo};
+	  $.ajax({
+		  url: 'insertcart.do',
+		  type: 'post',
+		  data: { memNo: memNo, prodNo: prodNo },
+		  dataTyep: 'json',
+		  sueccess: function(data) {
+			  console.log("성공")
+		  } 
+		  
+	  })
+  } 
 
   function loadCartItems() {
 	  memNo=${logMemNo};
+	  prodNo=${prodNo};
       $.ajax({
         url: 'listcartForm.do', 
         type: 'GET', 
-        data: { memNo: memNo }, 
+        data: { memNo: memNo, prodNo: prodNo }, 
         dataType: 'json', 
         success: function(data) {
             var total = 0;
@@ -93,7 +110,7 @@ $(document).ready(function() {
                 alert('장바구니 데이터를 불러오는 데 실패했습니다.');
             }
         });
-    } 
+    }
    var memNo = ${logMemNo };
   $(document).on('click', '.quantity button', function () { 
       var prodNo = $(this).parent().attr('id');
@@ -190,4 +207,6 @@ $(document).on('click', '.btn-delete-cart', function() {
         });
     }
 });
+
+
 </script>

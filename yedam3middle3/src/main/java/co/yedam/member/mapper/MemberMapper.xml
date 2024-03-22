@@ -60,6 +60,14 @@
       order by c.cart_no
 	</select>
 	
+	<select id="selectoption" resultType="co.yedam.member.Cart" parameterType="int">
+		select opt_text
+		from   options
+		where  prod_no = #{prodNo}
+	</select>
+	
+	
+	
 	<!-- 장바구니 삭제 -->
 	<delete id="deleteCart" parameterType="co.yedam.member.Cart">
       delete from carts
@@ -97,5 +105,19 @@
       where mem_no = #{memNo}
       and prod_no = #{prodNo}
     </update>
+    
+    <!-- 장바구니에 추가하면서 출력하기 -->
+    <insert id="insertselectCart" parameterType="cart">
+    INSERT into carts (cart_quant,
+                       prod_no,
+                       mem_no)
+     values (#{cartQuant}, #{prodNo}, #{memNo})
+     <selectKey keyProperty="prodNo" keyColumn="prod_no" order="AFTER">
+        select *
+        from carts
+        where mem_no = #{memNo}
+        and   prod_no = #{prodNo}
+     </selectKey>
+    </insert>
     
 </mapper>

@@ -27,4 +27,9 @@ public interface MemberService {
 		
 	// 장바구니 수량 변경
 	int updateCart(Cart cart);
+	
+	// 옵션
+	int selectoption(Cart cart);
+	
+	int insertselectCart(Cart cart);
 }

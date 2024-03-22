@@ -10,15 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.yedam.member.cartcontrol.CartControl;
-import co.yedam.member.cartcontrol.DeleteCart;
-import co.yedam.member.cartcontrol.ListCartControl;
-import co.yedam.member.cartcontrol.UpdateCart;
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
 import co.yedam.main.MainProductsControl;
 import co.yedam.main.MainSearchControl;
 import co.yedam.main.RandomProductControl;
+import co.yedam.member.cartcontrol.AddCart;
+import co.yedam.member.cartcontrol.CartControl;
+import co.yedam.member.cartcontrol.DeleteCart;
+import co.yedam.member.cartcontrol.ListCartControl;
+import co.yedam.member.cartcontrol.UpdateCart;
 import co.yedam.member.control.AddMemberControl;
 import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.LoginControl;
@@ -92,7 +93,7 @@ public class FrontController extends HttpServlet {
 		controls.put("/cart.do", new CartControl()); // 카트 페이지
 		controls.put("/listcartForm.do", new ListCartControl());
 		// controls.put("/insertcartForm.do", new AddCartForm());
-		// controls.put("/insertcart.do", new AddCart());
+	    controls.put("/insertcart.do", new AddCart());
 		controls.put("/deletecart.do", new DeleteCart());
 		// controls.put("/updatecartForm.do", new UpdateCartFrom());
 		controls.put("/updatecart.do", new UpdateCart());
