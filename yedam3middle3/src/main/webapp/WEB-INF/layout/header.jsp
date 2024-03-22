@@ -212,15 +212,12 @@
                 }
                 
                 function countercart() {
-                    console.log('fun:'+memNo1)
                     $.ajax({
                         url: 'listcartForm.do',
                         type: 'GET',
                         data: { memNo: memNo1 },
                         dataType: 'json',
                         success: function (result) {
-                            var total = 0;
-                            console.log('re : ' + result.length);
                             $('#icons :nth-child(2)').append(
                                 $('<span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;"/>').text(result.length)
                             )
