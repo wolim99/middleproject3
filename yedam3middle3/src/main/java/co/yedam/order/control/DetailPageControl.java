@@ -34,25 +34,26 @@ public class DetailPageControl implements Control {
 		//옵션 데이터
 		List<Option> optionList = svc.searchOption(Integer.parseInt(prodNo));
 		
-		//리뷰 평점
-		//float review1 = svc.searchRev1(Integer.parseInt(prodNo)); 리뷰 없으면 오류
-		float review1 = svc.searchRev1(1);
-		
-		//리뷰 개수
-		//int review2 = svc.searchRev2(Integer.parseInt(prodNo)); 리뷰 없으면 오류
-		int review2 = svc.searchRev2(1);
-		
+		//리뷰 평점, 개수	
+		if(svc.searchRev2(Integer.parseInt(prodNo)) <= 0) {
+			req.setAttribute("noReviewMsg", "작성된 리뷰가 없습니다!");
+			int review2 = svc.searchRev2(Integer.parseInt(prodNo));
+			req.setAttribute("review2", review2);
+		}
+		else {
+			float review1 = svc.searchRev1(Integer.parseInt(prodNo));
+			int review2 = svc.searchRev2(Integer.parseInt(prodNo));
+			req.setAttribute("review1", review1);
+			req.setAttribute("review2", review2);
+		}
+				
 		//리뷰 데이터
-		//Review review3 = new Review();
-		//review3.setProdNo(1);
 		List<Review> reviewList = svc.reviewList(Integer.parseInt(prodNo));
 		
 		//메서드 반환값으로 요청 전달
 		req.setAttribute("product", product);
 		req.setAttribute("productList", productList);
 		req.setAttribute("optionList", optionList);
-		req.setAttribute("review1", review1);
-		req.setAttribute("review2", review2);
 		req.setAttribute("reviewList", reviewList);
 		
 		//jsp요청

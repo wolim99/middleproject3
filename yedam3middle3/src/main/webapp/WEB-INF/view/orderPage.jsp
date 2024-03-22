@@ -32,7 +32,6 @@ div.orderInfoPay {
 
 
 
-
 <!-- 헤더 바디 사이 영역 -->
 <div class="container-fluid page-header py-5">
 	<h1 class="text-center text-white display-6">주문/결제</h1>
@@ -59,7 +58,7 @@ div.orderInfoPay {
 		<div>
 			<div class="orderInfoLabel">이름</div>
 			<div class="orderInfoName">
-				<input id="orderName1" type="text">
+				<input class="orderName1" type="text" name="memNaem">
 			</div>
 		</div>
 		<hr>
@@ -146,7 +145,7 @@ div.orderInfoPay {
 		</script>
 		<hr>
 		<div>
-			<div class="orderInfoLabel">이름</div>
+			<div class="orderInfoLabel">수령인</div>
 			<div class="orderInfoId">
 				<input class="orderName2" name="memName" type="text"
 					style="width: 150px;">
@@ -207,27 +206,31 @@ div.orderInfoPay {
 			</div>
 		</div>
 		<hr>
+		
 		<div>
 			<div class="orderInfoLabel">배송지선택</div>
 			<div class="orderInfoDelivery">
-				<label><input type="radio" value="기본배송지" name="AddrRadio"
-					onclick="basicAddrCheck()">기본배송지</label>
-					<input type="hidden" class="orderName2">
-				
-				<label><input type="radio" value="신규배송지" name="AddrRadio"
-					onclick="newAddrCheck()">신규배송지</label>
+				<label><input type="radio" value="basic" name="AddrRadio" id="basicAddr">기본배송지</label>
+					<input type="hidden" class="orderName1">
+				<label><input type="radio" value="new" name="AddrRadio"
+					onclick="newAddrCheck2()">신규배송지</label>
 			</div>
 		</div>
+		
 		<!-- 기본배송지 >> 주소 가져오기 -->
 		<script>
-			function basicAddrCheck() {
-				let basicAddr = "${basicAddr}";
-				document.querySelector('#orderAddr').value = basicAddr;
-			}
+			/*
+			$('#basicAddr').on('click', function(){
+				//alert("1");
+				let orderName = document.querySelector('.orderName1');
+				//alert(orderName.value);
+				//let basicAddr = "${basicAddr}"
+				//document.querySelector('#orderAddr').value = basicAddr;
+			}*/
 		</script>
 		<!-- 신규배송지 >> 주소 초기화 -->
 		<script>
-			function newAddrCheck() {
+			function newAddrCheck2() {
 				document.querySelector('#orderAddr').value = '';
 			}
 		</script>
@@ -324,10 +327,10 @@ div.orderInfoPay {
 							<div>
 								<c:if test="${param.prodComp eq 'single' }">									
 									<input id="prodCnt" type="number" min="1" max="50" value="${param.prodCnt }" style="width: 80px;">
-									<p>(최대 ${param.prodCnt })</p>
+									<p>(최대 50개)</p>
 								</c:if>	
 								<c:if test="${param.prodComp eq 'package' }">
-									<input id="prodCnt" type="text" value="${param.optionListLength }" style="width: 80px;">
+									<p class="mb-0 mt-4">${param.cnt }개</p>
 								</c:if>			
 							</div>
 						</td>
@@ -341,56 +344,6 @@ div.orderInfoPay {
 							<div>							
 								<p id="changeTotal" class="mb-0 mt-4">${param.changeTotal }</p>
 							</div>
-						</td>
-					</tr>
-					<!-- 두번째 행 -->
-					<tr>
-						<th scope="row">
-							<div class="d-flex align-items-center">
-								<img src="static/img/pre-crunch-hotdog-mo.jpg"
-									class="img-fluid me-5" style="width: 100px; height: 100px;"
-									alt="" alt="">
-							</div>
-						</th>
-						<td>
-							<p class="mb-0 mt-4">제품명2</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">수량</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">배송비</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">적립</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">가격</p>
-						</td>
-					</tr>
-					<!-- 세번째 행 -->
-					<tr>
-						<th scope="row">
-							<div class="d-flex align-items-center">
-								<img src="static/img/pre-kimbob-jobchae.jpg"
-									class="img-fluid me-5" style="width: 100px; height: 100px;"
-									alt="" alt="">
-							</div>
-						</th>
-						<td>
-							<p class="mb-0 mt-4">제품명3</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">수량</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">배송비</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">적립</p>
-						</td>
-						<td>
-							<p class="mb-0 mt-4">가격</p>
 						</td>
 					</tr>
 				</tbody>
