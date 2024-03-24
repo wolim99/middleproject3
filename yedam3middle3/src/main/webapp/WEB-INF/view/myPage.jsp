@@ -108,15 +108,15 @@
 									</c:otherwise>
 								</c:choose>
 
-								<p>전화번호:${logPhone }</p>
-								<p>이메일:${logMail }</p>
-								<p>주 소:${logAddr }</p>
+								<p>전화번호 : ${logPhone }</p>
+								<p>이메일 : ${logMail }</p>
+								<p>주 소 : ${logAddr }</p>
 							</div>
 							<div class="p-4 border border-secondary">
 								<h4>총 주문금액</h4>
-								<p>적립금: ${logPoint}</p>
-								<p>총 구매금액: ${logTotal}</p>
-								<p>쿠 폰:</p>
+								<p>적립금 : ${logPoint}</p>
+								<p id="total">총 구매금액 : </p>
+								<p>쿠 폰 : </p>
 							</div>
 						</div>
 					</div>
@@ -188,6 +188,7 @@ let opage = 1;
 let qpage = 1;	 
 let totalCnt = 0;
 let memNo = ${logMemNo};
+let total = 0;
 // 주문내역 목록+페이징	 
 function opagingFunc() {
 	opage = 1;
@@ -208,9 +209,10 @@ $.ajax({
     data: {opage: opage, memNo: memNo},
     dataType: 'json',
     success: function (result) { 
+
     	console.log(result);
-    	
     	result.forEach((item,idx) => {
+    		total += item.ordTotal
     		$('#ordlist').append($('<tr />').append(
     				 $('<td />').text(item.ordDate),
     				 $('<td />').text(item.prodName),
@@ -218,6 +220,7 @@ $.ajax({
     				 $('<td />').text(item.ordStat)
     		));
 		})
+        $('#total').html('총 구매금액 : '+total+'원');
     },
     error: function (err) { 
         console.log('error=> ' + err);
