@@ -5,6 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 포트원 결제 -->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<!-- 포트원 결제 -->
 
 <style>
 div.orderInfoLabel {
@@ -462,6 +469,28 @@ ${message }
 			</table>
 		</div>
 		<script>
+		//메일주소 자동입력
+			let mail = '${logMail}';
+			let splitMail = mail.split('@');
+			$('#orderMail1').val(splitMail[0]);
+			$('#orderMail2').val(splitMail[1]);
+		//전화번호 자동입력
+			let phone = '${logPhone}';
+			let phoneAry = [];
+			if(phone.includes('-')){
+				let splitPhone = phone.split('-');
+			}else if(phone.length == 11){
+				phoneAry.push(phone[0]+phone[1]+phone[2]);
+				phoneAry.push(phone[3]+phone[4]+phone[5]+phone[6]);
+				phoneAry.push(phone[7]+phone[8]+phone[9]+phone[10]);
+			}else if(phone.length == 10){
+				phoneAry.push(phone[0]+phone[1]+phone[2]);
+				phoneAry.push(phone[3]+phone[4]+phone[5]);
+				phoneAry.push(phone[6]+phone[7]+phone[8]+phone[9]);
+			}
+			$('#phoneOption').val(phoneAry[0]);
+			$('#orderPhone1').val(phoneAry[1]);
+			$('#orderPhone2').val(phoneAry[2]);
 			$('#prodCnt').on('change', function(){
 				$.ajax("./orderPage.do")
 					.done(function(){
@@ -505,15 +534,15 @@ ${message }
 			<div class="orderInfoPay">
 				<form>
 					<label><input type="radio" value="기본배송지"
-						name="deliveryRadio" checked>신용카드</label> <label><input
-						type="radio" value="최근배송지" name="deliveryRadio">가상계좌</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio">실시간 계좌이체</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio">휴대폰결제</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio">네이버페이</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio">카카오페이</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio">PAYKO</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio">SSG PAY</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio">토스</label>
+						name="deliveryRadio" disabled="true">신용카드</label> <label><input
+						type="radio" value="최근배송지" name="deliveryRadio" disabled="true">가상계좌</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">실시간 계좌이체</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">휴대폰결제</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">네이버페이</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" checked>카카오페이</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">PAYKO</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">SSG PAY</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">토스</label>
 				</form>
 			</div>
 		</div>
@@ -533,9 +562,78 @@ ${message }
 		<br> <br> <br>
 
 		<div style="text-align: center">
-			<button type="commit" style="width: 150px; height: 75px;">주문하기</button>
-			<button type="reset" style="width: 150px; height: 75px;">주문취소</button>
+			<button class="payment" type="commit" style="width: 150px; height: 75px;">주문하기</button>
+			<button class="quit" type="reset" style="width: 150px; height: 75px;">주문취소</button>
 		</div>
 	</div>
 </div>
 <!-- 바디 영역 끝 -->
+<!-- 결제 스크립트 -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+/* const user_email = response.req_usermail
+const username = response.req_username */
+const pname = '${param.prodName }';
+let realPrice = $('#changeTotal4').text();
+	
+var IMP = window.IMP;
+var today = new Date();
+var hours = today.getHours(); // 시
+var minutes = today.getMinutes();  // 분
+var seconds = today.getSeconds();  // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
+$('.quit').on('click', function () {
+	realPrice = $('#changeTotal4').text();
+	let phone = '${logPhone}';
+	let mail = '${logMail}';
+	let splitMail = mail.split('@');
+	console.log(splitMail);
+	console.log('${logPhone}');
+	console.log('${logMail}');
+})
+$('.payment').on('click', function () {
+	let price = $('#changeTotal4').text();
+	let logid = "${logid }";
+	if (confirm("구매 하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
+            if (logid != null && logid != "") { // 회원만 결제 가능
+                IMP.init("imp82376133"); // 가맹점 식별코드
+                IMP.request_pay({
+                    pg: 'kakaopay.TC0ONETIME', // PG사 코드표에서 선택
+                    pay_method: 'card', // 결제 방식
+                    merchant_uid: "PROD" + makeMerchantUid, // 결제 고유 번호
+                    name: pname, // 제품명
+                    amount: price, // 가격
+                    //구매자 정보 ↓
+                    buyer_email: `${useremail}`,
+                    buyer_name: `${username}`,
+                    // buyer_tel : '010-1234-5678',
+                    // buyer_postcode : '123-456'
+                    // buyer_addr : '서울특별시 강남구 삼성동',
+                }, async function (rsp) { // callback
+                    if (rsp.success) { //결제 성공시
+                        console.log(rsp);
+                        //결제 성공시 프로젝트 DB저장 요청부분
+                       
+
+                        if (response.status == price) { // DB저장 성공시
+                            alert('결제 완료!')
+                            window.location.reload();
+                        } else { // 결제완료 후 DB저장 실패시
+                            alert(`error:[${response.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
+                            // DB저장 실패시 status에 따라 추가적인 작업 가능성
+                        }
+                    } else if (rsp.success == false) { // 결제 실패시
+                        alert(rsp.error_msg)
+                    }
+                });
+            }
+            else { // 비회원 결제 불가
+                alert('로그인이 필요합니다!')
+            }
+        } else { // 구매 확인 알림창 취소 클릭시 돌아가기
+            return false;
+        }
+})
+});
+</script>
