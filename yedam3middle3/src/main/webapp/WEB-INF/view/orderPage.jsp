@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style>
 div.orderInfoLabel {
@@ -30,18 +31,18 @@ div.orderInfoPay {
 </style>
 <!-- 사용자 주소 업데이트 -->
 
-
+${message }
 
 <!-- 헤더 바디 사이 영역 -->
 <div class="container-fluid page-header py-5">
 	<h1 class="text-center text-white display-6">주문/결제</h1>
+	<!--
 	<ol class="breadcrumb justify-content-center mb-0">
 		<li class="breadcrumb-item"><a href="#">Home</a></li>
 		<li class="breadcrumb-item"><a href="#">Pages</a></li>
 		<li class="breadcrumb-item active text-white">Cart</li>
-	</ol>
+	</ol>-->
 </div>
-
 
 
 <!-- 바디 영역 -->
@@ -53,36 +54,113 @@ div.orderInfoPay {
 		<br> <br> <br>
 
 		<!-- 주문자정보 시작 -->
-		<h4>주문자정보</h4>
-		<hr>
-		<div>
-			<div class="orderInfoLabel">이름</div>
-			<div class="orderInfoName">
-				<input class="orderName1" type="text" name="memNaem">
+		<c:if test="${!empty logName }">
+			<h4>주문자정보(회원)</h4>
+			<hr>
+			<div>
+				<div class="orderInfoLabel">이름</div>
+				<div class="orderInfoName">
+						<input id="orderName1" value="${logName }">
+				</div>
 			</div>
-		</div>
-		<hr>
-		<div>
-			<div class="orderInfoLabel">이메일</div>
+			<hr>
+			<div>
+				<div class="orderInfoLabel">이메일</div>
 
-			<div class="orderInfoMail">
-				<input id="orderMail1" type="text" style="width: 150px;">
+					<div class="orderInfoMail">
+						<input id="orderMail1" type="text" style="width: 150px;">
+					</div>
+				<div class="orderInfoMail">@</div>
+				<div class="orderInfoMail">
+					<input id="orderMail2" type="text" class="mailInput" style="width: 150px;">
+				</div>
+				<div class="orderInfoMail">
+					<select id="mailOption">
+						<option selected disabled>---------------</option>
+						<option value="naver.com">naver.com</option>
+						<option value="nate.com">nate.com</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="hanmail.com">hanmail.com</option>
+					</select>
+				</div>
 			</div>
-			<div class="orderInfoMail">@</div>
-			<div class="orderInfoMail">
-				<input id="orderMail2" type="text" class="mailInput"
-					style="width: 150px;">
+			<hr>
+			<div>
+				<div class="orderInfoLabel">연락처</div>
+				<div class="orderInfoPhone">
+					<select id="phoneOption">
+						<option value="010" selected>010</option>
+						<option value="011">011</option>
+						<option value="016">016</option>
+						<option value="017">017</option>
+						<option value="018">018</option>
+						<option value="019">019</option>
+					</select>
+				</div>
+				<div class="orderInfoPhone">-</div>
+				<div class="orderInfoPhone">
+					<input id="orderPhone1" type="text" style="width: 70px;">
+				</div>
+				<div class="orderInfoPhone">-</div>
+				<div class="orderInfoPhone">
+					<input id="orderPhone2" type="text" style="width: 70px;">
+				</div>
 			</div>
-			<div class="orderInfoMail">
-				<select id="mailOption">
-					<option selected disabled>---------------</option>
-					<option value="naver.com">naver.com</option>
-					<option value="nate.com">nate.com</option>
-					<option value="gmail.com">gmail.com</option>
-					<option value="hanmail.com">hanmail.com</option>
-				</select>
+		</c:if>
+		<c:if test="${empty logName }">
+			<h4>주문자정보(비회원)</h4>
+			<hr>
+			<div>
+				<div class="orderInfoLabel">이름</div>
+				<div class="orderInfoName">
+						<input id="orderName1" value="">
+				</div>
 			</div>
-		</div>
+			<hr>
+			<div>
+				<div class="orderInfoLabel">이메일</div>
+
+					<div class="orderInfoMail">
+						<input id="orderMail1" type="text" style="width: 150px;">
+					</div>
+				<div class="orderInfoMail">@</div>
+				<div class="orderInfoMail">
+					<input id="orderMail2" type="text" class="mailInput" style="width: 150px;">
+				</div>
+				<div class="orderInfoMail">
+					<select id="mailOption">
+						<option selected disabled>---------------</option>
+						<option value="naver.com">naver.com</option>
+						<option value="nate.com">nate.com</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="hanmail.com">hanmail.com</option>
+					</select>
+				</div>
+			</div>
+			<hr>
+			<div>
+				<div class="orderInfoLabel">연락처</div>
+				<div class="orderInfoPhone">
+					<select id="phoneOption">
+						<option value="010" selected>010</option>
+						<option value="011">011</option>
+						<option value="016">016</option>
+						<option value="017">017</option>
+						<option value="018">018</option>
+						<option value="019">019</option>
+					</select>
+				</div>
+				<div class="orderInfoPhone">-</div>
+				<div class="orderInfoPhone">
+					<input id="orderPhone1" type="text" style="width: 70px;">
+				</div>
+				<div class="orderInfoPhone">-</div>
+				<div class="orderInfoPhone">
+					<input id="orderPhone2" type="text" style="width: 70px;">
+				</div>
+			</div>
+		</c:if>
+		<hr>
 		<!-- input태그와 option태그 값 연결 자바스크립트 -->
 		<script>
 			let inputVal = document.querySelector('.mailInput');
@@ -91,29 +169,6 @@ div.orderInfoPay {
 				inputVal.value = optionVal1.value;
 			})
 		</script>
-		<hr>
-		<div>
-			<div class="orderInfoLabel">연락처</div>
-			<div class="orderInfoPhone">
-				<select id="phoneOption">
-					<option value="010" selected>010</option>
-					<option value="011">011</option>
-					<option value="016">016</option>
-					<option value="017">017</option>
-					<option value="018">018</option>
-					<option value="019">019</option>
-				</select>
-			</div>
-			<div class="orderInfoPhone">-</div>
-			<div class="orderInfoPhone">
-				<input id="orderPhone1" type="text" style="width: 70px;">
-			</div>
-			<div class="orderInfoPhone">-</div>
-			<div class="orderInfoPhone">
-				<input id="orderPhone2" type="text" style="width: 70px;">
-			</div>
-		</div>
-		<hr>
 		<!-- 주문자정보 끝 -->
 
 		<br> <br> <br>
@@ -123,15 +178,15 @@ div.orderInfoPay {
 			<h4>배송정보</h4>
 		</div>
 		<div class="orderInfoCheck" style="text-align: right">
-			<input class="orderInfoEq" name="orderInfoEq" type="checkbox"
-				onclick="infoEqCheck()"><label>주문자정보와 동일</label>
+			<label><input id="orderInfoEq" name="orderInfoEq" type="checkbox"
+				onclick="infoEqCheck()">주문자정보와 동일</label>
 		</div>
 		<!-- 주문자정보 가져오기 -->
 		<script>
 			function infoEqCheck() {
-				let orderInfoEq = document.querySelector('.orderInfoEq');
+				let orderInfoEq = document.querySelector('#orderInfoEq');
 				let orderName1 = document.querySelector('#orderName1');
-				let orderName2 = document.querySelector('.orderName2');
+				let orderName2 = document.querySelector('#orderName2');
 				let orderPhone1 = document.querySelector('#orderPhone1');
 				let orderPhone2 = document.querySelector('#orderPhone2');
 				let orderPhone3 = document.querySelector('#orderPhone3');
@@ -147,45 +202,13 @@ div.orderInfoPay {
 		<div>
 			<div class="orderInfoLabel">수령인</div>
 			<div class="orderInfoId">
-				<input class="orderName2" name="memName" type="text"
+				<input id="orderName2" name="memName" type="text"
 					style="width: 150px;">
 			</div>
 		</div>
 		<hr>
 		<div>
-			<div class="orderInfoLabel">연락처1</div>
-			<div class="orderInfoPhone">
-				<select id="phoneOption">
-					<option value="02" selected>02</option>
-					<option value="031">031</option>
-					<option value="032">032</option>
-					<option value="033">033</option>
-					<option value="041">041</option>
-					<option value="042">042</option>
-					<option value="043">043</option>
-					<option value="051">051</option>
-					<option value="052">052</option>
-					<option value="053">053</option>
-					<option value="054">054</option>
-					<option value="055">055</option>
-					<option value="061">061</option>
-					<option value="062">062</option>
-					<option value="063">063</option>
-					<option value="064">064</option>
-				</select>
-			</div>
-			<div class="orderInfoPhone">-</div>
-			<div class="orderInfoPhone">
-				<input type="text" style="width: 70px;">
-			</div>
-			<div class="orderInfoPhone">-</div>
-			<div class="orderInfoPhone">
-				<input type="text" style="width: 70px;">
-			</div>
-		</div>
-		<hr>
-		<div>
-			<div class="orderInfoLabel">연락처2</div>
+			<div class="orderInfoLabel">연락처</div>
 			<div class="orderInfoPhone">
 				<select id="phoneOption">
 					<option value="010" selected>010</option>
@@ -210,58 +233,147 @@ div.orderInfoPay {
 		<div>
 			<div class="orderInfoLabel">배송지선택</div>
 			<div class="orderInfoDelivery">
-				<label><input type="radio" value="basic" name="AddrRadio" id="basicAddr">기본배송지</label>
+				<label><input id="basicBtn" type="radio" value="basic" name="AddrRadio">기본배송지</label>
 					<input type="hidden" class="orderName1">
-				<label><input type="radio" value="new" name="AddrRadio"
-					onclick="newAddrCheck2()">신규배송지</label>
+				<label><input type="radio" value="new" name="AddrRadio" onclick="newAddrCheck()">신규배송지</label>
 			</div>
 		</div>
 		
 		<!-- 기본배송지 >> 주소 가져오기 -->
 		<script>
-			/*
-			$('#basicAddr').on('click', function(){
-				//alert("1");
-				let orderName = document.querySelector('.orderName1');
-				//alert(orderName.value);
-				//let basicAddr = "${basicAddr}"
-				//document.querySelector('#orderAddr').value = basicAddr;
-			}*/
+			$(document).on('click', '#basicBtn', function(){
+				var logMemNo = "<%= session.getAttribute("logMemNo") %>";
+				$.ajax({
+					url:'./basicAddr.do',
+					type: 'POST',
+					data: {logMemNo: logMemNo},
+					dataType: 'json',
+					success: function(data){
+						for(let prop in data){
+							let basicAddr = data[prop]
+							let first = basicAddr.indexOf('(');
+							let last = basicAddr.lastIndexOf('(');
+							postcode.value = basicAddr.substr(1,5);
+							address.value = basicAddr.substr(7,last-7).trim();
+							extraAddress.value = basicAddr.substr(last);
+							detailAddress.focus();
+						}
+					},
+					error: function(){
+						alert("오류");
+					}
+				})
+			})
 		</script>
 		<!-- 신규배송지 >> 주소 초기화 -->
 		<script>
-			function newAddrCheck2() {
-				document.querySelector('#orderAddr').value = '';
+			function newAddrCheck() {
+				let basicBtn = document.querySelector('#basicBtn');
+				document.querySelector('#postcode').value = '';
+				document.querySelector('#address').value = '';
+				document.querySelector('#detailAddress').value = '';
+				document.querySelector('#extraAddress').value = '';
 			}
 		</script>
 		<hr>
 		<!-- 주소 업데이트 -->
-
 		<div>
 			<div class="orderInfoLabel">주소</div>
 			<div class="orderInfoAddr">
-				<input type="text" style="width: 100px;">
+				<input id="postcode" name="postcode" type="text" style="width: 100px;" placeholder="우편번호">
 			</div>
 			<div class="orderInfoAddr">
-				<button>우편번호</button>
+				<input type="button" style="display: inline-block;" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			</div>
+			<br>
+			<div class="orderInfoLabel"></div>
+			<div class="orderInfoAddr">
+				<input id="address" name="address" type="text" style="width: 500px;" placeholder="주소">
+			</div>
+			<br>
+			<div class="orderInfoLabel"></div>
+			<div class="orderInfoAddr">			
+				<input id="detailAddress" name="detailAddress" type="text" style="width: 500px;" placeholder="상세주소">
+			</div>
+			<br>
+			<div class="orderInfoLabel"></div>
+			<div class="orderInfoAddr">			
+				<input id="extraAddress" name="extraAddress" type="text" style="width: 500px;" placeholder="참고항목">
 			</div>
 			<div class="orderInfoAddr">
-				<input id="orderAddr" name="memAddr" type="text"
-					style="width: 500px;">
-			</div>
-			<div class="orderInfoAddr">				
-				<input id="updateAddr" type="submit" value="배송지 저장">
+				<button id="updateAddr">배송지 저장</button>
 			</div>
 		</div>
+		<!-- 배송지 저장 -->
 		<script>
-			function updateAddr(){
-				let updateAddr = document.querySelector('#updateAddr');
-				let orderName2 = document.querySelector('#orderName2');
-				let orderAddr = document.querySelector('#orderAddr');
-				if(orderName2.value == null || orderAddr.value == null){
-					alert("${message1}");
-				}
-			}
+			$(document).on('click', '#updateAddr', function(){
+				var logMemNo = "<%= session.getAttribute("logMemNo") %>";
+				let postcode = document.querySelector('#postcode').value;
+				let address = document.querySelector('#address').value;
+				let detailAddress = document.querySelector('#detailAddress').value;
+				let extraAddress = document.querySelector('#extraAddress').value;
+				$.ajax({
+					url:'./updateAddr.do',
+					type: 'POST',
+					data: {postcode: postcode, address: address, detailAddress: detailAddress, extraAddress: extraAddress, logMemNo: logMemNo},
+					dataType: 'json',
+					success: function(data){
+						alert("저장성공");
+					},
+					error: function(){
+						alert("오류");
+					}
+				})
+			})
+		</script>
+		<script>
+    		function sample6_execDaumPostcode() {
+       			new daum.Postcode({
+            		oncomplete: function(data) {
+                	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                	// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                	// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                	var addr = ''; // 주소 변수
+               		var extraAddr = ''; // 참고항목 변수
+
+                	//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                	if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                	    addr = data.roadAddress;
+                	} else { // 사용자가 지번 주소를 선택했을 경우(J)
+                	    addr = data.jibunAddress;
+                	}
+
+                	// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                	if(data.userSelectedType === 'R'){
+                	    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                 	   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                 	   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                  	      extraAddr += data.bname;
+                  		}
+                   		// 건물명이 있고, 공동주택일 경우 추가한다.
+                    	if(data.buildingName !== '' && data.apartment === 'Y'){
+                     	   extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    	}
+                    	// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    	if(extraAddr !== ''){
+                       		extraAddr = ' (' + extraAddr + ')';
+                    	}
+                    	// 조합된 참고항목을 해당 필드에 넣는다.
+                    	document.getElementById("extraAddress").value = extraAddr;
+                
+                	} else {
+                    	document.getElementById("extraAddress").value = '';
+                	}
+
+                	// 우편번호와 주소 정보를 해당 필드에 넣는다.
+                	document.getElementById('postcode').value = data.zonecode;
+                	document.getElementById("address").value = addr;
+                	// 커서를 상세주소 필드로 이동한다.
+                	document.getElementById("detailAddress").focus();
+            		}
+        		}).open();
+    		}
 		</script>
 		<hr>
 		<div>
@@ -357,10 +469,12 @@ div.orderInfoPay {
 						let changeTotal = document.querySelector('#changeTotal')
 						let changeTotal2 = document.querySelector('#changeTotal2')
 						let changeTotal3 = document.querySelector('#changeTotal3')
+						let changeTotal4 = document.querySelector('#changeTotal4')
 						let pointOfPrice = document.querySelector('#pointOfPrice')
 						changeTotal.innerText = inputVal.value * "${param.prodPrice }";
 						changeTotal2.innerText = inputVal.value * "${param.prodPrice }";
 						changeTotal3.innerText = parseInt(inputVal.value * "${param.prodPrice }") + parseInt("${param.deliveryPrice}");
+						changeTotal4.innerText = parseInt(inputVal.value * "${param.prodPrice }") + parseInt("${param.deliveryPrice}");
 						pointOfPrice.innerText = Math.round(changeTotal3.innerText * 0.01);
 					})
 			})
@@ -407,7 +521,7 @@ div.orderInfoPay {
 		<div>
 			<div class="orderInfoLabel">최종결제금액</div>
 			<div class="productPrice3">
-				<h2>20000</h2>
+				<h2 id="changeTotal4">${param.changeTotal + param.deliveryPrice }</h2>
 			</div>
 			<div class="productPrice3">
 				<h2>원</h2>

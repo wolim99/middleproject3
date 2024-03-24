@@ -10,6 +10,15 @@
 
 <!-- css -->
 <style>
+div.sale {
+	display: inline-block;
+}
+.price {
+	display: inline-block;
+}
+div.cart {
+	display: inline-block;
+}
 div.detailInfo {
 	display: inline-block;
 	margin-right: 30px;
@@ -58,17 +67,6 @@ button.nav-link {
 		<li class="breadcrumb-item active text-white">Shop Detail</li>
 	</ol>-->
 </div>
-
-<!-- 
-${product } >> 제품 데이터(이름, 가격, 브랜드, 원산지, 이미지경로)
-${productList } >> 연관 제품 데이터(이름, 가격, 브랜드, 원산지, 이미지경로)
-${productList2 } >> 연관 제품 데이터(이름, 가격, 브랜드, 원산지, 이미지경로)
-${review1 } >> 리뷰 평점
-${review2 } >> 리뷰 개수
-${optionList } >> 옵션 데이터
-${product.prodComp } >> single or package
-${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
- -->
 
 
 
@@ -123,7 +121,14 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 						</div>
 						<div style="display: inline-block;">(${review2 })</div>
 						<div>
-							<h1 class="fw-bold mb-3">${product.prodPrice }</h1>
+						
+							<c:if test="${product.prodSale != 0 }">
+								<h1 class="price" class="fw-bold mb-3" style="text-decoration: line-through">${product.prodPrice }</h1>
+								<h1 class="price" class="fw-bold mb-3" style="color: red;"><fmt:formatNumber value="${product.prodPrice - (product.prodPrice * product.prodSale) }" pattern="0"/></h1>
+							</c:if>
+							<c:if test="${product.prodSale == 0 }">
+								<h1 class="fw-bold mb-3">${product.prodPrice }</h1>
+							</c:if>
 						</div>
 						<hr>
 						<div class="detailInfo">배송비</div>
@@ -151,7 +156,12 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 								$.ajax("./detailPage.do?prodNo=" + "${product.prodNo}")
 								.done(function() {
 									let inputVal = document.querySelector('#prodCnt')
-									document.querySelector('.changeTotal').innerText = inputVal.value * ${product.prodPrice};
+									if("${product.prodSale}" != 0){
+										document.querySelector('.changeTotal').innerText = inputVal.value * (${product.prodPrice - (product.prodPrice * product.prodSale)});
+									}
+									else{										
+										document.querySelector('.changeTotal').innerText = inputVal.value * ${product.prodPrice};
+									}
 								})
 							})
 						</script>
@@ -162,8 +172,9 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 							<label>옵션선택</label>
 							<div class="detailOption">
 								<select class="detailOptionSelect">
+									<option selected disabled>옵션</option>
 									<c:forEach var="optionList" items="${optionList }">
-										<option>${optionList.optText }</option>				
+										<option class="detailOptionSelect2">${optionList.optText }</option>				
 									</c:forEach>
 								</select>
 							</div>
@@ -172,61 +183,100 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 						<br>
 						<hr>
 						<!-- 선택된 옵션 나열 -->
-						<input id="cnt" type="hidden" value="1">
+						<input id="cnt" type="hidden" value="0">
 						<input class="cnt2" type="hidden" value="0">
 						<ul class="optionList">
 						</ul>
 						<!-- 패키지 옵션 선택시 이벤트 -->
 						<script>
-							document.querySelector('.detailOptionSelect').addEventListener('change', function(){
-								let selectedOption = document.querySelector('.detailOptionSelect')
-								let selectValue = selectedOption.options[selectedOption.selectedIndex].value
-								let ul = document.querySelector('.optionList');
-								let li = document.createElement('li');
-								let delBtn = document.createElement('button');
-								let cnt = document.querySelector('#cnt');
-								let cnt2 = document.querySelector('optionList.cnt2');
-								
-								delBtn.onclick = function(){
-									let delBtn = document.querySelector('.delBtn');
-									delBtn.parentElement.remove();
+								//배열만들기
+								var optionList = [];
+								var prodNo = "${product.prodNo}";
+								var prodCnt = document.querySelector('#prodCnt').value;
+								document.querySelector('.detailOptionSelect').addEventListener('change', function(){
+									let selectValue1 = document.querySelector('.detailOptionSelect')
+									let selectValue2 = selectValue1.options[selectValue1.selectedIndex]
+									//옵션 변경시 옵션값 넣기
+									if(optionList.includes(selectValue2.value) == false){									
+										optionList.push(selectValue2.value);
+									}
+									let ul = document.querySelector('.optionList');
+									let li = document.createElement('li');
+									let delBtn = document.createElement('button');
+									let cnt = document.querySelector('#cnt');
+									let cnt2 = document.querySelector('optionList.cnt2');
 									
-									$.ajax("./detailPage.do?prodNo=" + "${product.prodNo}")
-									.done(function() {
-										let inputVal = document.querySelector('.changeTotal')
-										document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) - Number(${product.prodPrice});
-									})
-									cnt.value = Number(cnt.value) - Number(1);
-								}
-								
-								if(Number(cnt.value) <= Number("${fn:length(optionList) }")){
-										li.innerText = selectValue;
+									delBtn.onclick = function(){
+										let delBtn = document.querySelector('.delBtn');
+										delBtn.parentElement.remove();
+										$.ajax("./detailPage.do?prodNo=" + "${product.prodNo}")
+										.done(function() {
+											let inputVal = document.querySelector('.changeTotal')
+											if("${product.prodSale}" != 0){
+												document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) - Number(${product.prodPrice - (product.prodPrice * product.prodSale)});
+											}
+											else{											
+												document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) - Number(${product.prodPrice});
+											}
+										})
+										cnt.value = Number(cnt.value) - Number(1);
+									}			
+									if(Number(cnt.value) < Number("${fn:length(optionList) }")){
+										li.innerText = selectValue2.value;
 										li.className = 'cnt2';
 										delBtn.innerHTML = 'X';
 										delBtn.className = 'delBtn';
 										li.append(delBtn);
 										ul.append(li);
 										cnt.value = Number(cnt.value) + Number(1);
-										
+											
 										$.ajax("./detailPage.do?prodNo=" + "${product.prodNo}")
 										.done(function() {
 											let inputVal = document.querySelector('.changeTotal')
-											document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) + Number(${product.prodPrice});
+											if("${product.prodSale}" != 0){
+												document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) + Number(${product.prodPrice - (product.prodPrice * product.prodSale)});
+											}
+											else{											
+												document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) + Number(${product.prodPrice});
+											}
 										})
-								}
-								else{
-									alert("구매 수량을 초과했습니다.")
-								}
-							})
-						</script>		
+									}
+									else{
+										alert("구매 수량을 초과했습니다.")
+									}	
+								});
+								$(document).on('click', '#btn1', function(){
+									$.ajax({
+										url: './addcart2.do',
+										type: 'POST',
+										data: {
+											prodNo: prodNo,
+											prodCnt: prodCnt,
+											optionList: optionList
+										},
+										success: function(data){
+												
+										},
+										error: function(){
+											alert("오류")
+											location.reload();
+										}
+									});
+								});
+						</script>	
 						<!-- 총금액 -->
 						<div class="detailInfoTotal">
 							<div class="detailInfoTotal1">
 								<h2>총금액</h2>
 							</div>
 							<div class="detailInfoTotal1">
-								<c:if test="${product.prodComp eq 'single' }">							
-									<h2 class="changeTotal" style="color: red">${product.prodPrice }</h2>
+								<c:if test="${product.prodComp eq 'single' }">
+									<c:if test="${product.prodSale != 0 }">
+										<h2 class="changeTotal" style="color: red"><fmt:formatNumber value="${product.prodPrice - (product.prodPrice * product.prodSale) }" pattern="0"/></h2>
+									</c:if>
+									<c:if test="${product.prodSale == 0 }">
+										<h2 class="changeTotal" style="color: red">${product.prodPrice }</h2>
+									</c:if>			
 								</c:if>
 								<c:if test="${product.prodComp eq 'package' }">
 									<h2 class="changeTotal" style="color: red">0</h2>
@@ -246,12 +296,7 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 								class="fa fa-shopping-bag me-2 text-primary"></i>바로구매</a>
 						</div>
 						<!-- 장바구니 >> cart.do 이동 -->
-						<script>
-							document.querySelector('a#btn1').addEventListener(
-									'click', function() {
-										location.href = './cart.do';
-									})
-						</script>
+						
 						<!-- 단품,패키지 바로구매 >> orderPage.do 이동 -->
 						<script>
 							document.querySelector('a#btn2').addEventListener('click',function() {
@@ -283,14 +328,18 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 									let deliveryPrice = document.querySelector('#deliveryPrice');
 									let changeTotal = document.querySelector('.changeTotal');
 									let cnt = document.querySelector('#cnt');
-									
-									location.href = './orderPage.do?prodImg=' + prodImg
-										+ '&prodPrice=' + prodPrice
-										+ '&prodName=' + prodName
-										+ '&prodComp=' + prodComp
-										+ '&deliveryPrice=' + deliveryPrice.innerText
-										+ '&changeTotal=' + changeTotal.innerText
-										+ '&cnt=' + cnt.value;
+									if(changeTotal.innerText == 0){
+										alert("옵션을 선택해 주세요!")
+									}
+									else{										
+										location.href = './orderPage.do?prodImg=' + prodImg
+											+ '&prodPrice=' + prodPrice
+											+ '&prodName=' + prodName
+											+ '&prodComp=' + prodComp
+											+ '&deliveryPrice=' + deliveryPrice.innerText
+											+ '&changeTotal=' + changeTotal.innerText
+											+ '&cnt=' + cnt.value;
+									}
 								}
 							})
 						</script>
@@ -301,7 +350,7 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 				<br> <br> <br>
 				<div class="vesitable">
 					<c:if test="${fn:length(productList) != 0}">
-					<h1 class="fw-bold mb-0" style="text-align: center">"${product.prodName }" 관련 제품</h1>
+					<h1 class="fw-bold mb-0" style="text-align: center">▶"${product.prodName }" 관련 제품◀</h1>
 						<div class="owl-carousel vegetable-carousel justify-content-center">
 						<!-- 연관제품 있을때 -->
 							<c:forEach var="list1" items="${productList }">
@@ -316,24 +365,32 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 									class="text-white bg-primary px-3 py-1 rounded position-absolute"
 									style="top: 10px; right: 10px;">${list1.prodType }</div>
 								<div class="p-4 pb-0 rounded-bottom">
-									<h4>${list1.prodName }</h4>
-									<p>${list1.prodBrand }</p>
+									<p>${list1.prodName }</p>
 									<div class="d-flex justify-content-between flex-lg-wrap">
-										<c:if test="${list.prodSale != 0 }">
-											<div>											
-												<p id="salePer2" class="text-dark fs-5 fw-bold"><fmt:formatNumber value="${list1.prodSale * 100 }" pattern="0"/>%</p>
-											</div>											
-										</c:if>
-										<c:if test="${list1.prodSale == 0 }">
-											<div>
-												<p id="salePer2" class="text-dark fs-5 fw-bold"></p>
-											</div>
-										</c:if>
-										<p id="realPrice1" class="text-dark fs-5 fw-bold">${list1.prodPrice }</p>
-										<p id="salePrice1" class="text-dark fs-5 fw-bold">${list1.prodPrice }</p>
+										<div class="sale">											
+											<c:if test="${list.prodSale != 0 }">
+												<h1 class="fs-5 fw-bold" style="color: red;"><fmt:formatNumber value="${list1.prodSale * 100 }" pattern="0"/>%</h1>
+											</c:if>
+										</div>											
+										<div class="sale">
+											<c:if test="${list1.prodSale == 0 }">
+												<p class="fs-5 fw-bold"></p>
+											</c:if>
+										</div>
+										<div class="price">										
+											<p class="text-dark fs-5 fw-bold" style="text-decoration: line-through;">${list1.prodPrice }</p>
+											<c:if test="${list1.prodSale != 0 }">
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list1.prodPrice - (list1.prodPrice * list1.prodSale) }" pattern="0"/></p>
+											</c:if>
+											<c:if test="${list1.prodSale == 0 }">
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list1.prodPrice }" pattern="0"/></p>
+											</c:if>
+										</div>
+										<div class="cart">
 										<a href="http://localhost:8080/yedam3middle3/cart.do"
 											class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-											class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
+											class="fa fa-shopping-bag me-2 text-primary"></i></a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -341,7 +398,7 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 						</div>
 					</c:if>
 					<c:if test="${fn:length(productList) == 0}">
-					<h1 class="fw-bold mb-0" style="text-align: center">이런 상품도 있어요</h1>
+					<h1 class="fw-bold mb-0" style="text-align: center">▶이런 상품도 있어요!◀</h1>
 						<div class="owl-carousel vegetable-carousel justify-content-center">
 						<!-- 연관제품 없을때 -->
 							<c:forEach var="list2" items="${productList2 }">
@@ -357,54 +414,38 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 									style="top: 10px; right: 10px;">${list2.prodType }</div>
 								<div class="p-4 pb-0 rounded-bottom">
 									<h4>${list2.prodName }</h4>
-									<p>${list2.prodBrand }</p>
 									<div class="d-flex justify-content-between flex-lg-wrap">
-										<c:if test="${list2.prodSale != 0 }">
-											<div>											
-												<p id="salePer2" class="text-dark fs-5 fw-bold">${list2.prodSale * 100 }%</p>
-											</div>											
-										</c:if>
-										<c:if test="${list2.prodSale == 0 }">
-											<div>
-												<p id="salePer2" class="text-dark fs-5 fw-bold"></p>
-											</div>
-										</c:if>
-										<p id="realPrice2" class="text-dark fs-5 fw-bold">${list2.prodPrice }</p>
-										<p id="salePrice2" class="text-dark fs-5 fw-bold">${list2.prodPrice }</p>
+										<div class="sale">											
+											<c:if test="${list2.prodSale != 0 }">
+												<h1 class="fs-5 fw-bold" style="color: red;"><fmt:formatNumber value="${list2.prodSale * 100 }" pattern="0"/>%</h1>
+											</c:if>
+										</div>											
+										<div class="sale">
+											<c:if test="${list2.prodSale == 0 }">
+												<p class="fs-5 fw-bold"></p>
+											</c:if>
+										</div>
+										<div class="price">												
+											<p class="text-dark fs-5 fw-bold" style="text-decoration: line-through;">${list2.prodPrice }</p>
+											<c:if test="${list2.prodSale != 0 }">
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list2.prodPrice - (list2.prodPrice * list2.prodSale) }" pattern="0"/></p>
+											</c:if>											
+											<c:if test="${list2.prodSale == 0 }">
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list2.prodPrice }" pattern="0"/></p>
+											</c:if>
+										</div>
+										<div class="cart">
 										<a href="http://localhost:8080/yedam3middle3/cart.do"
 											class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-											class="fa fa-shopping-bag me-2 text-primary"></i>장바구니</a>
+											class="fa fa-shopping-bag me-2 text-primary"></i></a>
+										</div>
 									</div>
 								</div>
-								
 							</div>
 							</c:forEach>
 						</div>
 					</c:if>
 				</div>
-				<script>
-					$(function(){
-						let realPrice = 0;
-						let salePer = '';
-						let salePer1 = document.querySelector('#salePer1');
-						let realPrice1 = document.querySelector('#realPrice1');
-						let salePrice1 = document.querySelector('#salePrice1');
-						let salePer2 = document.querySelector('#salePer2');
-						let realPrice2 = document.querySelector('#realPrice2');
-						let salePrice2 = document.querySelector('#salePrice2');
-						if("${list1.prodSale}" != 0){
-							realPrice = "${list1.prodPrice}" - (Math.round("${list1.prodPrice}"*"${list1.prodSale}"/100)*100);
-							salePer = Math.ceil("${list1.prodSale}"*100) + '%';
-							salePer1.innerText = salePer;
-							realPrice1.innerText = "${list1.prodPrice}";
-							salePrice1.innerText = realPrice;
-						}else{
-							realPrice2 = "${list1.prodPrice}";
-							salePer2.innerText = '';
-							salePric2 = "${list1.prodPrice}";
-						}
-					})
-				</script>
 				<br> <br> <br>
 				<!-- 관련 제품 영역 끝 -->
 				<!-- 탭 영역 시작 -->
@@ -582,8 +623,7 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 						<div class="tab-pane" id="nav-mission" role="tabpanel"
 							aria-labelledby="nav-mission-tab">
 							<p>리뷰</p>
-							
-							<c:if test="${review2 != null }">
+							<c:if test="${review2 != 0 }">
 								<p>총평점:${review1 }/5</p>
 								<p>총개수:${review2 }</p>
 								<hr>
@@ -611,9 +651,9 @@ ${fn:length(optionList) } >> 가져온 리스트의 개수 구하기
 								</c:forEach>
 								</div>
 							</c:if>
-							<c:if test="${review2 == null }">
+							<c:if test="${review2 == 0 }">
 								<hr>
-								<div style="text-align: center;"><h1>${noReviewMsg }</h1></div>
+								<div style="text-align: center;"><h1>작성된 리뷰가 없습니다!</h1></div>
 							</c:if>
 						</div>
 						<!-- 탭4 끝 -->

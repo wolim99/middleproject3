@@ -15,6 +15,7 @@ import co.yedam.main.EventListControl;
 import co.yedam.main.MainProductsControl;
 import co.yedam.main.MainSearchControl;
 import co.yedam.member.cartcontrol.AddCart;
+import co.yedam.member.cartcontrol.AddCart2;
 import co.yedam.member.cartcontrol.CartControl;
 import co.yedam.member.cartcontrol.DeleteCart;
 import co.yedam.member.cartcontrol.ListCartControl;
@@ -47,6 +48,7 @@ import co.yedam.my.control.removeQnaControl;
 import co.yedam.order.control.DetailPageControl;
 import co.yedam.order.control.OrderPageControl;
 import co.yedam.order.control.UpdateAddrControl;
+import co.yedam.order.control.basicAddrControl;
 import co.yedam.product.control.ConListControl;
 import co.yedam.product.control.PListControl;
 import co.yedam.product.control.ProductCountControl;
@@ -97,12 +99,14 @@ public class FrontController extends HttpServlet {
 		controls.put("/deletecart.do", new DeleteCart());
 		// controls.put("/updatecartForm.do", new UpdateCartFrom());
 		controls.put("/updatecart.do", new UpdateCart());
+		controls.put("/addcart2.do", new AddCart2());
 
 		// 주문 컨트롤
 
 		controls.put("/detailPage.do", new DetailPageControl());
 		controls.put("/orderPage.do", new OrderPageControl());
 		controls.put("/updateAddr.do", new UpdateAddrControl());
+		controls.put("/basicAddr.do", new basicAddrControl());
 		// 마이페이지 컨트롤
 		controls.put("/myPage.do", new MyPageControl()); // mypage 목록 페이지.
 

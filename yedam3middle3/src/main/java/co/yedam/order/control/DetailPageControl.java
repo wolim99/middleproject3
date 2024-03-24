@@ -51,7 +51,6 @@ public class DetailPageControl implements Control {
 		
 		//리뷰 평점, 개수	
 		if(svc.searchRev2(Integer.parseInt(prodNo)) == null) {
-			req.setAttribute("noReviewMsg", "작성된 리뷰가 없습니다!");
 			String review2 = svc.searchRev2(Integer.parseInt(prodNo));
 			req.setAttribute("review2", review2);
 		}
