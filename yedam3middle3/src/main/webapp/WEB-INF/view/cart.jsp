@@ -34,13 +34,11 @@
 						</h1>
 						<div class="d-flex justify-content-between mb-4">
 							<h5 class="mb-0 me-4">Subtotal:</h5>
-							<p class="mb-0">$96.00</p>
 						</div>
 					</div>
 					<div
 						class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
 						<h5 class="mb-0 ps-4 me-4">Total</h5>
-						<p class="mb-0 pe-4">$99.00</p>
 					</div>
 					<button
 						class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
@@ -136,11 +134,9 @@ console.log(memNo);
                     $('tbody').append(row);
                 });
 
-                $('p:contains("Subtotal:")').next().text('원' + total);
-                var shipping = parseFloat($('p:contains("Flat rate:")').text().split(' 원')[1]);
-                var grandTotal = total + shipping;
-                $('p:contains("Total")').next().text('원' + grandTotal.toFixed(2));
-            },
+            $('#subtotal').text('$' + total.toFixed(2)); // Subtotal 
+            $('#total').text('$' + total.toFixed(2)); // Total 
+        },
             error: function() {
                 alert('장바구니 데이터를 불러오는 데 실패했습니다.');
             }
@@ -198,23 +194,6 @@ console.log(memNo);
       });
   });
 
-  function updateTotal() {
-     var total = 0;
-  $('tbody tr').each(function() {
-      var price = parseFloat($(this).find('td:nth-child(3) p').text().replace('원'));
-      var quantity = parseFloat($(this).find('.quantity input').val());
-      var subtotal = price * quantity;
-      total += subtotal;
-
-      // 각 항목의 소계 업데이트 (선택적)
-      $(this).find('td:nth-child(5) p').text(subtotal.toFixed(2) + ' 원');
-  });
-
-  // 화면에 총액 표시 업데이트
-  $('.subtotal p').last().text('원' + total.toFixed(2));
-  $('.total p').last().text('원' + total.toFixed(2));
-  }
-});
 
 //AJAX 요청을 통해 장바구니 항목 삭제 기능
 $(document).on('click', '.btn-delete-cart', function() {
