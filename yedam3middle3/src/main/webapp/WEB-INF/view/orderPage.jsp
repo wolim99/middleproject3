@@ -512,15 +512,15 @@ ${message }
 			<div class="orderInfoPay">
 				<form>
 					<label><input type="radio" value="기본배송지"
-						name="deliveryRadio"  disalbed="true">신용카드</label> <label><input
-						type="radio" value="최근배송지" name="deliveryRadio" disalbed="true">가상계좌</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio" disalbed="true">실시간 계좌이체</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio" disalbed="true">휴대폰결제</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio" disalbed="true">네이버페이</label> <label><input
+						name="deliveryRadio"  disabled="true">신용카드</label> <label><input
+						type="radio" value="최근배송지" name="deliveryRadio" disabled="true">가상계좌</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">실시간 계좌이체</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">휴대폰결제</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">네이버페이</label> <label><input
 						type="radio" value="신규배송지" name="deliveryRadio" checked>카카오페이</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio" disalbed="true">PAYKO</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio" disalbed="true">SSG PAY</label> <label><input
-						type="radio" value="신규배송지" name="deliveryRadio" disalbed="true">토스</label>
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">PAYKO</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">SSG PAY</label> <label><input
+						type="radio" value="신규배송지" name="deliveryRadio" disabled="true">토스</label>
 				</form>
 			</div>
 		</div>
