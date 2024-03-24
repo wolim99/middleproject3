@@ -135,36 +135,27 @@
                             </div>
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center product-item">
-                                
                                <script>
-								const urlParams = new URLSearchParams(window.location.search);
-                                let param1 = urlParams.get('type');
-                                let param2 = urlParams.get('search');
                                	let listtype = '';
-                                if(${pagetype} === 'all'){
+                                if(${pagetype } === 'all'){
                                 	$('.headtitle').text('전체 상품');
                                 	$('.sidetitle').text('전체 상품');
-									$('.navbar-nav > a:nth-child(1)').addClass('active');
                                 	listtype = 'prod_no = prod_no';
-                                }else if(${pagetype} === 'new'){
+                                }else if(${pagetype } === 'new'){
                                 	$('.headtitle').text('신상품');
                                 	$('.sidetitle').text('신상품');
-									$('.navbar-nav > a:nth-child(2)').addClass('active');
-                                	listtype = 'rownum<11';
-                                }else if(${pagetype} === 'sale'){
+                                	listtype = "prod_date >= (SELECT TO_DATE(ROUND(AVG(TO_NUMBER(TO_CHAR(prod_date, 'yyMMdd')))),'yy/MM/dd') FROM products)";
+                                }else if(${pagetype } === 'sale'){
                                 	$('.headtitle').text('할인 상품');
                                 	$('.sidetitle').text('할인 상품');
-									$('.navbar-nav > a:nth-child(3)').addClass('active');
                                 	listtype = 'prod_sale != 0';
-                                }else if(${pagetype} === 'best'){
+                                }else if(${pagetype } === 'best'){
                                 	$('.headtitle').text('베스트 상품');
                                 	$('.sidetitle').text('베스트 상품');
-									$('.navbar-nav > a:nth-child(4)').addClass('active');
                                 	listtype = 'prod_ordcnt > 50';
-                                }else if(${pagetype} === 'single'){
+                                }else if(${pagetype } === 'single'){
                                 	$('.headtitle').text('1팩 담기');
                                 	$('.sidetitle').text('1팩 담기');
-									$('.navbar-nav > a:nth-child(5)').addClass('active');
                                 	listtype = "prod_comp = 'single'"
                                 }
                                 let rndEvnt = Math.floor(Math.random() * (4)) + 1; //1~4
@@ -180,7 +171,6 @@
                                 let ppage = 1;
                                 let totalCnt = 0;
                                 let sort = "prod_date DESC";
-								
                                 //정렬 버튼
                                 $('.sortbar').on('change', function (e) {
                                 	ppage = 1;
@@ -190,10 +180,12 @@
 								})
                                 //페이징 버튼
                                 function pagingFunc() {
-                                	ppage = 1;
 	                                $('div .pagination a').on('click', function (e) {
 	                                	e.preventDefault(); //a태그의 링크기능 차단.
 	                    				ppage = $(this).data("page");
+	                                	console.log("ppage:"+ppage);
+	                                	console.log("start:"+startPage);
+	                                	console.log("end:"+endPage);
 	                    				showlist(brand, type, price, keyword, ppage, sort, listtype);
 	                    				pageList(brand, type, price, keyword, listtype);
 									})
@@ -218,7 +210,7 @@
 									if($(".brandall").is(":checked")){
 										$("input[name=prodBrand]").prop("checked", true);
 										brand = [];
-										brand.push('허닭','프레시지','발재반점','포르미','아침몰','닭다리살','양념육','양식');
+										brand.push('허닭','프레시지','발재반점','포르미','아침몰');
 										console.log(brand);
 										showlist(brand, type, price, keyword, ppage, sort, listtype);
 										pageList(brand, type, price, keyword, listtype);
@@ -232,7 +224,7 @@
 								//브랜드 개별체크박스
                                 $('.brandCk').on('change', '.brandbox', function (e) {
                                 	ppage = 1;
-    	                            if($(".brandbox:checked").length == 7){
+    	                            if($(".brandbox:checked").length == 5){
     	                            	console.log("full");
     	                            	$(".brandall").prop("checked", true);
     	                            }else {
@@ -326,24 +318,24 @@
 											}else{
 												realPrice = item.prodPrice
 											}
-                                                        $('.product-item').append(
-                                                            $('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
-                                                                $('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
-                                                                    .append(
-                                                                        $('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
-                                                                    , $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
-                                                                    , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
-                                                                        $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px' })
-                                                                        , $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
-                                                                            $('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
-                                                                                $('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
-                                                                                , $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px' })
-                                                                                    , $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
-                                                                            ).css({ 'margin': '0px' })
-                                                                            , $('<a href=""cart.do?prodno='+item.prodNo+'"" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
-                                                                )
-                                                            )
-                                                        )
+											$('.product-item').append(	
+											$('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append($('<a href="detailPage.do?prodNo='+item.prodNo+'"></a>').append(
+													$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
+															.append(
+															$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
+															,$('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+															,$('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
+																	$('<p />').text('['+item.prodBrand+']'+item.prodName).css({'height':'48px','color': 'black'})
+																	,$('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+																			$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+																					$('<dt />').append($('<h3 />').text(salePer).css({'color': 'red'}).css({'margin': '8px 0px'}))
+																					,$('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({'margin': '0px','color': 'grey'})
+																							,$('<span />').append($('<h5 />').text(realPrice + '원').css({'margin': '0px'}))).css({'margin-left': '8px'})
+																					).css({'margin': '0px'})
+																			,$('<a href="cart.do?prodNo='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
+															)
+														))
+													)
 						            		
 										})
 						            },
@@ -353,7 +345,9 @@
 						        });
                                 }
                                 
-                                function pageList(brand, type, price, keyword, listtype) {
+    						    let startPage, endPage; // 1~5, 6~10,...
+                                let next, prev;
+    						    function pageList(brand, type, price, keyword, listtype) {
                                 	
                                 	$.ajax({
     						            url: 'productcount.do',
@@ -369,14 +363,14 @@
     							            	$('.listhead').text("상품: "+totalCnt+"개");
     						            	}
     						            	$('div .pagination').html('');
-    						        		let startPage, endPage; // 1~5, 6~10,...
-    						        		let next, prev;
+    						        		
     						        		let realEnd = Math.ceil(totalCnt / 6);
-    						        		endPage = Math.ceil(ppage / 6) * 5;
+    						        		endPage = Math.ceil(ppage / 5) * 5;
     						        		startPage = endPage - 4;
     						        		endPage = endPage > realEnd ? realEnd : endPage;
     						        		next = endPage < realEnd ? true : false;
     						        		prev = startPage > 1;
+    						        		
     						        		if (prev) {
     						        			let aTag = document.createElement('a');
     						        			//aTag.innerText = startPage - 1;
@@ -410,11 +404,9 @@
     						            }
 								});
                                 }
-								let t1=${type};
+                                let t1=${type};
 								let s1=${search};
 								let p1=${pagetype};
-								console.log(t1,s1,p1);
-								console.log(t1!='null')
 								if (t1!='null') {
                                         type.push(t1) ;
                                         showlist(brand, type, price, keyword, ppage, sort, listtype);
@@ -442,7 +434,6 @@
 										console.log('else')
                                         $('.typeCk input').attr('checked', true);
                                     }
-
                                	
                                </script>
                                 <!-- 

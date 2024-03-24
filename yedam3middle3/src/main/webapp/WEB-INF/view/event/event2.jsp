@@ -36,7 +36,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function showlist(pos,name) {
+        function showlist(pos, name) {
             $.ajax({
                 url: 'plist.do',
                 method: 'post',
@@ -46,7 +46,7 @@
                 result.forEach((item, idx) => {
                     let realPrice = 0;
                     let salePer = '';
-                    if(item.prodName.indexOf(name)==-1){
+                    if (item.prodName.indexOf(name) == -1) {
                         return;
                     }
                     if (item.prodSale != 0) {
@@ -56,31 +56,31 @@
                         realPrice = item.prodPrice
                     }
                     $('#' + pos + ' #list').append(
-                        $('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append(
+                        $('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append($('<a href="detailPage.do?prodNo=' + item.prodNo + '"></a>').append(
                             $('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
                                 .append(
                                     $('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
                                 , $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
                                 , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
-                                    $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({'text-align':'left', 'height': '48px' })
+                                    $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px', 'color': 'black' })
                                     , $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
                                         $('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
                                             $('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
-                                            , $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px' })
+                                            , $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px', 'color': 'grey' })
                                                 , $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
                                         ).css({ 'margin': '0px' })
-                                        , $('<a href="cart.do?prodno='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+                                        , $('<a href="cart.do?prodNo=' + item.prodNo + '" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
                             )
-                        )
+                        ))
                     )
                 })
             }).fail(function (err) {
                 console.log(err);
             });
         }
-        showlist('event','잡곡밥 도시락 6종 6팩');
-        showlist('event','그릴 닭가슴살 스테이크 6종 12팩');
-        showlist('event','어묵바 3종 혼합10팩');
-        showlist('event','pick 통닭다리 3종 혼합 6팩');
+        showlist('event', '잡곡밥 도시락 6종 6팩');
+        showlist('event', '그릴 닭가슴살 스테이크 6종 12팩');
+        showlist('event', '어묵바 3종 혼합10팩');
+        showlist('event', 'pick 통닭다리 3종 혼합 6팩');
     </script>
     <!-- Content End -->

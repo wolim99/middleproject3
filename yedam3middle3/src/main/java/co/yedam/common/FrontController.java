@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.main.EventControl;
 import co.yedam.main.EventListControl;
+import co.yedam.main.ListCartControl2;
 import co.yedam.main.MainProductsControl;
 import co.yedam.main.MainSearchControl;
 import co.yedam.member.cartcontrol.AddCart;
@@ -72,6 +73,7 @@ public class FrontController extends HttpServlet {
 		controls.put("/event.do", new EventControl());
 		controls.put("/mainProducts.do", new MainProductsControl());
 		controls.put("/mainsearch.do", new MainSearchControl());
+		controls.put("/cartlistcount.do", new ListCartControl2());
 		// 제품 컨트롤
 		controls.put("/plist.do", new PListControl());
 		controls.put("/productList.do", new ProductListControl());

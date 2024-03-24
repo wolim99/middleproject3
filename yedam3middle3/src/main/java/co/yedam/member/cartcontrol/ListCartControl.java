@@ -41,7 +41,9 @@ public class ListCartControl implements Control {
 		System.out.println("pno: "+pno);
 		System.out.println("id: "+memid);
 		cart.setMemNo(Integer.parseInt(memid));
-		cart.setProdNo(Integer.parseInt(pno));
+		if(pno!="") {
+			cart.setProdNo(Integer.parseInt(pno));
+		}
 
 		MemberService mvc = new MemberServiceImpl();
 		List<Cart> list = mvc.CartList(memid);
