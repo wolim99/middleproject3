@@ -13,7 +13,6 @@
         </div>
         <!-- Single Page Header End -->
 
-
         <!-- Fruits Shop Start-->
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
@@ -159,8 +158,9 @@
                                 	$('.sidetitle').text('1팩 담기');
                                 	listtype = "prod_comp = 'single'"
                                 }
+                                
+                                //이벤트 페이지 랜덤링크
                                 let rndEvnt = Math.floor(Math.random() * (4)) + 1; //1~4
-                                //const val = encodeURI('[발재반점]중화식 구운 주먹밥 게살맛')
                                 $('.eventPg').append($('<a href="event.do?event='+rndEvnt+'">').append($('<img src="static/img/main/eventIcon'+rndEvnt+'.jpg" class="img-fluid w-100 rounded" alt="">')))
                                
                                 let cond = "prod_brand"; //=>prod_brand='프레시지'
@@ -184,9 +184,6 @@
 	                                $('div .pagination a').on('click', function (e) {
 	                                	e.preventDefault(); //a태그의 링크기능 차단.
 	                    				ppage = $(this).data("page");
-	                                	console.log("ppage:"+ppage);
-	                                	console.log("start:"+startPage);
-	                                	console.log("end:"+endPage);
 	                    				showlist(brand, type, price, keyword, ppage, sort, listtype);
 	                    				pageList(brand, type, price, keyword, listtype);
 									})
@@ -313,31 +310,64 @@
 						            		
 											let realPrice = 0;
 											let salePer = '';
+											let soldout = '';
+											let soldoutClass = '';
+											let soldCk = '';
+											let soldDiv ={};
 											if(item.prodSale != 0){
 												realPrice = item.prodPrice - (Math.round(item.prodPrice*item.prodSale/100)*100);
 												salePer = Math.ceil(item.prodSale*100) + '%';
 											}else{
 												realPrice = item.prodPrice
 											}
-											$('.product-item').append(	
-											$('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append($('<a href="detailPage.do?prodNo='+item.prodNo+'"></a>').append(
-													$('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
-															.append(
-															$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
+											if(item.prodStock == 0){
+												soldoutClass = 'class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 30%; left: 33%;"';
+												soldout = 'Sold Out';
+												soldCk = 'disalbed';
+												soldDiv = {
+														'position' : 'absolute',
+												        'top' : '0',
+												        'left' : '0',
+												        'width' : '100%',
+												        'height' : '100%',
+												        'border-radius' : '10px',
+											            'backgroundColor' : 'rgba(0, 0, 0, 0.2)',
+											            'zIndex' : '9'
+											        };
+											}
+											$('.product-item').append(
+											$('<div class="product'+item.prodNo+' col-md-6 col-lg-6 col-xl-4" ></div>').append(
+													$('<a href="detailPage.do?prodNo='+item.prodNo+'"></a>').append(
+													$('<div class="rounded position-relative fruite-item"></div>').append(
+															$('<div class="fruite-img">').append(
+																	$('<img src="static/img/'+item.prodImg+'" class="img-fluid w-100 rounded-top" alt="">'))
+															,$('<div />').css(soldDiv).append(
+																	$('<div '+soldoutClass+'>').text(soldout))
 															,$('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+															//,$('<div '+soldoutClass+'>')
 															,$('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
 																	$('<p />').text('['+item.prodBrand+']'+item.prodName).css({'height':'48px','color': 'black'})
 																	,$('<div class="d-flex justify-content-between flex-lg-wrap">').append(
 																			$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
-																					$('<dt />').append($('<h3 />').text(salePer).css({'color': 'red'}).css({'margin': '8px 0px'}))
-																					,$('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({'margin': '0px','color': 'grey'})
-																							,$('<span />').append($('<h5 />').text(realPrice + '원').css({'margin': '0px'}))).css({'margin-left': '8px'})
+																					$('<dt />').append(
+																							$('<h3 />').text(salePer).css({'color': 'red'}).css({'margin': '8px 0px'}))
+																					,$('<dd />').append(
+																							$('<span />').append(
+																									$('<del />').text(item.prodPrice + '원')).css({'margin': '0px','color': 'grey'})
+																							,$('<span />').append(
+																									$('<h5 />').text(realPrice + '원').css({'margin': '0px'}))).css({'margin-left': '8px'})
 																					).css({'margin': '0px'})
 																			,$('<a href="cart.do?prodNo='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
-															)
-														))
+														)
 													)
-						            		
+												)
+											)
+											if(item.prodStock == 0){
+												$('.product'+item.prodNo+' a').on("click", function(e) {
+											        e.preventDefault();
+											        alert("매진된 상품입니다.");
+												})
+											}
 										})
 						            },
 						            error: function (err) { 

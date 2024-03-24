@@ -221,3 +221,12 @@ VALUES((SELECT prod_no
         FROM products
         WHERE prod_name = '1+1 실온보관 한입 큐브 4종 1+1팩'),
         '한입큐브 카레 1+1팩');
+
+CREATE TABLE cartoptions (
+    cart_no    number(10),
+    opt_text    varchar2(100)
+);
+
+ALTER TABLE cartoptions ADD CONSTRAINT FK_CARTOPTIONS1 FOREIGN KEY (cart_no) REFERENCES carts (cart_no);
+        
+COMMIT;
