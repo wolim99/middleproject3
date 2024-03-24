@@ -30,7 +30,7 @@ public interface OrderMapper {
 	//주문페이지 mapper
 	
 	//사용자 주소
-	String selectBasicAddr(String memName);
+	String selectBasicAddr(int memNo);
 	//배송지 저장
 	Boolean updateAddr(Member member);
 }

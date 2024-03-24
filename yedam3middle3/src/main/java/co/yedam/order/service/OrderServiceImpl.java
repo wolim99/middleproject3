@@ -59,8 +59,8 @@ public class OrderServiceImpl implements OrderService{
 	
 	//사용자 주소
 	@Override
-	public String selectBasicAddr(String memName) {
-		return mapper.selectBasicAddr(memName);
+	public String selectBasicAddr(int memNo) {
+		return mapper.selectBasicAddr(memNo);
 	}
 	//배송지 저장
 	@Override
@@ -70,7 +70,4 @@ public class OrderServiceImpl implements OrderService{
 		}
 		return false;
 	}
-	
-	
-	
 }

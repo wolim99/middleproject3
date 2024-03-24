@@ -58,15 +58,15 @@
 		where  prod_no = #{prodNo}
 	</select>
 	<!-- 기본배송지 -->
-	<select id="selectBasicAddr" resultType="String" parameterType="String">
+	<select id="selectBasicAddr" resultType="String" parameterType="int">
 		select mem_addr
 		from members
-		where mem_name = #{memName}
+		where mem_no = #{memNo}
 	</select>
 	<!-- 배송지추가 -->
 	<update id="updateAddr" parameterType="member">
 		update members
 		set mem_addr = #{memAddr}
-		where mem_name = #{memName}
+		where mem_no = #{memNo}
 	</update>
 </mapper>
