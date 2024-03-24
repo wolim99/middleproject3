@@ -1,6 +1,8 @@
 package co.yedam.member.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -46,10 +48,6 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.totalMoney(cart);
 	}
 
-	@Override
-	public Cart countCart(Cart cart) {
-		return mapper.countCart(cart);
-	}
 
 	@Override
 	public int updateCart(Cart cart) {
@@ -64,7 +62,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertselectCart(Cart cart) {
-		return mapper.insertselectCart(cart);
+	public int countCart(Cart cart) {
+		return mapper.countCart(cart);
 	}
+
+	/*
+	 * @Override public int insertselectCart(Cart cart) { return
+	 * mapper.insertselectCart(cart); }
+	 */
+
 }

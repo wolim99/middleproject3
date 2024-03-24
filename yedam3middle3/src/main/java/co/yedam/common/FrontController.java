@@ -16,6 +16,7 @@ import co.yedam.main.MainProductsControl;
 import co.yedam.main.MainSearchControl;
 import co.yedam.main.RandomProductControl;
 import co.yedam.member.cartcontrol.AddCart;
+import co.yedam.member.cartcontrol.AddToCartControl;
 import co.yedam.member.cartcontrol.CartControl;
 import co.yedam.member.cartcontrol.DeleteCart;
 import co.yedam.member.cartcontrol.ListCartControl;
@@ -93,7 +94,8 @@ public class FrontController extends HttpServlet {
 		controls.put("/cart.do", new CartControl()); // 카트 페이지
 		controls.put("/listcartForm.do", new ListCartControl());
 		// controls.put("/insertcartForm.do", new AddCartForm());
-	    controls.put("/insertcart.do", new AddCart());
+	    controls.put("/addcart2.do", new AddCart());
+	    controls.put("/addcart.do", new AddToCartControl());
 		controls.put("/deletecart.do", new DeleteCart());
 		// controls.put("/updatecartForm.do", new UpdateCartFrom());
 		controls.put("/updatecart.do", new UpdateCart());

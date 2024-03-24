@@ -51,14 +51,15 @@
 	</div>
 </div>
 <!-- Cart Page End -->
+
 <script>
 let memNo;
 let prodNo;
 console.log(memNo);
-$(document).ready(function() {
-	insertcart();
+/* $(document).ready(function() {
   loadCartItems();
-  function insertcart (){
+  insertCart();
+   function insertcart (){
 	  memNo=${logMemNo};
 	  prodNo=${prodNo};
 	  $.ajax({
@@ -68,18 +69,52 @@ $(document).ready(function() {
 		  dataTyep: 'json',
 		  sueccess: function(data) {
 			  console.log("성공")
-		  } 
+		  } else {
+			  alert("추가 실패");
+		  }
 		  
 	  })
-  } 
+  }  */
 
+
+/*  function insertCart() {
+	 memNo=${logMemNo};
+	 prodNo=${prodNo};
+	 cartQuant=${cartQuant};
+	 
+	 $.ajax({
+		 url: 'addcart.do',
+		 type: 'post',
+		 data: {
+			 memNo: memNo,
+			 prodNo: prodNo,
+			 cartQuant: cartQuant
+		 },
+		 dataType: 'json',
+		 susccess: function(data){
+			 if(data.reCode === "OK"){
+				 alert("장바구니에 추가되었습니다");
+				 location.reload();
+			 }else{
+				 alert("장바구니에 추가 실패");
+			 }
+		 },
+		 error: function(){
+			 alert("서버오류");
+		 }
+	 });
+ } */
+ 
+ 
   function loadCartItems() {
 	  memNo=${logMemNo};
 	  prodNo=${prodNo};
       $.ajax({
         url: 'listcartForm.do', 
         type: 'GET', 
-        data: { memNo: memNo, prodNo: prodNo }, 
+        data: { memNo: memNo,
+        	   prodNo: prodNo 
+        	   }, 
         dataType: 'json', 
         success: function(data) {
             var total = 0;

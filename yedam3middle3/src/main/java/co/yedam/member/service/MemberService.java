@@ -22,14 +22,15 @@ public interface MemberService {
 	// 합금액
 	int totalMoney(Cart cart);
 		
-	// 장바구니 상품 확인
-	Cart countCart(Cart cart);
-		
 	// 장바구니 수량 변경
 	int updateCart(Cart cart);
 	
 	// 옵션
 	int selectoption(Cart cart);
 	
-	int insertselectCart(Cart cart);
+	//int insertselectCart(Cart cart);
+
+	int countCart(Cart cart);
+
+
 }

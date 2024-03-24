@@ -1,9 +1,7 @@
 package co.yedam.member.cartcontrol;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,24 +20,37 @@ public class AddCart implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
-		
-		String mno = req.getParameter("memNo");
+
+		String memid = req.getParameter("memNo");
 		String pno = req.getParameter("prodNo");
+		String cqn = req.getParameter("cartQuant");
 		
 		Cart cart = new Cart();
-		cart.setMemNo(Integer.parseInt(mno));
-		cart.setProdNo(Integer.parseInt(pno));
-		
-		MemberService mvc = new MemberServiceImpl();
-		Map<String, String> map = new HashMap<>();
-		
-		if(mvc.insertselectCart(cart) == 0) {
-			map.put("retCode", "NG");
-		} else {
-			map.put("retCode", "OK");
-			Gson gson = new GsonBuilder().create();
-			String json = gson.toJson(map);
-			resp.getWriter().print(json);
+		System.out.println("opt"+req.getParameter("option"));
+		System.out.println("inp"+req.getParameter("inputcut"));
+		if (req.getParameter("option")== null) {
+			String opt = req.getParameter("option");
+			cart.setOption(opt);
+			System.out.println("옵션 있음");
 		}
+		if (req.getParameter("inputcut")!=null) {
+			String incut = req.getParameter("inputcut");
+			cart.setInputcut(Integer.parseInt(incut));
+			System.out.println("인풋 값 있음");
+		}
+		
+		System.out.println("pno: "+pno);
+		System.out.println("id: "+memid);
+		cart.setMemNo(Integer.parseInt(memid));
+		cart.setProdNo(Integer.parseInt(pno));
+		cart.setCartQuant(Integer.parseInt(cqn));
+
+		MemberService mvc = new MemberServiceImpl();
+		List<Cart> list = mvc.CartList(memid);
+		Gson gson = new GsonBuilder().create();
+
+		String json = gson.toJson(list);
+		resp.getWriter().print(json);
+
 	}
 }

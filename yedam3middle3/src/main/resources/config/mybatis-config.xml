@@ -14,6 +14,7 @@
 	<typeAliases>
 		<!-- <typeAlias alias="search" type="co.yedam.common.SearchVO"/> 타입 별칭지정 -->
 		<typeAlias alias="cart" type="co.yedam.member.Cart"/>
+		<typeAlias alias="cartoption" type="co.yedam.member.CartOption"/>
 		<typeAlias alias="qna" type="co.yedam.my.Qna"/>		
 		<typeAlias alias="reply" type="co.yedam.my.Reply"/>		
 		<typeAlias alias="member" type="co.yedam.member.Member"/>

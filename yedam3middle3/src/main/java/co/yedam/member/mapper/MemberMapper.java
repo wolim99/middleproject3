@@ -2,6 +2,7 @@ package co.yedam.member.mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 import co.yedam.member.Cart;
 import co.yedam.member.Member;
@@ -27,7 +28,7 @@ public interface MemberMapper {
 	int totalMoney(Cart cart);
 	
 	// 장바구니 상품 확인
-	Cart countCart(Cart cart);
+	int countCart(Cart cart);
 	
 	// 장바구니 수량 변경
 	int updateCart(Cart cart);
@@ -36,5 +37,9 @@ public interface MemberMapper {
 	int selectoption(Cart cart);
 	
 	int insertselectCart(Cart cart);
+
+	int countCart(String pno, String mno);
+	
+	
 	
 }
