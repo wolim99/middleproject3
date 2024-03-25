@@ -165,6 +165,7 @@ $(document).ready(function() {
               var result = JSON.parse(response);
               if(result.retCode === "OK") {
                   console.log('수량 업데이트 성공');
+                  window.location.reload();
               } else {
                   alert('수량 업데이트 실패');
               }
@@ -191,6 +192,7 @@ $(document).on('click', '.btn-delete-cart', function() {
                 var result = JSON.parse(response);
                 if(result.retCode === "OK") {
                     alert('삭제를 성공했습니다');
+                    window.location.reload();
                 } else {
                     alert('삭제를 실패했습니다');
                 }
