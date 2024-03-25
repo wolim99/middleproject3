@@ -383,7 +383,7 @@
 																							,$('<span />').append(
 																									$('<h5 />').text(realPrice + '원').css({'margin': '0px'}))).css({'margin-left': '8px'})
 																					).css({'margin': '0px'})
-																			,$('<a href="cart.do?prodNo='+item.prodNo+'" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
+																			,$('<a href="#" id="'+item.prodNo+'" class="cartLink btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({'height':'48px','padding-top':'9px'})))
 														)
 													)
 												)
@@ -401,6 +401,22 @@
 						            }
 						        });
                                 }
+                                document.addEventListener("DOMContentLoaded", function() {
+                                $('.product-item').on('click', '.cartLink', function (e) {
+                                	e.preventDefault();
+                                	let logid = "${logid }";
+                                	let pNo = $(this).attr('id');
+									if(logid != null && logid != ''){ //로그인상태
+										//console.log("id: "+logid+" "+"no: "+pNo+" insertcart.do?prodNo="+pNo);
+										//insert.do
+										window.location.href = "insertcart.do?prodNo="+pNo;
+									}else{ //비로그인 상태
+										alert('로그인이 필요합니다!');
+										//reload
+										window.location.reload();
+									}
+								})
+                                })
                                 
     						    let startPage, endPage; // 1~5, 6~10,...
                                 let next, prev;
