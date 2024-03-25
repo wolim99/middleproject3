@@ -30,7 +30,7 @@
                 <span>봄맞이 몸관리는 포르미와 함께!</span>
                 <hr>
             </div>
-            <div id="list" class="row g-5 justify-content-center">
+            <div id="list" class="row g-5 justify-content-center product-item">
             </div>
         </div>
     </div>
@@ -56,28 +56,53 @@
                         realPrice = item.prodPrice
                     }
                     $('#' + pos + ' #list').append(
-                        $('<div class="col-md-6 col-lg-6 col-xl-4"></div>').append($('<a href="detailPage.do?prodNo=' + item.prodNo + '"></a>').append(
-                            $('<div class="rounded position-relative fruite-item"></div>').append($('<div class="fruite-img">')
-                                .append(
-                                    $('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
-                                , $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
-                                , $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
-                                    $('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px', 'color': 'black' })
-                                    , $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
-                                        $('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
-                                            $('<dt />').append($('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
-                                            , $('<dd />').append($('<span />').append($('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px', 'color': 'grey' })
-                                                , $('<span />').append($('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
-                                        ).css({ 'margin': '0px' })
-                                        , $('<a href="cart.do?prodNo=' + item.prodNo + '" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
-                            )
-                        ))
-                    )
+							$('<div class="product' + item.prodNo + ' col-md-6 col-lg-6 col-xl-4" ></div>').append(
+								$('<a href="detailPage.do?prodNo=' + item.prodNo + '"></a>').append(
+									$('<div class="rounded position-relative fruite-item"></div>').append(
+										$('<div class="fruite-img">').append(
+											$('<img src="static/img/' + item.prodImg + '" class="img-fluid w-100 rounded-top" alt="">'))
+										, $('<div />').css(soldDiv).append(
+											$('<div ' + soldoutClass + '>').text(soldout))
+										, $('<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">').text(item.prodType)
+										//,$('<div '+soldoutClass+'>')
+										, $('<div class="p-4 border border-secondary border-top-0 rounded-bottom"></div>').append(
+											$('<p />').text('[' + item.prodBrand + ']' + item.prodName).css({ 'height': '48px', 'color': 'black' })
+											, $('<div class="d-flex justify-content-between flex-lg-wrap">').append(
+												$('<dl class="d-flex justify-content-between flex-lg-wrap" />').append(
+													$('<dt />').append(
+														$('<h3 />').text(salePer).css({ 'color': 'red' }).css({ 'margin': '8px 0px' }))
+													, $('<dd />').append(
+														$('<span />').append(
+															$('<del />').text(item.prodPrice + '원')).css({ 'margin': '0px', 'color': 'grey' })
+														, $('<span />').append(
+															$('<h5 />').text(realPrice + '원').css({ 'margin': '0px' }))).css({ 'margin-left': '8px' })
+												).css({ 'margin': '0px' })
+												, $('<a href="#" id="' + item.prodNo + '" class="cartLink btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag"></i></a>').css({ 'height': '48px', 'padding-top': '9px' })))
+									)
+								)
+							)
+						)
                 })
             }).fail(function (err) {
                 console.log(err);
             });
         }
+        document.addEventListener("DOMContentLoaded", function () {
+				$('.product-item').on('click', '.cartLink', function (e) {
+					e.preventDefault();
+					let logid = "${logid }";
+					let pNo = $(this).attr('id');
+					if (logid != null && logid != '') { //로그인상태
+						//console.log("id: "+logid+" "+"no: "+pNo+" insertcart.do?prodNo="+pNo);
+						//insert.do
+						window.location.href = "insertcart.do?prodNo=" + pNo;
+					} else { //비로그인 상태
+						alert('로그인이 필요합니다!');
+						//reload
+						window.location.reload();
+					}
+				})
+			})
         showlist('event', '맛있는 영양잡곡밥 냉동 한끼도시락 12종 12팩');
         showlist('event', '양많은 영양잡곡밥 냉동 인생도시락 10종 10팩');
         showlist('event', '다이어트 저칼로리 냉동 반칙도시락 8종 8팩');
