@@ -170,7 +170,7 @@
                                 }else if(${pagetype } === 'new'){
                                 	$('.headtitle').text('신상품');
                                 	$('.sidetitle').text('신상품');
-                                	listtype = "prod_date >= (SELECT TO_DATE(ROUND(AVG(TO_NUMBER(TO_CHAR(prod_date, 'yyMMdd')))),'yy/MM/dd') FROM products)";
+                                	listtype = "TO_CHAR(prod_date, 'yyMMdd') >= (SELECT ROUND(AVG(TO_NUMBER(TO_CHAR(prod_date, 'yyMMdd')))) FROM products)";
                                 }else if(${pagetype } === 'sale'){
                                 	$('.headtitle').text('할인 상품');
                                 	$('.sidetitle').text('할인 상품');
