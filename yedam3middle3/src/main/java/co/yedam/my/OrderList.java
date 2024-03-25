@@ -16,5 +16,6 @@ public class OrderList {
 	private String prodName;
 	private int ordTotal;
 	private int memNo;
+	private int realsum;
 	
 }

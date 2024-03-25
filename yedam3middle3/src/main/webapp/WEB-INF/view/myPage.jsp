@@ -212,7 +212,8 @@ $.ajax({
 
     	console.log(result);
     	result.forEach((item,idx) => {
-    		total += item.ordTotal
+    		console.log(item.realsum);
+    		total = item.realsum;
     		$('#ordlist').append($('<tr />').append(
     				 $('<td />').text(item.ordDate),
     				 $('<td />').text(item.prodName),
