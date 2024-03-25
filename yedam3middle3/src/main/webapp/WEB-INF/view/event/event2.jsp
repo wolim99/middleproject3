@@ -42,19 +42,36 @@
                 method: 'post',
                 dataType: 'json'
             }).done(function (result) {
-                console.log(result);
-                result.forEach((item, idx) => {
-                    let realPrice = 0;
-                    let salePer = '';
-                    if (item.prodName.indexOf(name) == -1) {
+                let realPrice = 0;
+											let salePer = '';
+											let soldout = '';
+											let soldoutClass = '';
+											let soldCk = '';
+											let soldDiv ={};
+                                            if (item.prodName.indexOf(name) == -1) {
                         return;
                     }
-                    if (item.prodSale != 0) {
-                        realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
-                        salePer = Math.ceil(item.prodSale * 100) + '%';
-                    } else {
-                        realPrice = item.prodPrice
-                    }
+											if(item.prodSale != 0){
+												realPrice = item.prodPrice - (Math.round(item.prodPrice*item.prodSale/100)*100);
+												salePer = Math.ceil(item.prodSale*100) + '%';
+											}else{
+												realPrice = item.prodPrice
+											}
+											if(item.prodStock == 0){
+												soldoutClass = 'class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 30%; left: 33%;"';
+												soldout = 'Sold Out';
+												soldCk = 'disalbed';
+												soldDiv = {
+														'position' : 'absolute',
+												        'top' : '0',
+												        'left' : '0',
+												        'width' : '100%',
+												        'height' : '100%',
+												        'border-radius' : '10px',
+											            'backgroundColor' : 'rgba(0, 0, 0, 0.2)',
+											            'zIndex' : '9'
+											        };
+											}
                     $('#' + pos + ' #list').append(
 							$('<div class="product' + item.prodNo + ' col-md-6 col-lg-6 col-xl-4" ></div>').append(
 								$('<a href="detailPage.do?prodNo=' + item.prodNo + '"></a>').append(
