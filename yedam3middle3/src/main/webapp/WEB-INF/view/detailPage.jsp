@@ -638,13 +638,15 @@ ${logId}
 							aria-labelledby="nav-mission-tab">
 							<p>리뷰</p>
 							<c:if test="${review2 != 0 }">
-								<p>총평점:${review1 }/5</p>
-								<p>총개수:${review2 }</p>
+								<div style="text-align: right;">
+									<p>총평점 : ${review1 }/5</p>
+									<p>총개수 : ${review2 }</p>
+								</div>
 								<hr>
-								<div style="text-align: center">
+								<div style="text-align: left;">
 								<c:forEach var="review" items="${reviewList }">
 									<div class="detailReview">
-										<div class="reviewInfo">작성날짜</div>
+										<div class="reviewInfo">작성날짜 :</div>
 										<div class="reviewInfo">
 											<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
 												value="${review.revDate }" />
@@ -652,12 +654,12 @@ ${logId}
 									</div>
 									<br>
 									<div class="detailReview">
-										<div class="reviewInfo">평점</div>
+										<div class="reviewInfo">평점 :</div>
 										<div class="reviewInfo">${review.revStar }</div>
 									</div>
 									<br>
 									<div class="detailReview">
-										<div class="reviewInfo">내용</div>
+										<div class="reviewInfo">내용 :</div>
 										<div class="reviewInfo">${review.revContent }</div>
 									</div>
 									<br>

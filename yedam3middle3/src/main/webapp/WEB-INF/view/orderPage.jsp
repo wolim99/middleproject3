@@ -291,7 +291,7 @@ div.orderInfoPay {
 				<input id="postcode" name="postcode" type="text" style="width: 100px;" placeholder="우편번호">
 			</div>
 			<div class="orderInfoAddr">
-				<input type="button" style="display: inline-block;" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input class="btn btn-outline-info" type="button" style="display: inline-block;" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 			</div>
 			<br>
 			<div class="orderInfoLabel"></div>
@@ -309,7 +309,7 @@ div.orderInfoPay {
 				<input id="extraAddress" name="extraAddress" type="text" style="width: 500px;" placeholder="참고항목">
 			</div>
 			<div class="orderInfoAddr">
-				<button id="updateAddr">배송지 저장</button>
+				<button class="btn btn-outline-primary" id="updateAddr">배송지 저장</button>
 			</div>
 		</div>
 		<!-- 배송지 저장 -->
@@ -541,8 +541,8 @@ div.orderInfoPay {
 		<br> <br> <br>
 
 		<div style="text-align: center">
-			<button class="payment" type="commit" style="width: 150px; height: 75px;">주문하기</button>
-			<button type="reset" style="width: 150px; height: 75px;">주문취소</button>
+			<button class="payment btn btn-outline-info" type="commit" style="width: 150px; height: 75px;">주문하기</button>
+			<button class="btn btn-outline-danger" type="reset" style="width: 150px; height: 75px;">주문취소</button>
 		</div>
 	</div>
 </div>

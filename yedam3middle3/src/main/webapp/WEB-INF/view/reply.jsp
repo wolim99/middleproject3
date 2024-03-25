@@ -33,7 +33,7 @@
 							</tbody>
 						</table>
 					</div>
-				<div class="col-md-12 col-lg-6 col-xl-7">
+				<div class="col-md-12 col-lg-6 col-xl-7" style="margin: 0 auto;">
 					<div class="form-item">
 						<label class="form-label my-3">별점</label> 
 						<select name="revStar">
@@ -41,7 +41,7 @@
 							<option value="2">2</option>
 							<option value="3">3</option>
 							<option value="4">4</option>
-							<option value="5">5</option>
+							<option value="5" selected>5</option>
 						</select>
 					</div>
 					<div class="form-item">
@@ -55,9 +55,10 @@
 						<label class="form-label my-3">회원번호</label> <input type="text"
 							class="form-control" name="memNo" placeholder="${logMemNo }" value="${logMemNo }" readonly>
 					</div>
+					<br>
 					<div>
-						<button type="submit" class="btn btn-primary">작성하기</button>
-						<a href="orderList.do"><button type="button" class="btn btn-secondary">돌아가기</button></a>
+						<button type="submit" class="btn btn-outline-primary">작성하기</button>
+						<a href="orderList.do"><button type="button" class="btn btn-outline-secondary">돌아가기</button></a>
 					</div>
 				</div>
 			</div>
