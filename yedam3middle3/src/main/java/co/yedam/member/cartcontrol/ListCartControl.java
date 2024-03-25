@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,8 +21,8 @@ public class ListCartControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
-
-		String memid = req.getParameter("memNo");
+		HttpSession session = req.getSession();
+		String memid = (String) session.getAttribute("logid");
 		String pno = req.getParameter("prodNo");
 		
 		Cart cart = new Cart();
@@ -39,8 +40,8 @@ public class ListCartControl implements Control {
 		}
 		
 		System.out.println("pno: "+pno);
-		System.out.println("id: "+memid);
-		cart.setMemNo(Integer.parseInt(memid));
+		System.out.println("id: "+ memid);
+		cart.setMemId(memid);
 		cart.setProdNo(1);
 
 		MemberService mvc = new MemberServiceImpl();

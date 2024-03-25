@@ -77,12 +77,12 @@ $(document).ready(function() {
   // product.jsp 안으로 가서 수정만든다음 장바구니에서 select 하면되겠지
 
   function loadCartItems() {
-	  memNo=${logMemNo};
+	  memId='${logid}';
 	  prodNo='${prodNo}';
       $.ajax({
         url: 'listcartForm.do', 
         type: 'GET', 
-        data: { memNo: memNo,
+        data: { memId: memId,
         	    prodNo: prodNo }, 
         dataType: 'json', 
         success: function(data) {

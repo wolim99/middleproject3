@@ -58,7 +58,7 @@
       from members m, carts c, products p
       where m.mem_no = c.mem_no
         and p.prod_no = c.prod_no
-        and c.mem_no = #{memNo}
+        and m.mem_id = #{logid}
       order by c.cart_no
 	</select>
 	

@@ -16,6 +16,7 @@ public class Cart {
 	private String prodImg; // 제품 사진
 	private int money; // 제품 총 가격
 	private double prodSale; // 세일
+	private String memId;
 	public String getOption() {
 		return option;
 	}
