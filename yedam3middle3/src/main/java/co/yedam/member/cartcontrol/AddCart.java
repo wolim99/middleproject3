@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,12 +23,12 @@ public class AddCart implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
-		
-		String mno = req.getParameter("memNo");
+		HttpSession session = req.getSession();
+		int memNo =  (int) session.getAttribute("logMemNo");
 		String pno = req.getParameter("prodNo");
 		
 		Cart cart = new Cart();
-		cart.setMemNo(Integer.parseInt(mno));
+		cart.setMemNo(memNo);
 		cart.setProdNo(Integer.parseInt(pno));
 		
 		MemberService mvc = new MemberServiceImpl();

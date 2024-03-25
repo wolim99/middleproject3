@@ -108,18 +108,12 @@
       and prod_no = #{prodNo}
     </update>
     
-    <!-- 장바구니에 추가하면서 출력하기
+    <!-- 장바구니에 추가하면서 출력하기 -->
     <insert id="insertselectCart" parameterType="cart">
     INSERT into carts (cart_quant,
                        prod_no,
                        mem_no)
      values (#{cartQuant}, #{prodNo}, #{memNo})
-     <selectKey keyProperty="prodNo" keyColumn="prod_no" order="AFTER">
-        select *
-        from carts
-        where mem_no = #{memNo}
-        and   prod_no = #{prodNo}
-     </selectKey>
     </insert>
-     -->
+    
 </mapper>
