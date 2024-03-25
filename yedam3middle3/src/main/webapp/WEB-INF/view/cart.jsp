@@ -60,7 +60,8 @@ $(document).ready(function() {
   loadCartItems();
   function insertcart (){
 	  memNo=${logMemNo};
-	  prodNo=${prodNo};
+      console.log('${prodNo}')
+	  prodNo='${prodNo}';
 	  $.ajax({
 		  url: 'insertcart.do',
 		  type: 'post',
@@ -75,7 +76,7 @@ $(document).ready(function() {
 
   function loadCartItems() {
 	  memNo=${logMemNo};
-	  prodNo=${prodNo};
+	  prodNo='${prodNo}';
       $.ajax({
         url: 'listcartForm.do', 
         type: 'GET', 

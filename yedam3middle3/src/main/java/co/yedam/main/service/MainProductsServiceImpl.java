@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.common.DataSource;
 import co.yedam.main.mapper.MainProductsMapper;
+import co.yedam.member.Cart;
 import co.yedam.product.Product;
 import co.yedam.product.SearchCon;
 
@@ -17,8 +18,8 @@ public class MainProductsServiceImpl implements MainProductsService{
 		return mapper.prodList(order);
 	}
 	@Override
-	public List<Product> sortlist(SearchCon search) {
-		return mapper.forsort(search);
+	public List<Cart> CartList(String memid) {
+		return mapper.cartList(memid);
 	}
 
 }
