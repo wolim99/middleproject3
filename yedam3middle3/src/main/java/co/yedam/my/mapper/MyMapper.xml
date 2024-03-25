@@ -107,7 +107,11 @@
              				  d.ord_stat,
              				  o.list_no,
              				  d.mem_no,
-             				  p.prod_no
+             				  p.prod_no,
+             				  (SELECT SUM(d.ord_total)
+             				  from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
+                               						JOIN orders d on (o.ord_no = d.ord_no)
+                    		  where mem_no = #{memNo}) realsum
                     from products p JOIN  orderlists o on (o.prod_no = p.prod_no)
                                JOIN orders d on (o.ord_no = d.ord_no)) b
                     where mem_no = #{memNo}           
