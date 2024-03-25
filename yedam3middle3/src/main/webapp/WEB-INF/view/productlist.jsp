@@ -1,140 +1,166 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
-        <!-- Single Page Header start -->
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6 headtitle"></h1>
-            <!-- <ol class="breadcrumb justify-content-center mb-0">
+	pageEncoding="UTF-8"%>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+	<h1 class="text-center text-white display-6 headtitle"></h1>
+	<!-- <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Pages</a></li>
                 <li class="breadcrumb-item active text-white">Shop</li>
             </ol> -->
-        </div>
-        <!-- Single Page Header End -->
+</div>
+<!-- Single Page Header End -->
 
-        <!-- Fruits Shop Start-->
-        <div class="container-fluid fruite py-5">
-            <div class="container py-5">
-                <h1 class="mb-4 sidetitle"></h1>
-                <div class="row g-4">
-                    <div class="col-lg-12">
-                        <div class="row g-4">
-                            <div class="col-xl-3">
-                                <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="text" class="form-control p-3 searchCk" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <button id="search-icon-1" class="input-group-text p-3 searchBtn"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                            <div class="col-6 listhead" style="padding-top: 20px"></div>
-                            <div class="col-xl-3" style="padding-left: 80px">
-                                <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4" style="width: 180px">
-                                    <label for="fruits" style="padding-top: 2px">정렬:</label>
-                                    <select id="fruits" name="fruitlist" class="sortbar border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="prod_date DESC">최신순</option>
-                                        <option value="prod_price-(round(prod_price*prod_sale/100)*100) DESC">높은 가격순</option>
-                                        <option value="prod_price-(round(prod_price*prod_sale/100)*100)">낮은 가격순</option>
-                                        <option value="prod_name">이름순</option>
-                                        <option value="prod_ordcnt DESC">인기순</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-3">
-                                <div class="row g-4">
-                                    
-                                    <div class="col-lg-12">
-                                        <div class="mb-3 priceCk" style="padding-top: 15px">
-                                            <h4 class="mb-2">가격</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="1000" max="70000" step="1000" value="70000" oninput="amount.value=rangeInput.value">
-                                            <output id="amount" name="amount" min-value="1000" max-value="70000" for="rangeInput">70000</output>원 이하
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3 brandCk">
-                                            <h4>브랜드</h4>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandall" id="brand-1" name="prodBrandall" value="all">
-                                                <label for="brand-1">전체</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandbox" id="brand-2" name="prodBrand" value="heodak">
-                                                <label for="brand-2">허닭</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandbox" id="brand-3" name="prodBrand" value="fresheasy">
-                                                <label for="brand-3">프레시지</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandbox" id="brand-4" name="prodBrand" value="baljae">
-                                                <label for="brand-4">발재반점</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandbox" id="brand-5" name="prodBrand" value="forme">
-                                                <label for="brand-5">포르미</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 brandbox" id="brand-6" name="prodBrand" value="achim">
-                                                <label for="brand-6">아침몰</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3 typeCk">
-                                            <h4>종류</h4>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typeall" id="type-1" name="prodTypeall" value="Beverages">
-                                                <label for="type-1">전체</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-2" name="prodType" value="Beverages">
-                                                <label for="type-2">닭가슴살</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-3" name="prodType" value="Beverages">
-                                                <label for="type-3">스테이크/큐브</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-4" name="prodType" value="Beverages">
-                                                <label for="type-4">소시지</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-5" name="prodType" value="Beverages">
-                                                <label for="type-5">라이스</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-6" name="prodType" value="Beverages">
-                                                <label for="type-6">만두/간식</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-7" name="prodType" value="Beverages">
-                                                <label for="type-7">닭다리살</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-8" name="prodType" value="Beverages">
-                                                <label for="type-8">양념육</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2 typebox" id="type-9" name="prodType" value="Beverages">
-                                                <label for="type-9">양식</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-lg-12">
-                                        <div class="position-relative eventPg">
-                                            <!-- <img src="static/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt=""> -->
-                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                                <!-- <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
-                                <div class="row g-4 justify-content-center product-item">
-                               <script>
+<!-- Fruits Shop Start-->
+<div class="container-fluid fruite py-5">
+	<div class="container py-5">
+		<h1 class="mb-4 sidetitle"></h1>
+		<div class="row g-4">
+			<div class="col-lg-12">
+				<div class="row g-4">
+					<div class="col-xl-3">
+						<div class="input-group w-100 mx-auto d-flex">
+							<input type="text" class="form-control p-3 searchCk"
+								placeholder="keywords" aria-describedby="search-icon-1">
+							<button id="search-icon-1" class="input-group-text p-3 searchBtn">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+					<div class="col-6 listhead" style="padding-top: 20px"></div>
+					<div class="col-xl-3" style="padding-left: 80px">
+						<div
+							class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4"
+							style="width: 180px">
+							<label for="fruits" style="padding-top: 2px">정렬:</label> <select
+								id="fruits" name="fruitlist"
+								class="sortbar border-0 form-select-sm bg-light me-3"
+								form="fruitform">
+								<option value="prod_date DESC">최신순</option>
+								<option
+									value="prod_price-(round(prod_price*prod_sale/100)*100) DESC">높은
+									가격순</option>
+								<option value="prod_price-(round(prod_price*prod_sale/100)*100)">낮은
+									가격순</option>
+								<option value="prod_name">이름순</option>
+								<option value="prod_ordcnt DESC">인기순</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row g-4">
+					<div class="col-lg-3">
+						<div class="row g-4">
+
+							<div class="col-lg-12">
+								<div class="mb-3 priceCk" style="padding-top: 15px">
+									<h4 class="mb-2">가격</h4>
+									<input type="range" class="form-range w-100" id="rangeInput"
+										name="rangeInput" min="1000" max="70000" step="1000"
+										value="70000" oninput="amount.value=rangeInput.value">
+									<output id="amount" name="amount" min-value="1000"
+										max-value="70000" for="rangeInput">70000</output>
+									원 이하
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="mb-3 brandCk">
+									<h4>브랜드</h4>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 brandall" id="brand-1"
+											name="prodBrandall" value="all"> <label for="brand-1">전체</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 brandbox" id="brand-2"
+											name="prodBrand" value="heodak"> <label for="brand-2">허닭</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 brandbox" id="brand-3"
+											name="prodBrand" value="fresheasy"> <label
+											for="brand-3">프레시지</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 brandbox" id="brand-4"
+											name="prodBrand" value="baljae"> <label for="brand-4">발재반점</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 brandbox" id="brand-5"
+											name="prodBrand" value="forme"> <label for="brand-5">포르미</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 brandbox" id="brand-6"
+											name="prodBrand" value="achim"> <label for="brand-6">아침몰</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="mb-3 typeCk">
+									<h4>종류</h4>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typeall" id="type-1"
+											name="prodTypeall" value="Beverages"> <label
+											for="type-1">전체</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-2"
+											name="prodType" value="Beverages"> <label
+											for="type-2">닭가슴살</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-3"
+											name="prodType" value="Beverages"> <label
+											for="type-3">스테이크/큐브</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-4"
+											name="prodType" value="Beverages"> <label
+											for="type-4">소시지</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-5"
+											name="prodType" value="Beverages"> <label
+											for="type-5">라이스</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-6"
+											name="prodType" value="Beverages"> <label
+											for="type-6">만두/간식</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-7"
+											name="prodType" value="Beverages"> <label
+											for="type-7">닭다리살</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-8"
+											name="prodType" value="Beverages"> <label
+											for="type-8">양념육</label>
+									</div>
+									<div class="mb-2">
+										<input type="checkbox" class="me-2 typebox" id="type-9"
+											name="prodType" value="Beverages"> <label
+											for="type-9">양식</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-12">
+								<div class="position-relative eventPg">
+									<!-- <img src="static/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt=""> -->
+									<div class="position-absolute"
+										style="top: 50%; right: 10px; transform: translateY(-50%);">
+										<!-- <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="row g-4 justify-content-center product-item">
+							<script>
                                
                                	let listtype = '';
                                 if(${pagetype } === 'all'){
@@ -440,7 +466,7 @@
                                 pageList(brand, type, price, keyword, listtype);
                                	
                                </script>
-                                <!-- 
+							<!-- 
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
@@ -457,25 +483,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                 -->    
-<!-- 페이징구간 -->
-                                </div>
-                                    <div class="col-12">
-                                        <div class="pagination d-flex justify-content-center mt-5">
-                                            <a href="#" class="rounded">&laquo;</a>
-                                            <a href="#" class="active rounded">1</a>
-                                            <a href="#" class="rounded">2</a>
-                                            <a href="#" class="rounded">3</a>
-                                            <a href="#" class="rounded">4</a>
-                                            <a href="#" class="rounded">5</a>
-                                            <a href="#" class="rounded">6</a>
-                                            <a href="#" class="rounded">&raquo;</a>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Fruits Shop End-->
+                                 -->
+							<!-- 페이징구간 -->
+						</div>
+						<div class="col-12">
+							<div class="pagination d-flex justify-content-center mt-5">
+								<a href="#" class="rounded">&laquo;</a> <a href="#"
+									class="active rounded">1</a> <a href="#" class="rounded">2</a>
+								<a href="#" class="rounded">3</a> <a href="#" class="rounded">4</a>
+								<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a>
+								<a href="#" class="rounded">&raquo;</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Fruits Shop End-->

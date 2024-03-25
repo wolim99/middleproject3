@@ -9,6 +9,7 @@
         function showAlert() {
             alert("테스트");
             window.location.href = "main.do";
+            window.location.href = "cart.do";
         }
     </script>
 </head>
