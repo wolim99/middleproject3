@@ -34,15 +34,16 @@
 						</h1>
 						<div class="d-flex justify-content-between mb-4">
 							<h5 class="mb-0 me-4">Subtotal:</h5>
-							<p class="mb-0">$96.00</p>
+							<p class="mb-0" id="subtotalValue"></p>
 						</div>
 					</div>
 					<div
 						class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
 						<h5 class="mb-0 ps-4 me-4">Total</h5>
-						<p class="mb-0 pe-4">$99.00</p>
+						<p class="mb-0 pe-4" id="totalValue"></p>
 					</div>
 					<button
+                        id="go"
 						class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
 						type="button">Proceed Checkout</button>
 				</div>
@@ -56,7 +57,7 @@ let memNo;
 let prodNo;
 console.log(memNo);
 $(document).ready(function() {
-	insertcart();
+	// insertcart();
   loadCartItems();
   function insertcart (){
 	  memNo=${logMemNo};
@@ -65,14 +66,15 @@ $(document).ready(function() {
 	  $.ajax({
 		  url: 'insertcart.do',
 		  type: 'post',
-		  data: { memNo: memNo, prodNo: prodNo },
+		  data: { memNo: memNo, 
+			  prodNo: prodNo },
 		  dataTyep: 'json',
-		  sueccess: function(data) {
+		  sueccess: function(response) {
 			  console.log("성공")
 		  } 
-		  
 	  })
   } 
+  // product.jsp 안으로 가서 수정만든다음 장바구니에서 select 하면되겠지
 
   function loadCartItems() {
 	  memNo=${logMemNo};
@@ -80,17 +82,27 @@ $(document).ready(function() {
       $.ajax({
         url: 'listcartForm.do', 
         type: 'GET', 
-        data: { memNo: memNo, prodNo: prodNo }, 
+        data: { memNo: memNo,
+        	    prodNo: prodNo }, 
         dataType: 'json', 
         success: function(data) {
             var total = 0;
             $.each(data, function(index, item) {
-                    var subtotal = item.cartQuant * item.prodPrice;
+                    console.log(item);
+                    let realPrice = 0;
+                    if(item.prodSale != 0){
+	                  realPrice = item.prodPrice - (Math.round(item.prodPrice*item.prodSale/100)*100);
+	                  console.log(realPrice);
+                    }else{
+	                  realPrice = item.prodPrice;
+	                  console.log(realPrice);
+                    }
+                    let subtotal = item.cartQuant * realPrice;
                     total += subtotal;
                     var row = '<tr>' +
                               '<th scope="row"><div class="d-flex align-items-center"><img src="static/img/' +item.prodImg+ '" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;"></div></th>' +
                               '<td><p class="mb-0 mt-4">' + item.prodName + '</p></td>' +
-                              '<td><p class="mb-0 mt-4">' + item.prodPrice + ' 원</p></td>' +
+                              '<td><p class="mb-0 mt-4">' + realPrice + ' 원</p></td>' +
                               '<td><div id="'+item.prodNo+'" class="input-group quantity mt-4" style="width: 100px;">' +
                               '<button class="btn btn-sm btn-minus rounded-circle bg-light border"><i class="fa fa-minus"></i></button>' +
                               '<input type="text" class="form-control form-control-sm text-center border-0" value="' + item.cartQuant + '">' +
@@ -102,10 +114,9 @@ $(document).ready(function() {
                     $('tbody').append(row);
                 });
 
-                $('p:contains("Subtotal:")').next().text('원' + total);
-                var shipping = parseFloat($('p:contains("Flat rate:")').text().split(' 원')[1]);
-                var grandTotal = total + shipping;
-                $('p:contains("Total")').next().text('원' + grandTotal.toFixed(2));
+                 // 화면에 총액 표시 업데이트
+               $('#subtotalValue').last().text(total + '원');
+               $('#totalValue').last().text(total + '원');
             },
             error: function() {
                 alert('장바구니 데이터를 불러오는 데 실패했습니다.');
@@ -128,7 +139,7 @@ $(document).ready(function() {
       // $button.closest('.quantity').find('input').val(newVal);
      
       var oldValue = $button.closest('.quantity').find('input').val();
-      var newVal = 0;
+      var newVal = 1;
       if ($button.hasClass('btn-plus')) {
           newVal = parseFloat(oldValue) + 1;
       } else {
@@ -163,23 +174,6 @@ $(document).ready(function() {
           }
       });
   });
-
-  function updateTotal() {
-     var total = 0;
-  $('tbody tr').each(function() {
-      var price = parseFloat($(this).find('td:nth-child(3) p').text().replace('원'));
-      var quantity = parseFloat($(this).find('.quantity input').val());
-      var subtotal = price * quantity;
-      total += subtotal;
-
-      // 각 항목의 소계 업데이트 (선택적)
-      $(this).find('td:nth-child(5) p').text(subtotal.toFixed(2) + ' 원');
-  });
-
-  // 화면에 총액 표시 업데이트
-  $('.subtotal p').last().text('원' + total.toFixed(2));
-  $('.total p').last().text('원' + total.toFixed(2));
-  }
 });
 
 //AJAX 요청을 통해 장바구니 항목 삭제 기능
@@ -197,7 +191,6 @@ $(document).on('click', '.btn-delete-cart', function() {
                 var result = JSON.parse(response);
                 if(result.retCode === "OK") {
                     alert('삭제를 성공했습니다');
-                    location.reload();
                 } else {
                     alert('삭제를 실패했습니다');
                 }
@@ -208,6 +201,20 @@ $(document).on('click', '.btn-delete-cart', function() {
         });
     }
 });
+$('#go').on('click', function(){
+    let prodImg = "${item.prodImg}";
+    let prodPrice = "${item.prodPrice}";
+    let prodName = "${item.prodName}";
+    let cartQuant = "${item.cartQuant}";
+    let subtotal = "${subtotalValue}";
+
+    location.href = './orderPage.do?ProdImag=' + prodImg
+                  + '&prodPrice=' + prodPrice
+                  + '&prodName=' + prodName
+                  + '&cartQuant=' + cartQuant
+                  + '&subtotal=' + subtotal
+});
+
 
 
 </script>

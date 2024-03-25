@@ -41,5 +41,6 @@ public class AddCart implements Control {
 			String json = gson.toJson(map);
 			resp.getWriter().print(json);
 		}
+		resp.sendRedirect("cart.do");
 	}
 }

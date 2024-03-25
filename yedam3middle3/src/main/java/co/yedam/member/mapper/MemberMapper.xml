@@ -27,7 +27,7 @@
     values (#{memId}, #{memPw}, #{memName}, #{memPhone}, #{memMail}, #{memAddr})
   </insert>
   
-	<!-- 장바구니 추가 -->
+	<!-- 장바구니 추가 
 	<insert id="insertCart" parameterType="Cart">
 	
 	<selectKey resultType="int" keyProperty="cartNo" order="BEFORE">
@@ -41,6 +41,7 @@
                        mem_no)
     values (#{cartNo}, #{cartQuant}, #{prodNo}, #{memNo})
 	</insert>
+	-->
 	
 	<!-- 장바구니 목록 -->
 	<select id="cartList" resultType="co.yedam.member.Cart" parameterType="String">
@@ -52,7 +53,8 @@
              p.prod_name,
              p.prod_price,
             (p.prod_price * c.cart_quant) money,
-             p.prod_img
+             p.prod_img,
+             p.prod_sale
       from members m, carts c, products p
       where m.mem_no = c.mem_no
         and p.prod_no = c.prod_no
@@ -106,7 +108,7 @@
       and prod_no = #{prodNo}
     </update>
     
-    <!-- 장바구니에 추가하면서 출력하기 -->
+    <!-- 장바구니에 추가하면서 출력하기
     <insert id="insertselectCart" parameterType="cart">
     INSERT into carts (cart_quant,
                        prod_no,
@@ -119,5 +121,5 @@
         and   prod_no = #{prodNo}
      </selectKey>
     </insert>
-    
+     -->
 </mapper>
