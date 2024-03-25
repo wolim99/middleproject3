@@ -316,7 +316,7 @@
 							realPrice = item.prodPrice
 						}
 						$('#' + pos + ' #list').append(
-							$('<div class="product' + item.prodNo + ' col-md-6 col-lg-6 col-xl-4" ></div>').append(
+							$('<div class="product' + item.prodNo + ' col-md-6 col-lg-6 col-xl-3" ></div>').append(
 								$('<a href="detailPage.do?prodNo=' + item.prodNo + '"></a>').append(
 									$('<div class="rounded position-relative fruite-item"></div>').append(
 										$('<div class="fruite-img">').append(
