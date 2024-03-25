@@ -68,7 +68,7 @@ button.nav-link {
 	</ol>-->
 </div>
 
-
+${logId}
 
 <!-- 바디 영역 -->
 <div class="container-fluid py-5 mt-5">
@@ -124,10 +124,10 @@ button.nav-link {
 						
 							<c:if test="${product.prodSale != 0 }">
 								<h1 class="price" class="fw-bold mb-3" style="text-decoration: line-through">${product.prodPrice }</h1>
-								<h1 class="price" class="fw-bold mb-3" style="color: red;"><fmt:formatNumber value="${product.prodPrice - (product.prodPrice * product.prodSale) }" pattern="0"/></h1>
+								<h1 class="price" class="fw-bold mb-3" style="color: red;"><fmt:formatNumber value="${product.prodPrice - Math.round((product.prodPrice * product.prodSale)/100)*100 }" pattern="0"/>원</h1>
 							</c:if>
 							<c:if test="${product.prodSale == 0 }">
-								<h1 class="fw-bold mb-3">${product.prodPrice }</h1>
+								<h1 class="fw-bold mb-3">${product.prodPrice }원</h1>
 							</c:if>
 						</div>
 						<hr>
@@ -157,7 +157,7 @@ button.nav-link {
 								.done(function() {
 									let inputVal = document.querySelector('#prodCnt')
 									if("${product.prodSale}" != 0){
-										document.querySelector('.changeTotal').innerText = inputVal.value * (${product.prodPrice - (product.prodPrice * product.prodSale)});
+										document.querySelector('.changeTotal').innerText = inputVal.value * (Math.round((${product.prodPrice - (product.prodPrice * product.prodSale)})/100)*100);
 									}
 									else{										
 										document.querySelector('.changeTotal').innerText = inputVal.value * ${product.prodPrice};
@@ -192,7 +192,10 @@ button.nav-link {
 								//배열만들기
 								var optionList = [];
 								var prodNo = "${product.prodNo}";
-								var prodCnt = document.querySelector('#prodCnt').value;
+								var prodCnt = 0;
+								if("${prodComp}" == 'single'){									
+									prodCnt = document.querySelector('#prodCnt').value;
+								}
 								document.querySelector('.detailOptionSelect').addEventListener('change', function(){
 									let selectValue1 = document.querySelector('.detailOptionSelect')
 									let selectValue2 = selectValue1.options[selectValue1.selectedIndex]
@@ -234,7 +237,7 @@ button.nav-link {
 										.done(function() {
 											let inputVal = document.querySelector('.changeTotal')
 											if("${product.prodSale}" != 0){
-												document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) + Number(${product.prodPrice - (product.prodPrice * product.prodSale)});
+												document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) + Number(Math.round((${product.prodPrice - (product.prodPrice * product.prodSale)})/100)*100);
 											}
 											else{											
 												document.querySelector('.changeTotal').innerText = Number(inputVal.innerText) + Number(${product.prodPrice});
@@ -245,24 +248,6 @@ button.nav-link {
 										alert("구매 수량을 초과했습니다.")
 									}	
 								});
-								$(document).on('click', '#btn1', function(){
-									$.ajax({
-										url: './addcart2.do',
-										type: 'POST',
-										data: {
-											prodNo: prodNo,
-											prodCnt: prodCnt,
-											optionList: optionList
-										},
-										success: function(data){
-												
-										},
-										error: function(){
-											alert("오류")
-											location.reload();
-										}
-									});
-								});
 						</script>	
 						<!-- 총금액 -->
 						<div class="detailInfoTotal">
@@ -272,7 +257,7 @@ button.nav-link {
 							<div class="detailInfoTotal1">
 								<c:if test="${product.prodComp eq 'single' }">
 									<c:if test="${product.prodSale != 0 }">
-										<h2 class="changeTotal" style="color: red"><fmt:formatNumber value="${product.prodPrice - (product.prodPrice * product.prodSale) }" pattern="0"/></h2>
+										<h2 class="changeTotal" style="color: red"><fmt:formatNumber value="${product.prodPrice - Math.round((product.prodPrice * product.prodSale)/100)*100 }" pattern="0"/></h2>
 									</c:if>
 									<c:if test="${product.prodSale == 0 }">
 										<h2 class="changeTotal" style="color: red">${product.prodPrice }</h2>
@@ -296,7 +281,20 @@ button.nav-link {
 								class="fa fa-shopping-bag me-2 text-primary"></i>바로구매</a>
 						</div>
 						<!-- 장바구니 >> cart.do 이동 -->
-						
+						<script>
+							$(document).on('click', '#btn1', function(e){
+								e.preventDefault();
+								let logName = "${logName}";
+								let prodNo = "${product.prodNo}";
+								if(logName != null && logName != ''){
+									location.href = './insertcart.do?prodNo='+prodNo;
+								}
+								else{
+									alert("로그인이 필요합니다!")
+									window.location.reload();
+								}
+							});
+						</script>
 						<!-- 단품,패키지 바로구매 >> orderPage.do 이동 -->
 						<script>
 							document.querySelector('a#btn2').addEventListener('click',function() {
@@ -351,7 +349,7 @@ button.nav-link {
 				<div class="vesitable">
 					<c:if test="${fn:length(productList) != 0}">
 					<h1 class="fw-bold mb-0" style="text-align: center">▶"${product.prodName }" 관련 제품◀</h1>
-						<div class="owl-carousel vegetable-carousel justify-content-center">
+						<div class="product-item owl-carousel vegetable-carousel justify-content-center">
 						<!-- 연관제품 있을때 -->
 							<c:forEach var="list1" items="${productList }">
 							<!-- 연관 제품 1개 -->
@@ -378,16 +376,16 @@ button.nav-link {
 											</c:if>
 										</div>
 										<div class="price">										
-											<p class="text-dark fs-5 fw-bold" style="text-decoration: line-through;">${list1.prodPrice }</p>
+											<p class="text-dark fs-5 fw-bold" style="text-decoration: line-through;">${list1.prodPrice }원</p>
 											<c:if test="${list1.prodSale != 0 }">
-												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list1.prodPrice - (list1.prodPrice * list1.prodSale) }" pattern="0"/></p>
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list1.prodPrice - Math.round((list1.prodPrice * list1.prodSale)/100)*100 }" pattern="0"/>원</p>
 											</c:if>
 											<c:if test="${list1.prodSale == 0 }">
-												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list1.prodPrice }" pattern="0"/></p>
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list1.prodPrice }" pattern="0"/>원</p>
 											</c:if>
 										</div>
 										<div class="cart">
-										<a href="http://localhost:8080/yedam3middle3/cart.do"
+										<a href="#" id="${list1.prodNo }" class="cartLink" 
 											class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
 											class="fa fa-shopping-bag me-2 text-primary"></i></a>
 										</div>
@@ -399,7 +397,7 @@ button.nav-link {
 					</c:if>
 					<c:if test="${fn:length(productList) == 0}">
 					<h1 class="fw-bold mb-0" style="text-align: center">▶이런 상품도 있어요!◀</h1>
-						<div class="owl-carousel vegetable-carousel justify-content-center">
+						<div class="product-item owl-carousel vegetable-carousel justify-content-center">
 						<!-- 연관제품 없을때 -->
 							<c:forEach var="list2" items="${productList2 }">
 							<!-- 연관 제품 1개 -->
@@ -426,16 +424,16 @@ button.nav-link {
 											</c:if>
 										</div>
 										<div class="price">												
-											<p class="text-dark fs-5 fw-bold" style="text-decoration: line-through;">${list2.prodPrice }</p>
+											<p class="text-dark fs-5 fw-bold" style="text-decoration: line-through;">${list2.prodPrice }원</p>
 											<c:if test="${list2.prodSale != 0 }">
-												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list2.prodPrice - (list2.prodPrice * list2.prodSale) }" pattern="0"/></p>
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list2.prodPrice - Math.round((list2.prodPrice * list2.prodSale)/100) * 100 }" pattern="0"/>원</p>
 											</c:if>											
 											<c:if test="${list2.prodSale == 0 }">
-												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list2.prodPrice }" pattern="0"/></p>
+												<p class="fs-5 fw-bold"><fmt:formatNumber value="${list2.prodPrice }" pattern="0"/>원</p>
 											</c:if>
 										</div>
 										<div class="cart">
-										<a href="http://localhost:8080/yedam3middle3/cart.do"
+										<a href="#" id="${list2.prodNo }" class="cartLink" 
 											class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
 											class="fa fa-shopping-bag me-2 text-primary"></i></a>
 										</div>
@@ -446,6 +444,22 @@ button.nav-link {
 						</div>
 					</c:if>
 				</div>
+				<script>
+					document.addEventListener("DOMContentLoaded", function(){
+						$('.product-item').on('click', '.cartLink', function(e){
+							e.preventDefault();
+							let logName = "${logName}";
+							let prodNo = $(this).attr('id');
+							if(logName != null && logName != ''){
+								location.href = './insertcart.do?prodNo='+prodNo;
+							}
+							else{
+								alert("로그인이 필요합니다!")
+								window.location.reload();
+							}
+						});
+					})
+				</script>
 				<br> <br> <br>
 				<!-- 관련 제품 영역 끝 -->
 				<!-- 탭 영역 시작 -->

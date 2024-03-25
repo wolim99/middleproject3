@@ -38,7 +38,7 @@ div.orderInfoPay {
 </style>
 <!-- 사용자 주소 업데이트 -->
 
-${message }
+
 
 <!-- 헤더 바디 사이 영역 -->
 <div class="container-fluid page-header py-5">
@@ -50,6 +50,7 @@ ${message }
 		<li class="breadcrumb-item active text-white">Cart</li>
 	</ol>-->
 </div>
+
 
 
 <!-- 바디 영역 -->
@@ -267,7 +268,7 @@ ${message }
 						}
 					},
 					error: function(){
-						alert("오류");
+						alert("로그인이 필요합니다!");
 					}
 				})
 			})
@@ -328,7 +329,7 @@ ${message }
 						alert("저장성공");
 					},
 					error: function(){
-						alert("오류");
+						alert("주소 저장에 실패했습니다!");
 					}
 				})
 			})
