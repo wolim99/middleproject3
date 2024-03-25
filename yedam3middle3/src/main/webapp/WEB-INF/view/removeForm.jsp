@@ -24,12 +24,12 @@
 				</tr>
 				<tr>
 					<th>비밀번호 입력</th>
-					<td><input type="password" id="chkpw"><input type="button" id="chk" value="비밀번호 확인"></td>
+					<td><input type="password" id="chkpw">  <input class="btn btn-outline-info" type="button" id="chk" value="비밀번호 확인"></td>
 				</tr>
 				<tr>
 					<td align="center">
-						<button type="submit" class="btn btn-primary" id="delbtn" disabled>회원 탈퇴</button>
-						<a href="myPage.do"><button type="button" class="btn btn-secondary">취소</button></a>
+						<button type="submit" class="btn btn-outline-primary" id="delbtn" disabled>회원 탈퇴</button>
+						<a href="myPage.do"><button type="button" class="btn btn-outline-secondary">취소</button></a>
 					</td>
 				</tr>
 			</tbody>

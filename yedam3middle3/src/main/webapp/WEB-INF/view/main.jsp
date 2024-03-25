@@ -207,6 +207,31 @@
 							listcnt++
 							let realPrice = 0;
 							let salePer = '';
+							let soldout = '';
+							let soldoutClass = '';
+							let soldCk = '';
+							let soldDiv = {};
+							if (item.prodSale != 0) {
+								realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
+								salePer = Math.ceil(item.prodSale * 100) + '%';
+							} else {
+								realPrice = item.prodPrice
+							}
+							if (item.prodStock == 0) {
+								soldoutClass = 'class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 30%; left: 33%;"';
+								soldout = 'Sold Out';
+								soldCk = 'disalbed';
+								soldDiv = {
+									'position': 'absolute',
+									'top': '0',
+									'left': '0',
+									'width': '100%',
+									'height': '100%',
+									'border-radius': '10px',
+									'backgroundColor': 'rgba(0, 0, 0, 0.2)',
+									'zIndex': '9'
+								};
+							}
 							if (item.prodSale != 0) {
 								realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
 								salePer = Math.ceil(item.prodSale * 100) + '%';
@@ -231,7 +256,12 @@
 									)
 								))
 							)
-
+							if (item.prodStock == 0) {
+							$('.product' + item.prodNo + ' a').on("click", function (e) {
+								e.preventDefault();
+								alert("매진된 상품입니다.");
+							})
+						}
 
 
 						})
@@ -254,6 +284,31 @@
 					result.forEach((item, idx) => {
 						let realPrice = 0;
 						let salePer = '';
+						let soldout = '';
+						let soldoutClass = '';
+						let soldCk = '';
+						let soldDiv = {};
+						if (item.prodSale != 0) {
+							realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
+							salePer = Math.ceil(item.prodSale * 100) + '%';
+						} else {
+							realPrice = item.prodPrice
+						}
+						if (item.prodStock == 0) {
+							soldoutClass = 'class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 30%; left: 33%;"';
+							soldout = 'Sold Out';
+							soldCk = 'disalbed';
+							soldDiv = {
+								'position': 'absolute',
+								'top': '0',
+								'left': '0',
+								'width': '100%',
+								'height': '100%',
+								'border-radius': '10px',
+								'backgroundColor': 'rgba(0, 0, 0, 0.2)',
+								'zIndex': '9'
+							};
+						}
 						if (item.prodSale != 0) {
 							realPrice = item.prodPrice - (Math.round(item.prodPrice * item.prodSale / 100) * 100);
 							salePer = Math.ceil(item.prodSale * 100) + '%';
@@ -278,12 +333,20 @@
 								)
 							))
 						)
+						if (item.prodStock == 0) {
+							$('.product' + item.prodNo + ' a').on("click", function (e) {
+								e.preventDefault();
+								alert("매진된 상품입니다.");
+							})
+						}
 
 					})
 				}).fail(function (err) {
 					console.log(err);
 				});
 			}
+
+
 			$('#input').on('change', function () {
 
 				location.href = 'mainsearch.do?pagetype=all&search=' + $('.hero-header input').val()

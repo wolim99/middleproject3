@@ -6,7 +6,7 @@
 
         <head>
             <meta charset="utf-8">
-            <title>예담 3강의실 중간프로젝트 3조</title>
+            <title>닭가슴살은? DaK!</title>
             <meta content="width=device-width, initial-scale=1.0" name="viewport">
             <meta content="" name="keywords">
             <meta content="" name="description">
@@ -63,7 +63,8 @@
                                             class="text-white mx-2">로그아웃</small></a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="loginForm.do" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
+                                    <a href="loginForm.do" class="text-white"><small
+                                            class="text-white mx-2">로그인</small>/</a>
                                     <a href="addMemberForm.do" class="text-white"><small
                                             class="text-white mx-2">회원가입</small></a>
                                 </c:otherwise>
@@ -75,7 +76,7 @@
                 <div class="container px-0">
                     <nav class="navbar navbar-light bg-white navbar-expand-xl">
                         <a href="main.do" class="navbar-brand">
-                            <h1 class="text-primary display-6">닭가슴살</h1>
+                            <h1 class="text-primary display-6">DaK!</h1>
                         </a>
                         <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarCollapse">
@@ -149,10 +150,8 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <script>
-                const urlParams = new URLSearchParams(window.location.search);
-                let param1 = urlParams.get('type');
-                let param2 = urlParams.get('search');
-                let memNo1=null;
+
+                let memNo1 = null;
                 $('div .input-group').on('change', function () {
 
                     location.href = 'mainsearch.do?pagetype=all&search=' + $('div .input-group input').val()
@@ -172,16 +171,21 @@
                         alert('로그인 후 이용이 가능합니다.')
                     }
                 }
-                
-                if(${ !empty logMemNo }){
+
+                if (${ !empty logMemNo }) {
                     memNo1 = '${logMemNo}';
-                    
+
                 }
-                if(window.location.href.indexOf('cart.do')>=0 && ${empty logid} ){
+                if (window.location.href.indexOf('cart.do') >= 0 && ${empty logid } ) {
                     alert('로그인 후 이용가능합니다.')
-                    window.location='main.do'
+                    window.location = 'main.do'
                 }
-                
+                if (window.location.href.indexOf('orderPage.do') >= 0 && ${empty logid } ) {
+                    alert('로그인 후 이용가능합니다.')
+                    history.go(-2)
+
+                }
+
                 function countercart() {
                     $.ajax({
                         url: 'cartlistcount.do',
@@ -194,21 +198,23 @@
                             )
                         },
                         error: function (err) {
-                        console.log(err);
+                            console.log(err);
                             alert('장바구니 데이터를 불러오는 데 실패했습니다.');
                         }
                     });
                 }
-                if(memNo1!=null){
-                    countercart();
-                   
-                }else{
-                    $('#icons :nth-child(2)').append(
-                                $('<span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;"/>').text('0')
-                            )
-                }
-                
-               
-                        
+                window.addEventListener('DOMContentLoaded', function () {
+                    if (memNo1 != null) {
+                        countercart();
+
+                    } else {
+                        $('#icons :nth-child(2)').append(
+                            $('<span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;"/>').text('0')
+                        )
+                    }
+                })
+
+
+
             </script>
             <div class="container-fluid page-header"></div>

@@ -43,6 +43,11 @@
 	<h1 class="text-center text-white display-6">1:1 문의 게시판</h1>
 </div>
 <div id="qnalist">
+	<br>
+	<div style="text-align: right;">
+		<a href="qnaAddForm.do"><button type="button" class="btn btn-outline-primary">문의글 작성</button></a>
+		<a href="myPage.do"><button type="button"class="btn btn-outline-secondary">돌아가기</button></a>
+	</div>
 	<table class="table" id="tableList">
 		<thead>
 			<tr>
@@ -71,8 +76,7 @@
 		<a href="#" class="rounded">&raquo;</a>
 	</div>
 </div>
-<a href="qnaAddForm.do"><button type="button" class="btn btn-primary">문의글 작성</button></a>
-<a href="myPage.do"><button type="button"class="btn btn-secondary">돌아가기</button></a>
+<br>
 
 <script>
 let qpage = 1;

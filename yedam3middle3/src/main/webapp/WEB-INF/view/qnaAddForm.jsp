@@ -12,7 +12,7 @@
 	<div class="container py-5">
 		<form action="addQna.do" method="post">
 			<div class="row g-5">
-				<div class="col-md-12 col-lg-6 col-xl-7">
+				<div class="col-md-12 col-lg-6 col-xl-7" style="margin: 0 auto;">
 					<div class="form-item">
 						<label class="form-label my-3">문의글 유형</label> 
 						<select name="inqType">
@@ -33,9 +33,10 @@
 						<label class="form-label my-3">회원번호</label> <input type="text"
 							class="form-control" name="memNo" value="${logMemNo }" placeholder="${logMemNo }" readonly>
 					</div>
+					<br>
 					<div>
-						<button type="submit" class="btn btn-primary">작성하기</button>
-						<a href="qnaMain.do"><button type="button" class="btn btn-secondary">돌아가기</button></a>
+						<button type="submit" class="btn btn-outline-primary">작성하기</button>
+						<a href="qnaMain.do"><button type="button" class="btn btn-outline-secondary">돌아가기</button></a>
 					</div>
 				</div>
 			</div>
